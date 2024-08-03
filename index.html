@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #e0f7fa; 
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
             color: #333;
             display: flex;
             justify-content: center;
@@ -18,52 +18,55 @@
             margin: 0;
         }
         h1 {
-            color: #00796b; 
+            color: #005f73;
             margin-bottom: 20px;
             text-align: center;
         }
         .container {
             background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
             width: 90%;
             max-width: 500px;
             text-align: center;
+            overflow-y: auto;
+            max-height: 90vh;
         }
         input[type="file"] {
             display: none;
         }
         .file-label {
             display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
+            padding: 12px 25px;
+            background-color: #0284c7;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
             margin-bottom: 20px;
             transition: background-color 0.3s, transform 0.2s;
         }
         .file-label:hover {
-            background-color: #0056b3;
+            background-color: #0369a1;
         }
         .file-label:active {
             transform: scale(0.98);
         }
         input[type="text"] {
-            width: calc(100% - 22px);
+            width: calc(50% - 22px);
             padding: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 16px;
+            margin-right: 4px;
         }
         button {
             width: 100%;
-            padding: 10px;
-            background-color: #28a745;
+            padding: 12px;
+            background-color: #38bdf8;
             color: white;
             border: none;
             border-radius: 4px;
@@ -72,7 +75,7 @@
             transition: background-color 0.3s, transform 0.2s;
         }
         button:hover {
-            background-color: #218838;
+            background-color: #0ea5e9;
         }
         button:active {
             transform: scale(0.98);
@@ -80,7 +83,7 @@
         .status {
             margin-top: 20px;
             font-size: 18px;
-            color: #28a745; 
+            color: #10b981;
             display: none;
         }
         .status.show {
@@ -96,9 +99,9 @@
             position: fixed;
             top: 10px;
             left: 10px;
-            background-color: #007bff;
+            background-color: #0284c7;
             color: white;
-            border-radius: 4px;
+            border-radius: 50%;
             width: 35px;
             height: 35px;
             display: flex;
@@ -115,24 +118,65 @@
             left: 10px;
             background-color: #fff;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            width: 250px;
+            padding: 15px;
+            width: 260px;
             z-index: 10;
         }
         .linkdutup {
             position: fixed;
             top: 10px;
             right: 10px;
-            background-color: #007bff;
+            background-color: #0284c7;
             color: white;
             border-radius: 4px;
-            padding: 5px 10px;
+            padding: 5px 15px;
             cursor: pointer;
             font-size: 20px;
             text-align: center;
             z-index: 10;
+        }
+        .replacement-pair {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .replacement-pair input {
+            margin-right: 5px;
+        }
+        .remove-pair {
+            background-color: #ef4444;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .remove-pair:hover {
+            background-color: #dc2626;
+        }
+        .remove-pair:active {
+            transform: scale(0.98);
+        }
+        .add-pair {
+            background-color: #0ea5e9;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .add-pair:hover {
+            background-color: #0284c7;
+        }
+        .add-pair:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
@@ -141,15 +185,21 @@
         <h1>Mod Tệp Liên quân</h1>
         <label for="fileInput" class="file-label">Chọn Tệp Zip</label>
         <input type="file" id="fileInput" accept=".zip">
-        <input type="text" id="oldText" placeholder="Chữ Cần Sửa">
-        <input type="text" id="newText" placeholder="Chữ Thay Thế">
+        <div id="replacementContainer">
+            <div class="replacement-pair">
+                <input type="text" placeholder="Chữ Cần Sửa">
+                <input type="text" placeholder="Chữ Thay Thế">
+                <button class="remove-pair" onclick="removePair(this)">Xóa Cặp</button>
+            </div>
+        </div>
+        <button class="add-pair" onclick="addPair()">Thêm Cặp Văn Bản</button>
         <button onclick="replaceText()">Thay Thế Chữ Và Tải Xuống</button>
         <div id="status" class="status">✅ Tệp đã được nhận và đang xử lý</div>
     </div>
     <div class="info-box" id="infoBox">
         <p><strong>Cách Làm:</strong></p>
         <p>1. Nén 1 tệp zip lại rồi chọn tệp zip chứa file.</p>
-        <p>2. Nhập chữ cần sửa trong các tệp sẽ thay thế chữ đó.</p>
+        <p>2. Nhập các cặp chữ cần sửa và chữ thay thế.</p>
         <p>3. Nhấn nút "Tải Xuống" để lấy file zip đã mod tệp và trải nghiệm.</p>
     </div>
     <span class="info-icon" onclick="toggleInfo()">?</span>
@@ -171,25 +221,45 @@
 
     document.getElementById('fileInput').addEventListener('change', handleFileSelect);
 
+    function addPair() {
+        const replacementContainer = document.getElementById('replacementContainer');
+        const pairDiv = document.createElement('div');
+        pairDiv.className = 'replacement-pair';
+        pairDiv.innerHTML = `
+            <input type="text" placeholder="Chữ Cần Sửa">
+            <input type="text" placeholder="Chữ Thay Thế">
+            <button class="remove-pair" onclick="removePair(this)">Xóa Cặp</button>
+        `;
+        replacementContainer.appendChild(pairDiv);
+    }
+
+    function removePair(button) {
+        const pairDiv = button.parentElement;
+        pairDiv.remove();
+    }
+
     async function replaceText() {
         const fileInput = document.getElementById('fileInput');
-        const oldText = document.getElementById('oldText').value;
-        const newText = document.getElementById('newText').value;
+        const replacementContainer = document.getElementById('replacementContainer');
+        const pairs = replacementContainer.querySelectorAll('.replacement-pair');
         const status = document.getElementById('status');
 
         if (!fileInput.files.length) {
-            alert('Please select a zip file.');
+            alert('Vui lòng chọn tệp zip.');
             return;
         }
 
-        if (oldText === '') {
-            alert('Please enter text to replace.');
-            return;
-        }
+        const replacements = Array.from(pairs).map(pair => {
+            const oldText = pair.querySelector('input:nth-child(1)').value;
+            const newText = pair.querySelector('input:nth-child(2)').value;
+            return { oldText, newText };
+        });
 
-        if (newText === '') {
-            alert('Please enter new text.');
-            return;
+        for (const { oldText, newText } of replacements) {
+            if (oldText === '' || newText === '') {
+                alert('Vui lòng nhập đầy đủ chữ cần sửa và chữ thay thế cho mỗi cặp.');
+                return;
+            }
         }
 
         const zipFile = fileInput.files[0];
@@ -205,9 +275,11 @@
                 for (const [filename, file] of Object.entries(unzipped.files)) {
                     if (!file.dir) {
                         if (filename.endsWith('.xml') || filename.endsWith('.bytes')) {
-                            const fileContent = await file.async('text');
-                            const updatedContent = fileContent.replace(new RegExp(oldText, 'g'), newText);
-                            newZip.file(filename, updatedContent);
+                            let fileContent = await file.async('text');
+                            for (const { oldText, newText } of replacements) {
+                                fileContent = fileContent.replace(new RegExp(oldText, 'g'), newText);
+                            }
+                            newZip.file(filename, fileContent);
                         } else {
                             newZip.file(filename, await file.async('blob'));
                         }
@@ -219,11 +291,14 @@
                 const updatedZipContent = await newZip.generateAsync({ type: 'blob' });
                 saveAs(updatedZipContent, 'MOD ĐÃ XONG BÚ THÔI.zip');
 
-                status.textContent = '✅ Tệp đã tải Bú Thôi';
+                status.textContent = '✅ Tệp đã mód xong';
                 status.classList.add('show');
+                setTimeout(() => {
+                    status.classList.remove('show');
+                }, 5000);
             } catch (error) {
-                console.error('Error processing the zip file:', error);
-                alert('An error occurred while processing the zip file.');
+                console.error('Lỗi khi xử lý tệp zip:', error);
+                alert('Đã xảy ra lỗi khi xử lý tệp zip.');
             }
         };
 
