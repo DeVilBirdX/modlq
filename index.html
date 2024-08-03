@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mod Files XML</title>
+    <title>Mod Files AOV</title>
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.7.1/dist/jszip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
     <style>
@@ -138,7 +138,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Mod Tệp XML</h1>
+        <h1>Mod Tệp Liên quân</h1>
         <label for="fileInput" class="file-label">Chọn Tệp Zip</label>
         <input type="file" id="fileInput" accept=".zip">
         <input type="text" id="oldText" placeholder="Chữ Cần Sửa">
@@ -147,13 +147,13 @@
         <div id="status" class="status">✅ Tệp đã được nhận và đang xử lý</div>
     </div>
     <div class="info-box" id="infoBox">
-    <p><strong>Cách Làm:</strong></p>
-    <p>1. Nén 1 tệp zip lại rồi chọn tệp zip chứa file xml.</p>
-    <p>2. Nhập chữ cần sửa trong các tệp xml sẽ thay thế chữ đó.</p>
-    <p>3. Nhấn nút "Tải Xuống" để lấy file zip đã mod xml và trai nghiệm.</p>
-</div>
-<span class="info-icon" onclick="toggleInfo()">?</span>
-<span class="linkdutup" onclick="window.open('https://youtube.com/@mavuongdaccau', '_blank')">☕</span>
+        <p><strong>Cách Làm:</strong></p>
+        <p>1. Nén 1 tệp zip lại rồi chọn tệp zip chứa file.</p>
+        <p>2. Nhập chữ cần sửa trong các tệp sẽ thay thế chữ đó.</p>
+        <p>3. Nhấn nút "Tải Xuống" để lấy file zip đã mod tệp và trải nghiệm.</p>
+    </div>
+    <span class="info-icon" onclick="toggleInfo()">?</span>
+    <span class="linkdutup" onclick="window.open('https://youtube.com/@mavuongdaccau', '_blank')">☕</span>
 
     <script>
     function handleFileSelect() {
@@ -202,29 +202,23 @@
                 const unzipped = await zip.loadAsync(zipContent);
                 const newZip = new JSZip();
 
-                
                 for (const [filename, file] of Object.entries(unzipped.files)) {
                     if (!file.dir) {
-                        
-                        if (filename.endsWith('.xml')) {
+                        if (filename.endsWith('.xml') || filename.endsWith('.bytes')) {
                             const fileContent = await file.async('text');
                             const updatedContent = fileContent.replace(new RegExp(oldText, 'g'), newText);
                             newZip.file(filename, updatedContent);
                         } else {
-                            
                             newZip.file(filename, await file.async('blob'));
                         }
                     } else {
-                        
                         newZip.folder(filename);
                     }
                 }
 
-                
                 const updatedZipContent = await newZip.generateAsync({ type: 'blob' });
                 saveAs(updatedZipContent, 'MOD ĐÃ XONG BÚ THÔI.zip');
-                
-                
+
                 status.textContent = '✅ Tệp đã tải Bú Thôi';
                 status.classList.add('show');
             } catch (error) {
@@ -235,10 +229,11 @@
 
         zipReader.readAsArrayBuffer(zipFile);
     }
+
     function toggleInfo() {
-    const infoBox = document.getElementById('infoBox');
-    infoBox.style.display = (infoBox.style.display === 'block') ? 'none' : 'block';
-}
+        const infoBox = document.getElementById('infoBox');
+        infoBox.style.display = (infoBox.style.display === 'block') ? 'none' : 'block';
+    }
     </script>
 </body>
 </html>
