@@ -178,6 +178,19 @@
         .add-pair:active {
             transform: scale(0.98);
         }
+        .xml-duplicator {
+            margin-top: 30px;
+        }
+        .xml-duplicator input[type="file"] {
+            margin-bottom: 10px;
+        }
+        .xml-duplicator button {
+            background-color: #007bff;
+            margin-top: 10px;
+        }
+        .xml-duplicator button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -195,6 +208,14 @@
         <button class="add-pair" onclick="addPair()">Thêm Cặp Văn Bản</button>
         <button onclick="replaceText()">Thay Thế Chữ Và Tải Xuống</button>
         <div id="status" class="status">✅ Tệp đã được nhận và đang xử lý</div>
+
+        <div class="xml-duplicator">
+            <h2>Mod Skill Sáng Đậm</h2>
+            <label for="xmlZipInput" class="file-label">Đưa Tệp Zip xml</label>
+            <input type="file" id="xmlZipInput" accept=".zip">
+            <button onclick="processXmlZip()">Xử lý tệp và Tải xuống mod Zip</button>
+            <pre id="xmlOutput"></pre>
+        </div>
     </div>
     <div class="info-box" id="infoBox">
         <p><strong>Cách Làm:</strong></p>
@@ -202,149 +223,179 @@
         <p>2. Nhập các văn bản chữ cần sửa và chữ thay thế.</p>
         <p>3. Nhấn nút "Tải Xuống" để lấy file zip đã mod tệp và trải nghiệm.</p>
         <p>4. Có thêm chức năng thêm các cặp văn bản để lưu trữ được nhiều văn bản thay thế hơn.</p>
+        <p>5. Chức năng mới: mod sáng đậm chỉ cần đưa file zip rồi đợi xử lý các tệp xml và tải xuống là có mod.</p>
     </div>
     <span class="info-icon" onclick="toggleInfo()">?</span>
     <span class="linkdutup" onclick="window.open('https://youtube.com/@mavuongdaccau', '_blank')">☕</span>
 
     <script>
-    function handleFileSelect() {
-        const fileInput = document.getElementById('fileInput');
-        const status = document.getElementById('status');
+        function handleFileSelect() {
+            const fileInput = document.getElementById('fileInput');
+            const status = document.getElementById('status');
 
-        if (fileInput.files.length) {
-            status.textContent = '✅ Tệp đã được nhận!';
-            status.classList.add('show');
-            setTimeout(() => {
-                status.classList.add('fade');
-            }, 5000); 
-        }
-    }
-
-    document.getElementById('fileInput').addEventListener('change', handleFileSelect);
-
-    function addPair() {
-    const replacementContainer = document.getElementById('replacementContainer');
-    const pairDiv = document.createElement('div');
-    pairDiv.className = 'replacement-pair';
-    pairDiv.innerHTML = `
-        <input type="text" placeholder="Chữ Cần Sửa">
-        <input type="text" placeholder="Chữ Thay Thế">
-        <button class="remove-pair" onclick="removePair(this)">Xóa Cặp</button>
-    `;
-    replacementContainer.appendChild(pairDiv);    
-}
-
-    function removePair(button) {
-        const pairDiv = button.parentElement;
-        pairDiv.remove();
-    }
-
-    async function replaceText() {
-        const fileInput = document.getElementById('fileInput');
-        const replacementContainer = document.getElementById('replacementContainer');
-        const pairs = replacementContainer.querySelectorAll('.replacement-pair');
-        const status = document.getElementById('status');
-
-        if (!fileInput.files.length) {
-            alert('Vui lòng chọn tệp zip.');
-            return;
-        }
-
-        const replacements = Array.from(pairs).map(pair => {
-            const oldText = pair.querySelector('input:nth-child(1)').value;
-            const newText = pair.querySelector('input:nth-child(2)').value;
-            return { oldText, newText };
-        });
-
-        for (const { oldText, newText } of replacements) {
-            if (oldText === '' || newText === '') {
-                alert('Vui lòng nhập đầy đủ chữ cần sửa và chữ thay thế cho mỗi cặp.');
-                return;
-            }
-        }
-
-        const zipFile = fileInput.files[0];
-        const zip = new JSZip();
-        const zipReader = new FileReader();
-
-        zipReader.onload = async function(e) {
-            try {
-                const zipContent = e.target.result;
-                const unzipped = await zip.loadAsync(zipContent);
-                const newZip = new JSZip();
-
-                for (const [filename, file] of Object.entries(unzipped.files)) {
-                    if (!file.dir) {
-                        if (filename.endsWith('.xml') || filename.endsWith('.bytes')) {
-                            let fileContent = await file.async('text');
-                            for (const { oldText, newText } of replacements) {
-                                fileContent = fileContent.replace(new RegExp(oldText, 'g'), newText);
-                            }
-                            newZip.file(filename, fileContent);
-                        } else {
-                            newZip.file(filename, await file.async('blob'));
-                        }
-                    } else {
-                        newZip.folder(filename);
-                    }
-                }
-
-                const updatedZipContent = await newZip.generateAsync({ type: 'blob' });
-                saveAs(updatedZipContent, 'MOD ĐÃ XONG BÚ THÔI.zip');
-
-                status.textContent = '✅ Tệp đã mód xong';
+            if (fileInput.files.length) {
+                status.textContent = '✅ Tệp đã được nhận!';
                 status.classList.add('show');
                 setTimeout(() => {
-                    status.classList.remove('show');
-                }, 5000);
-            } catch (error) {
-                console.error('Lỗi khi xử lý tệp zip:', error);
-                alert('Đã xảy ra lỗi khi xử lý tệp zip.');
-            }
-        };
-
-        zipReader.readAsArrayBuffer(zipFile);
-    }
-
-    function toggleInfo() {
-        const infoBox = document.getElementById('infoBox');
-        infoBox.style.display = (infoBox.style.display === 'block') ? 'none' : 'block';
-    }
-    
-    const charTable = document.getElementById('charTable');
-    let selectedInput = null;
-
-document.getElementById('charTable').addEventListener('click', function(e) {
-    if (e.target.tagName === 'SPAN') {
-        const charElement = e.target;
-        const char = charElement.textContent;
-                
-        if (charElement.classList.contains('selected')) {
-            charElement.classList.remove('selected'); 
-            
-        } else {
-            charElement.classList.add('selected'); 
-            if (selectedInput) {                
-                const startPos = selectedInput.selectionStart;
-                const endPos = selectedInput.selectionEnd;
-                selectedInput.setRangeText(char, startPos, endPos, 'end');
+                    status.classList.add('fade')}, 5000); 
             }
         }
-    }
-});
 
+        document.getElementById('fileInput').addEventListener('change', handleFileSelect);
 
-document.addEventListener('focusin', function(e) {
-    if (e.target.tagName === 'INPUT' && e.target.type === 'text') {
-        selectedInput = e.target;
-    }
-});
+        function addPair() {
+            const replacementContainer = document.getElementById('replacementContainer');
+            const pairDiv = document.createElement('div');
+            pairDiv.className = 'replacement-pair';
+            pairDiv.innerHTML = `
+                <input type="text" placeholder="Chữ Cần Sửa">
+                <input type="text" placeholder="Chữ Thay Thế">
+                <button class="remove-pair" onclick="removePair(this)">Xóa Cặp</button>
+            `;
+            replacementContainer.appendChild(pairDiv);    
+        }
 
-document.addEventListener('focusout', function(e) {
-    if (e.target.tagName === 'INPUT' && e.target.type === 'text') {
-        selectedInput = null;
-    }
-});
+        function removePair(button) {
+            const pairDiv = button.parentElement;
+            pairDiv.remove();
+        }
+
+        async function replaceText() {
+            const fileInput = document.getElementById('fileInput');
+            const replacementContainer = document.getElementById('replacementContainer');
+            const pairs = replacementContainer.querySelectorAll('.replacement-pair');
+            const status = document.getElementById('status');
+
+            if (!fileInput.files.length) {
+                alert('Vui lòng chọn tệp zip.');
+                return;
+            }
+
+            const replacements = Array.from(pairs).map(pair => {
+                const oldText = pair.querySelector('input:nth-child(1)').value;
+                const newText = pair.querySelector('input:nth-child(2)').value;
+                return { oldText, newText };
+            });
+
+            for (const { oldText, newText } of replacements) {
+                if (oldText === '' || newText === '') {
+                    alert('Vui lòng nhập đầy đủ chữ cần sửa và chữ thay thế cho mỗi cặp.');
+                    return;
+                }
+            }
+
+            const zipFile = fileInput.files[0];
+            const zip = new JSZip();
+            const zipReader = new FileReader();
+
+            zipReader.onload = async function(e) {
+                try {
+                    const zipContent = e.target.result;
+                    const unzipped = await zip.loadAsync(zipContent);
+                    const newZip = new JSZip();
+
+                    for (const [filename, file] of Object.entries(unzipped.files)) {
+                        if (!file.dir) {
+                            if (filename.endsWith('.xml') || filename.endsWith('.bytes')) {
+                                let fileContent = await file.async('text');
+                                for (const { oldText, newText } of replacements) {
+                                    fileContent = fileContent.replace(new RegExp(oldText, 'g'), newText);
+                                }
+                                newZip.file(filename, fileContent);
+                            } else {
+                                newZip.file(filename, await file.async('blob'));
+                            }
+                        } else {
+                            newZip.folder(filename);
+                        }
+                    }
+
+                    const updatedZipContent = await newZip.generateAsync({ type: 'blob' });
+                    saveAs(updatedZipContent, 'MOD ĐÃ XONG BÚ THÔI.zip');
+
+                    status.textContent = '✅ Tệp đã mód xong';
+                    status.classList.add('show');
+                    setTimeout(() => {
+                        status.classList.remove('show');
+                    }, 5000);
+                } catch (error) {
+                    console.error('Lỗi khi xử lý tệp zip:', error);
+                    alert('Đã xảy ra lỗi khi xử lý tệp zip.');
+                }
+            };
+
+            zipReader.readAsArrayBuffer(zipFile);
+        }
+
+        function toggleInfo() {
+            const infoBox = document.getElementById('infoBox');
+            infoBox.style.display = (infoBox.style.display === 'block') ? 'none' : 'block';
+        }
+
+        async function processXmlZip() {
+            const xmlZipInput = document.getElementById('xmlZipInput');
+            const xmlOutput = document.getElementById('xmlOutput');
+
+            if (!xmlZipInput.files.length) {
+                alert('Vui lòng chọn tệp zip XmL.');
+                return;
+            }
+
+            const zipFile = xmlZipInput.files[0];
+            const zip = new JSZip();
+            const zipContent = await zip.loadAsync(zipFile);
+
+            const files = Object.keys(zipContent.files);
+            const xmlFiles = files.filter(filename => filename.endsWith('.xml'));
+
+            for (let filename of xmlFiles) {
+                let file = zipContent.files[filename];
+                let xmlString = await file.async('text');
+                let parser = new DOMParser();
+                let xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+                let tracks = xmlDoc.getElementsByTagName("Track");
+                let tracksToDuplicate = [];
+
+                Array.from(tracks).forEach(track => {
+                    if (track.getAttribute('eventType') === 'TriggerParticleTick') {
+                        tracksToDuplicate.push(track);
+                    }
+                });
+
+                tracksToDuplicate.forEach(track => {
+                    let newTracks = [];
+                    for (let i = 0; i < 11; i++) { 
+                        let newTrack = track.cloneNode(true);
+                        newTracks.push(newTrack);
+                    }
+
+                    let parentElement = track.parentNode;
+            newTracks.forEach(newTrack => {
+                parentElement.insertBefore(newTrack, track.nextSibling);
+                let blankLine = document.createTextNode("\n");
+                parentElement.insertBefore(blankLine, newTrack);
+            });
+            
+            newTracks.forEach(newTrack => {
+                let comment = document.createComment(" Tulen dac Cau");
+                parentElement.insertBefore(comment, newTrack.nextSibling);
+            });
+        });
+
+                let serializer = new XMLSerializer();
+                let newXmlString = serializer.serializeToString(xmlDoc);
+                zip.file(filename, newXmlString);
+                xmlOutput.textContent += `Processed File: ${filename}\n`;
+            }
+
+            zip.generateAsync({ type: "blob" }).then(content => {
+                let link = document.createElement('a');
+                link.href = URL.createObjectURL(content);
+                link.download = 'SángEffĐậm.zip';
+                link.click();
+            });
+        }
     </script>
 </body>
 </html>
