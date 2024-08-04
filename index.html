@@ -195,7 +195,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Mod Tệp Liên quân</h1>
+        <h1>Mod Tệp Liên Quân</h1>
         <label for="fileInput" class="file-label">Chọn Tệp Zip</label>
         <input type="file" id="fileInput" accept=".zip">
         <div id="replacementContainer">
@@ -215,6 +215,10 @@
             <input type="file" id="xmlZipInput" accept=".zip">
             <button onclick="processXmlZip()">Xử lý tệp và Tải xuống mod Zip</button>
             <pre id="xmlOutput"></pre>
+            <h3>MOD SKILL THẬP CẨM</h3>
+            <input type="file" id="xmlZipInput" accept=".zip">
+            <button onclick="processXmlZip2()">Xử lý Và Tải xuống mod thập cẩm</button>
+            <pre id="xmlOutput"></pre>
         </div>
     </div>
     <div class="info-box" id="infoBox">
@@ -223,7 +227,7 @@
         <p>2. Nhập các văn bản chữ cần sửa và chữ thay thế.</p>
         <p>3. Nhấn nút "Tải Xuống" để lấy file zip đã mod tệp và trải nghiệm.</p>
         <p>4. Có thêm chức năng thêm các cặp văn bản để lưu trữ được nhiều văn bản thay thế hơn.</p>
-        <p>5. Chức năng mới: mod sáng đậm chỉ cần đưa file zip rồi đợi xử lý các tệp xml và tải xuống là có mod.</p>
+        <p>5. 2 Loại Chức năng mới: mod sáng đậm và Mod Thập cẩm, đưa file zip vào và chọn phần xử lý files cho loại mod khác nhau sẽ tự động tải zip loại mod đó xuống.</p>
     </div>
     <span class="info-icon" onclick="toggleInfo()">?</span>
     <span class="linkdutup" onclick="window.open('https://youtube.com/@mavuongdaccau', '_blank')">☕</span>
@@ -392,7 +396,79 @@
             zip.generateAsync({ type: "blob" }).then(content => {
                 let link = document.createElement('a');
                 link.href = URL.createObjectURL(content);
-                link.download = 'SángEffĐậm.zip';
+                link.download = 'sángđậmEFFect.zip';
+                link.click();
+            });
+        }
+        async function processXmlZip2() {
+            const xmlZipInput = document.getElementById('xmlZipInput');
+            const xmlOutput = document.getElementById('xmlOutput');
+
+            if (!xmlZipInput.files.length) {
+                alert('Vui lòng chọn tệp zip XML.');
+                return;
+            }
+
+            const zipFile = xmlZipInput.files[0];
+            const zip = new JSZip();
+            const zipContent = await zip.loadAsync(zipFile);
+
+            const files = Object.keys(zipContent.files);
+            const xmlFiles = files.filter(filename => filename.endsWith('.xml'));
+
+            for (let filename of xmlFiles) {
+                let file = zipContent.files[filename];
+                let xmlString = await file.async('text');
+                let parser = new DOMParser();
+                let xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+                let tracks = xmlDoc.getElementsByTagName("Track");
+                let tracksToDuplicate = [];
+
+                Array.from(tracks).forEach(track => {
+                    if (track.getAttribute('eventType') === 'TriggerParticleTick') {
+                        tracksToDuplicate.push(track);
+                    }
+                });
+
+                tracksToDuplicate.forEach(track => {
+                    let resourceNameNode = track.querySelector('String[name="resourceName"]');
+                    if (resourceNameNode) {
+                        let resourceName = resourceNameNode.getAttribute('value');
+                        let match = resourceName.match(/prefab_skill_effects\/hero_skill_effects\/(\d{3})_(\w+)\//);
+                        if (match) {
+                            let heroId = match[1];
+                            let effectName = match[2];
+                            let parentElement = track.parentNode;
+
+                            for (let i = 1; i <= 20; i++) {
+                                let newTrack = track.cloneNode(true);
+                                let newResourceName = `prefab_skill_effects/hero_skill_effects/${heroId}_${effectName}/${heroId}${String(i).padStart(2, '0')}/`;
+                                newTrack.querySelector('String[name="resourceName"]').setAttribute('value', newResourceName);
+
+                                parentElement.insertBefore(newTrack, track.nextSibling);
+                                let blankLine = document.createTextNode("\n");
+                                parentElement.insertBefore(blankLine, newTrack);
+
+                                let comment = document.createComment(" Tulen Dac Cau");
+                                parentElement.insertBefore(comment, newTrack.nextSibling);
+                                blankLine = document.createTextNode("\n");
+                                parentElement.insertBefore(blankLine, comment.nextSibling);
+                            }
+                        }
+                    }
+                });
+
+                let serializer = new XMLSerializer();
+                let newXmlString = serializer.serializeToString(xmlDoc);
+                zip.file(filename, newXmlString);
+                xmlOutput.textContent += `Processed File: ${filename}\n`;
+            }
+
+            zip.generateAsync({ type: "blob" }).then(content => {
+                let link = document.createElement('a');
+                link.href = URL.createObjectURL(content);
+                link.download = 'SKINThậpCẩm.zip';
                 link.click();
             });
         }
