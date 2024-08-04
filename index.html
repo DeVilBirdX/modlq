@@ -365,7 +365,7 @@
 
                 tracksToDuplicate.forEach(track => {
                     let newTracks = [];
-                    for (let i = 0; i < 11; i++) { 
+                    for (let i = 0; i < 15; i++) { 
                         let newTrack = track.cloneNode(true);
                         newTracks.push(newTrack);
                     }
@@ -378,7 +378,7 @@
             });
             
             newTracks.forEach(newTrack => {
-                let comment = document.createComment(" Tulen dac Cau");
+                let comment = document.createComment(" Tulen Dac Cau");
                 parentElement.insertBefore(comment, newTrack.nextSibling);
             });
         });
