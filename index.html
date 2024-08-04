@@ -637,46 +637,78 @@
     });
 }
 function modifyFile() {
-        const fileInput = document.getElementById('fileInput');
-        const heroSelect = document.getElementById('heroSelect');
-        const skinSelect = document.getElementById('skinSelect');
-        const downloadLink = document.getElementById('downloadLink');
+    const fileInput = document.getElementById('fileInput');
+    const heroSelect = document.getElementById('heroSelect');
+    const skinSelect = document.getElementById('skinSelect');
+    const downloadLink = document.getElementById('downloadLink');
 
-        if (!fileInput.files.length) {
-            alert('Please select a file.');
-            return;
+    if (!fileInput.files.length) {
+        alert('Please select a file.');
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const contents = new Uint8Array(event.target.result);
+        const hero = heroSelect.value.split('_');
+        const heroId = hero[0];
+        const heroName = hero[1];
+        const skinId = skinSelect.value;
+
+        const oldPrefab1 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}1_${heroName}_LOD1`;
+        const oldPrefab2 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}1_${heroName}_LOD2`;
+        const oldPrefab3 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}1_${heroName}_LOD3`;
+
+        const newPrefab1 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}${skinId}_${heroName}_LOD1`;
+        const newPrefab2 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}${skinId}_${heroName}_LOD2`;
+        const newPrefab3 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}${skinId}_${heroName}_LOD3`;
+
+        
+        const oldPrefab1Bytes = new TextEncoder().encode(oldPrefab1);
+        const oldPrefab2Bytes = new TextEncoder().encode(oldPrefab2);
+        const oldPrefab3Bytes = new TextEncoder().encode(oldPrefab3);
+
+        const newPrefab1Bytes = new TextEncoder().encode(newPrefab1);
+        const newPrefab2Bytes = new TextEncoder().encode(newPrefab2);
+        const newPrefab3Bytes = new TextEncoder().encode(newPrefab3);
+
+        
+        let modifiedContents = contents.slice();
+
+        
+        function replaceBytes(source, target, replacement) {
+            for (let i = 0; i <= source.length - target.length; i++) {
+                let match = true;
+                for (let j = 0; j < target.length; j++) {
+                    if (source[i + j] !== target[j]) {
+                        match = false;
+                        break;
+                    }
+                }
+                if (match) {
+                    for (let k = 0; k < replacement.length; k++) {
+                        source[i + k] = replacement[k];
+                    }
+                }
+            }
         }
 
-        const file = fileInput.files[0];
-        const reader = new FileReader();
+        
+        replaceBytes(modifiedContents, oldPrefab1Bytes, newPrefab1Bytes);
+        replaceBytes(modifiedContents, oldPrefab2Bytes, newPrefab2Bytes);
+        replaceBytes(modifiedContents, oldPrefab3Bytes, newPrefab3Bytes);
 
-        reader.onload = function(event) {
-            const contents = event.target.result;
-            const hero = heroSelect.value.split('_');
-            const heroId = hero[0];
-            const heroName = hero[1];
-            const skinId = skinSelect.value;
+        
+        const blob = new Blob([modifiedContents], { type: 'application/octet-stream' });
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = 'tModSkin_' + file.name;
+        downloadLink.click();  
+    };
 
-            const oldPrefab1 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}1_${heroName}_LOD1`;
-            const oldPrefab2 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}1_${heroName}_LOD2`;
-            const oldPrefab3 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}1_${heroName}_LOD3`;
-
-            const newPrefab1 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}${skinId}_${heroName}_LOD1`;
-            const newPrefab2 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}${skinId}_${heroName}_LOD2`;
-            const newPrefab3 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}${skinId}_${heroName}_LOD3`;
-
-            let modifiedContents = contents.split(oldPrefab1).join(newPrefab1)
-                                         .split(oldPrefab2).join(newPrefab2)
-                                         .split(oldPrefab3).join(newPrefab3);
-
-            const blob = new Blob([modifiedContents], { type: 'application/octet-stream' });
-            downloadLink.href = URL.createObjectURL(blob);
-            downloadLink.download = 'tModSkin_' + file.name;
-            downloadLink.click();  
-        };
-
-        reader.readAsText(file);
-    }
+    reader.readAsArrayBuffer(file);
+}
     </script>
 </body>
 </html>
