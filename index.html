@@ -191,6 +191,13 @@
         .xml-duplicator button:hover {
             background-color: #0056b3;
         }
+        input, button, select {
+            margin: 10px;
+        }
+        #downloadLink {
+            display: block;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -219,6 +226,161 @@
             <input type="file" id="xmlZipInput" accept=".zip">
             <button onclick="processXmlZip2()">Xử lý Và Tải xuống mod thập cẩm</button>
             <pre id="xmlOutput"></pre>
+            <h4>MOD NGOẠI HÌNH TƯỚNG</h4>
+ <label for="fileInput" class="file-label">Chọn Tệp Bytes</label>
+<input type="file" id="fileInput" accept=".bytes">
+    <br>
+    <label for="heroSelect">Lựa Chọn Hero:</label>
+    <select id="heroSelect">
+        <option value="105_LianPo">105_LianPo</option>
+        <option value="106_XiaoQiao">106_XiaoQiao</option>
+        <option value="107_Zhaoyun">107_Zhaoyun</option>
+        <option value="108_MoDi">108_MoDi</option>
+        <option value="109_DaJi">109_DaJi</option>
+        <option value="110_YingZheng">110_YingZheng</option>
+        <option value="111_SunShangXiang">111_SunShangXiang</option>
+        <option value="112_GongShuBan">112_GongShuBan</option>
+        <option value="113_ZhuangZhou">113_ZhuangZhou</option>
+        <option value="114_Omega">114_Omega</option>
+        <option value="115_GaoJianLi">115_GaoJianLi</option>
+        <option value="116_JingKe">116_JingKe</option>
+        <option value="117_ZhongWuYan">117_ZhongWuYan</option>
+        <option value="118_SunBin">118_SunBin</option>
+        <option value="119_BianQue">119_BianQue</option>
+        <option value="120_BaiQi">120_BaiQi</option>
+        <option value="121_MiYue">121_MiYue</option>
+        <option value="123_LvBu">123_LvBu</option>
+        <option value="124_ZhouYu">124_ZhouYu</option>
+        <option value="126_XiaHouDun">126_XiaHouDun</option>
+        <option value="127_ZhenJi">127_ZhenJi</option>
+        <option value="128_CaoCao">128_CaoCao</option>
+        <option value="129_DianWei">129_DianWei</option>
+        <option value="130_GongBenWuZang">130_GongBenWuZang</option>
+        <option value="131_LiBai">131_LiBai</option>
+        <option value="132_MaKeBoLuo">132_MaKeBoLuo</option>
+        <option value="133_DiRenJie">133_DiRenJie</option>
+        <option value="134_TangSanZang">134_TangSanZang</option>
+        <option value="135_XiangYu">135_XiangYu</option>
+        <option value="136_WuZeTian">136_WuZeTian</option>
+        <option value="137_SiMaYi">137_SiMaYi</option>
+        <option value="139_KongFuZi">139_KongFuZi</option>
+        <option value="140_GuanYu">140_GuanYu</option>
+        <option value="141_Diaochan">141_Diaochan</option>
+        <option value="142_CaiWenJi">142_CaiWenJi</option>
+        <option value="144_ChengYaoJin">144_ChengYaoJin</option>
+        <option value="146_HongFu">146_HongFu</option>
+        <option value="148_JiangZiYa">148_JiangZiYa</option>
+        <option value="149_LiuBang">149_LiuBang</option>
+        <option value="150_HanXin">150_HanXin</option>
+        <option value="152_WangZhaoJun">152_WangZhaoJun</option>
+        <option value="153_LanLingWang">153_LanLingWang</option>
+        <option value="154_HuaMuLan">154_HuaMuLan</option>
+        <option value="156_ZhangLiang">156_ZhangLiang</option>
+        <option value="157_BuZhiHuoWu">157_BuZhiHuoWu</option>
+        <option value="159_Dolia">159_Dolia</option>
+        <option value="162_Nakoruru">162_Nakoruru</option>
+        <option value="163_JuYouJing">163_JuYouJing</option>
+        <option value="166_YaSeWang">166_YaSeWang</option>
+        <option value="167_WuKong">167_WuKong</option>
+        <option value="168_Niu">168_Niu</option>
+        <option value="169_HouYi">169_HouYi</option>
+        <option value="170_LiuBei">170_LiuBei</option>
+        <option value="171_ZhangFei">171_ZhangFei</option>
+        <option value="173_LiYuanFang">173_LiYuanFang</option>
+        <option value="174_YuJi">174_YuJi</option>
+        <option value="175_ZhongKui">175_ZhongKui</option>
+        <option value="177_ChengJiSiHan">177_ChengJiSiHan</option>
+        <option value="180_NeZha">180_NeZha</option>
+        <option value="183_ChessPlayer">183_ChessPlayer</option>
+        <option value="184_CaiWenJi">184_CaiWenJi</option>
+        <option value="186_TaiYiZhenRen">186_TaiYiZhenRen</option>
+        <option value="187_DongHuangTaiYi">187_DongHuangTaiYi</option>
+        <option value="189_GuiGuZi">189_GuiGuZi</option>
+        <option value="190_ZhuGeLiang">190_ZhuGeLiang</option>
+        <option value="191_DaQiao">191_DaQiao</option>
+        <option value="192_HuangZhong">192_HuangZhong</option>
+        <option value="193_LaFeiEr">193_LaFeiEr</option>
+        <option value="194_SuLie">194_SuLie</option>
+        <option value="195_BaiLiXuanCe">195_BaiLiXuanCe</option>
+        <option value="196_Elsu">196_Elsu</option>
+        <option value="199_Li">199_Li</option>
+        <option value="206_XiaLuoTe">206_XiaLuoTe</option>
+        <option value="501_TelAnnas">501_TelAnnas</option>
+        <option value="502_Astrid">502_Astrid</option>
+        <option value="503_Zuka">503_Zuka</option>
+        <option value="504_WonderWoman">504_WonderWoman</option>
+        <option value="505_Baldum">505_Baldum</option>
+        <option value="506_DarkKnight">506_DarkKnight</option>
+        <option value="507_Flash">507_Flash</option>
+        <option value="508_Zhadanren">508_Zhadanren</option>
+        <option value="509_Ybneth">509_Ybneth</option>
+        <option value="510_Liliana">510_Liliana</option>
+        <option value="511_ZhuBaJie">511_ZhuBaJie</option>
+        <option value="512_Rourke">512_Rourke</option>
+        <option value="513_ShuSheng">513_ShuSheng</option>
+        <option value="514_Roxi">514_Roxi</option>
+        <option value="515_Richter">515_Richter</option>
+        <option value="518_Quillen">518_Quillen</option>
+        <option value="519_Annette">519_Annette</option>
+        <option value="520_Veres">520_Veres</option>
+        <option value="521_Florentino">521_Florentino</option>
+        <option value="522_Errol">522_Errol</option>
+        <option value="523_Darcy">523_Darcy</option>
+        <option value="524_Capheny">524_Capheny</option>
+        <option value="525_Driver">525_Driver</option>
+        <option value="526_Summoner">526_Summoner</option>
+        <option value="527_Sephera">527_Sephera</option>
+        <option value="528_DaMo">528_DaMo</option>
+        <option value="529_Volkath">529_Volkath</option>
+        <option value="530_Dirak">530_Dirak</option>
+        <option value="531_Keera">531_Keera</option>
+        <option value="532_Genius">532_Genius</option>
+        <option value="533_HouYi">533_HouYi</option>
+        <option value="534_Grantwish">534_Grantwish</option>
+        <option value="535_Wish">535_Wish</option>
+        <option value="536_Ninja">536_Ninja</option>
+        <option value="537_Trip">537_Trip</option>
+        <option value="538_Iggy">538_Iggy</option>
+        <option value="539_Nott">539_Nott</option>
+        <option value="540_Bright">540_Bright</option>
+        <option value="541_Bonnie">541_Bonnie</option>
+        <option value="542_Tachi">542_Tachi</option>
+        <option value="543_Yao">543_Yao</option>
+        <option value="544_Painter">544_Painter</option>
+        <option value="545_Aim">545_Aim</option>
+        <option value="546_Hecate">546_Hecate</option>
+        <option value="548_SunCe">548_SunCe</option>
+        <option value="566_ChessPlayer">566_ChessPlayer</option>
+        <option value="567_AiLin">567_AiLin</option>
+        <option value="568_MingShiYin">568_MingShiYin</option>
+        <option value="570_ChessPlayer">570_ChessPlayer</option>
+    </select>
+    <br>
+    <label for="skinSelect">Lựa Chọn Skin:</label>
+    <select id="skinSelect">
+        <option value="2">Skin 2</option>
+        <option value="3">Skin 3</option>
+        <option value="4">Skin 4</option>
+        <option value="5">Skin 5</option>
+        <option value="6">Skin 6</option>
+        <option value="7">Skin 7</option>
+        <option value="8">Skin 8</option>
+        <option value="9">Skin 9</option>
+        <option value="10">Skin 10</option>
+        <option value="11">Skin 11</option>
+        <option value="12">Skin 12</option>
+        <option value="13">Skin 13</option>
+        <option value="14">Skin 14</option>
+        <option value="15">Skin 15</option>
+        <option value="16">Skin 16</option>
+        <option value="17">Skin 17</option>
+        <option value="18">Skin 18</option>
+        <option value="19">Skin 19</option>
+        <option value="20">Skin 20</option>
+    </select>
+    <br>
+    <button onclick="modifyFile()">Mod InFo Byte Và Tải xuống</button>
+    <a id="downloadLink" style="display:none">Download Mod File</a>
         </div>
     </div>
     <div class="info-box" id="infoBox">
@@ -228,6 +390,7 @@
         <p>3. Nhấn nút "Tải Xuống" để lấy file zip đã mod tệp và trải nghiệm.</p>
         <p>4. Có thêm chức năng thêm các cặp văn bản để lưu trữ được nhiều văn bản thay thế hơn.</p>
         <p>5. 2 Loại Chức năng mới: mod sáng đậm và Mod Thập cẩm, đưa file zip vào và chọn phần xử lý files cho loại mod khác nhau sẽ tự động tải zip loại mod đó xuống.</p>
+        <p>6. Chức Năng Ngoại hình: đưa tệp Actorinfo.bytes vào và chọn tên ngoại hình sau đó chọn skin tướng và tải tệp Mod Info về.</p>
     </div>
     <span class="info-icon" onclick="toggleInfo()">?</span>
     <span class="linkdutup" onclick="window.open('https://youtube.com/@mavuongdaccau', '_blank')">☕</span>
@@ -473,6 +636,47 @@
         link.click();
     });
 }
+function modifyFile() {
+        const fileInput = document.getElementById('fileInput');
+        const heroSelect = document.getElementById('heroSelect');
+        const skinSelect = document.getElementById('skinSelect');
+        const downloadLink = document.getElementById('downloadLink');
+
+        if (!fileInput.files.length) {
+            alert('Please select a file.');
+            return;
+        }
+
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+            const contents = event.target.result;
+            const hero = heroSelect.value.split('_');
+            const heroId = hero[0];
+            const heroName = hero[1];
+            const skinId = skinSelect.value;
+
+            const oldPrefab1 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}1_${heroName}_LOD1`;
+            const oldPrefab2 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}1_${heroName}_LOD2`;
+            const oldPrefab3 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}1_${heroName}_LOD3`;
+
+            const newPrefab1 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}${skinId}_${heroName}_LOD1`;
+            const newPrefab2 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}${skinId}_${heroName}_LOD2`;
+            const newPrefab3 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}${skinId}_${heroName}_LOD3`;
+
+            let modifiedContents = contents.split(oldPrefab1).join(newPrefab1)
+                                         .split(oldPrefab2).join(newPrefab2)
+                                         .split(oldPrefab3).join(newPrefab3);
+
+            const blob = new Blob([modifiedContents], { type: 'application/octet-stream' });
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = 'tModSkin_' + file.name;
+            downloadLink.click();  
+        };
+
+        reader.readAsText(file);
+    }
     </script>
 </body>
 </html>
