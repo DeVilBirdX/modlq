@@ -362,10 +362,11 @@
                 let tracksToDuplicate = [];
 
                 Array.from(tracks).forEach(track => {
-                    if (track.getAttribute('eventType') === 'TriggerParticleTick') {
-                        tracksToDuplicate.push(track);
-                    }
-                });
+    const eventType = track.getAttribute('eventType');
+    if (eventType === 'TriggerParticleTick' || eventType === 'TriggerParticle') {
+        tracksToDuplicate.push(track);
+    }
+});
 
                 tracksToDuplicate.forEach(track => {
                     let newTracks = [];
@@ -426,10 +427,11 @@
         let tracksToDuplicate = [];
 
         Array.from(tracks).forEach(track => {
-            if (track.getAttribute('eventType') === 'TriggerParticleTick') {
-                tracksToDuplicate.push(track);
-            }
-        });
+    const eventType = track.getAttribute('eventType');
+    if (eventType === 'TriggerParticleTick' || eventType === 'TriggerParticle') {
+        tracksToDuplicate.push(track);
+    }
+});
 
         tracksToDuplicate.forEach(track => {
             let resourceNameNode = track.querySelector('String[name="resourceName"]');
