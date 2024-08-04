@@ -401,75 +401,76 @@
             });
         }
         async function processXmlZip2() {
-            const xmlZipInput = document.getElementById('xmlZipInput');
-            const xmlOutput = document.getElementById('xmlOutput');
+    const xmlZipInput = document.getElementById('xmlZipInput');
+    const xmlOutput = document.getElementById('xmlOutput');
 
-            if (!xmlZipInput.files.length) {
-                alert('Vui lòng chọn tệp zip XML.');
-                return;
+    if (!xmlZipInput.files.length) {
+        alert('Vui lòng chọn tệp zip XML.');
+        return;
+    }
+
+    const zipFile = xmlZipInput.files[0];
+    const zip = new JSZip();
+    const zipContent = await zip.loadAsync(zipFile);
+
+    const files = Object.keys(zipContent.files);
+    const xmlFiles = files.filter(filename => filename.endsWith('.xml'));
+
+    for (let filename of xmlFiles) {
+        let file = zipContent.files[filename];
+        let xmlString = await file.async('text');
+        let parser = new DOMParser();
+        let xmlDoc = parser.parseFromString(xmlString, "text/xml");
+
+        let tracks = xmlDoc.getElementsByTagName("Track");
+        let tracksToDuplicate = [];
+
+        Array.from(tracks).forEach(track => {
+            if (track.getAttribute('eventType') === 'TriggerParticleTick') {
+                tracksToDuplicate.push(track);
             }
+        });
 
-            const zipFile = xmlZipInput.files[0];
-            const zip = new JSZip();
-            const zipContent = await zip.loadAsync(zipFile);
+        tracksToDuplicate.forEach(track => {
+            let resourceNameNode = track.querySelector('String[name="resourceName"]');
+            if (resourceNameNode) {
+                let resourceName = resourceNameNode.getAttribute('value');
+                let match = resourceName.match(/prefab_skill_effects\/hero_skill_effects\/(\d{3}_\w+)\//);
+                if (match) {
+                    let heroIdWithName = match[1];
+                    let heroId = heroIdWithName.split('_')[0];
+                    let effectPath = resourceName.split('/').slice(3).join('/'); // giữ nguyên phần "code hiệu ứng"
+                    let parentElement = track.parentNode;
 
-            const files = Object.keys(zipContent.files);
-            const xmlFiles = files.filter(filename => filename.endsWith('.xml'));
+                    for (let i = 1; i <= 20; i++) {
+                        let newTrack = track.cloneNode(true);
+                        let newResourceName = `prefab_skill_effects/hero_skill_effects/${heroIdWithName}/${heroId}${String(i).padStart(2, '0')}/${effectPath}`;
+                        newTrack.querySelector('String[name="resourceName"]').setAttribute('value', newResourceName);
 
-            for (let filename of xmlFiles) {
-                let file = zipContent.files[filename];
-                let xmlString = await file.async('text');
-                let parser = new DOMParser();
-                let xmlDoc = parser.parseFromString(xmlString, "text/xml");
+                        parentElement.insertBefore(newTrack, track.nextSibling);
+                        let blankLine = document.createTextNode("\n");
+                        parentElement.insertBefore(blankLine, newTrack);
 
-                let tracks = xmlDoc.getElementsByTagName("Track");
-                let tracksToDuplicate = [];
-
-                Array.from(tracks).forEach(track => {
-                    if (track.getAttribute('eventType') === 'TriggerParticleTick') {
-                        tracksToDuplicate.push(track);
+                        let comment = document.createComment(" Tulen Dac Cau");
+                        parentElement.insertBefore(comment, newTrack.nextSibling);
                     }
-                });
-
-                tracksToDuplicate.forEach(track => {
-                    let resourceNameNode = track.querySelector('String[name="resourceName"]');
-                    if (resourceNameNode) {
-                        let resourceName = resourceNameNode.getAttribute('value');
-                        let match = resourceName.match(/prefab_skill_effects\/hero_skill_effects\/(\d{3})_(\w+)\//);
-                        if (match) {
-                            let heroId = match[1];
-                            let effectName = match[2];
-                            let parentElement = track.parentNode;
-
-                            for (let i = 1; i <= 20; i++) {
-                                let newTrack = track.cloneNode(true);
-                                let newResourceName = `prefab_skill_effects/hero_skill_effects/${heroId}_${effectName}/${heroId}${String(i).padStart(2, '0')}/`;
-                                newTrack.querySelector('String[name="resourceName"]').setAttribute('value', newResourceName);
-
-                                parentElement.insertBefore(newTrack, track.nextSibling);
-                                let blankLine = document.createTextNode("\n");
-                                parentElement.insertBefore(blankLine, newTrack);
-
-                                let comment = document.createComment(" Tulen Dac Cau");
-                                parentElement.insertBefore(comment, newTrack.nextSibling);
-                            }
-                        }
-                    }
-                });
-
-                let serializer = new XMLSerializer();
-                let newXmlString = serializer.serializeToString(xmlDoc);
-                zip.file(filename, newXmlString);
-                xmlOutput.textContent += `Processed File: ${filename}\n`;
+                }
             }
+        });
 
-            zip.generateAsync({ type: "blob" }).then(content => {
-                let link = document.createElement('a');
-                link.href = URL.createObjectURL(content);
-                link.download = 'SKINThậpCẩm.zip';
-                link.click();
-            });
-        }
+        let serializer = new XMLSerializer();
+        let newXmlString = serializer.serializeToString(xmlDoc);
+        zip.file(filename, newXmlString);
+        xmlOutput.textContent += `Processed File: ${filename}\n`;
+    }
+
+    zip.generateAsync({ type: "blob" }).then(content => {
+        let link = document.createElement('a');
+        link.href = URL.createObjectURL(content);
+        link.download = 'SKINThậpCẩm.zip';
+        link.click();
+    });
+}
     </script>
 </body>
 </html>
