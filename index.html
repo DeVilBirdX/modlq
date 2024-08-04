@@ -9,8 +9,8 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f0f4f8;
-            color: #333;
+            background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20230929/pngtree-futuristic-sci-fi-background-exploring-the-virtual-reality-metaverse-with-advanced-image_13545089.png');
+            color: #ff0000;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -39,7 +39,7 @@
         .file-label {
             display: inline-block;
             padding: 12px 25px;
-            background-color: #0284c7;
+            background-color: #CC9603;
             color: white;
             border: none;
             border-radius: 5px;
@@ -49,7 +49,7 @@
             transition: background-color 0.3s, transform 0.2s;
         }
         .file-label:hover {
-            background-color: #0369a1;
+            background-color: #FF9b07;
         }
         .file-label:active {
             transform: scale(0.98);
@@ -163,7 +163,7 @@
             transform: scale(0.98);
         }
         .add-pair {
-            background-color: #0ea5e9;
+            background-color: #00008b;
             border: none;
             border-radius: 4px;
             color: white;
@@ -173,7 +173,7 @@
             transition: background-color 0.3s, transform 0.2s;
         }
         .add-pair:hover {
-            background-color: #0284c7;
+            background-color: #483d83;
         }
         .add-pair:active {
             transform: scale(0.98);
@@ -199,8 +199,9 @@
     <div class="info-box" id="infoBox">
         <p><strong>Cách Làm:</strong></p>
         <p>1. Nén 1 tệp zip lại rồi chọn tệp zip chứa file.</p>
-        <p>2. Nhập các cặp chữ cần sửa và chữ thay thế.</p>
+        <p>2. Nhập các văn bản chữ cần sửa và chữ thay thế.</p>
         <p>3. Nhấn nút "Tải Xuống" để lấy file zip đã mod tệp và trải nghiệm.</p>
+        <p>4. Có thêm chức năng thêm các cặp văn bản để lưu trữ được nhiều văn bản thay thế hơn.</p>
     </div>
     <span class="info-icon" onclick="toggleInfo()">?</span>
     <span class="linkdutup" onclick="window.open('https://youtube.com/@mavuongdaccau', '_blank')">☕</span>
@@ -222,16 +223,16 @@
     document.getElementById('fileInput').addEventListener('change', handleFileSelect);
 
     function addPair() {
-        const replacementContainer = document.getElementById('replacementContainer');
-        const pairDiv = document.createElement('div');
-        pairDiv.className = 'replacement-pair';
-        pairDiv.innerHTML = `
-            <input type="text" placeholder="Chữ Cần Sửa">
-            <input type="text" placeholder="Chữ Thay Thế">
-            <button class="remove-pair" onclick="removePair(this)">Xóa Cặp</button>
-        `;
-        replacementContainer.appendChild(pairDiv);
-    }
+    const replacementContainer = document.getElementById('replacementContainer');
+    const pairDiv = document.createElement('div');
+    pairDiv.className = 'replacement-pair';
+    pairDiv.innerHTML = `
+        <input type="text" placeholder="Chữ Cần Sửa">
+        <input type="text" placeholder="Chữ Thay Thế">
+        <button class="remove-pair" onclick="removePair(this)">Xóa Cặp</button>
+    `;
+    replacementContainer.appendChild(pairDiv);    
+}
 
     function removePair(button) {
         const pairDiv = button.parentElement;
@@ -309,6 +310,41 @@
         const infoBox = document.getElementById('infoBox');
         infoBox.style.display = (infoBox.style.display === 'block') ? 'none' : 'block';
     }
+    
+    const charTable = document.getElementById('charTable');
+    let selectedInput = null;
+
+document.getElementById('charTable').addEventListener('click', function(e) {
+    if (e.target.tagName === 'SPAN') {
+        const charElement = e.target;
+        const char = charElement.textContent;
+                
+        if (charElement.classList.contains('selected')) {
+            charElement.classList.remove('selected'); 
+            
+        } else {
+            charElement.classList.add('selected'); 
+            if (selectedInput) {                
+                const startPos = selectedInput.selectionStart;
+                const endPos = selectedInput.selectionEnd;
+                selectedInput.setRangeText(char, startPos, endPos, 'end');
+            }
+        }
+    }
+});
+
+
+document.addEventListener('focusin', function(e) {
+    if (e.target.tagName === 'INPUT' && e.target.type === 'text') {
+        selectedInput = e.target;
+    }
+});
+
+document.addEventListener('focusout', function(e) {
+    if (e.target.tagName === 'INPUT' && e.target.type === 'text') {
+        selectedInput = null;
+    }
+});
     </script>
 </body>
 </html>
