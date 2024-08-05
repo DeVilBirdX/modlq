@@ -381,6 +381,16 @@
     <br>
     <button onclick="modifyFile()">Mod InFo Byte Và Tải xuống</button>
     <a id="downloadLink" style="display:none">Download Mod File</a>
+        <h5>MOD PACK SKIN LQ</h5>
+    <select id="championSelect">
+        <option value="">Chọn nhân vật</option>
+        <option value="Allain kirito.zip">Mod Allain Kirito</option>
+        <option value="Allain TYNL.zip">Mod Allain Tình Yêu Nổi Loạn</option>
+        <option value="Krixi PTTK.zip">Mod Krixi Phù Thủy Thời Không</option>
+        <option value="Violet VNLC.zip">Mod Violet Vọng Nguyệt Long Cơ</option>
+        <option value="Violet thần long.zip">Mod Violet Thần Long Tỷ Tỷ</option>
+    </select>
+    <button onclick="downloadZip9()">Tải Pack Skin</button>
         </div>
     </div>
     <div class="info-box" id="infoBox">
@@ -709,6 +719,16 @@ function modifyFile() {
 
     reader.readAsArrayBuffer(file);
 }
+
+function downloadZip9() {
+            var select = document.getElementById("championSelect");
+            var selectedFile = select.value;
+            if (selectedFile) {
+                window.location.href = selectedFile;
+            } else {
+                alert("Vui lòng chọn nhân vật.");
+            }
+        }
     </script>
 </body>
 </html>
