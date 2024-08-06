@@ -491,8 +491,24 @@
             </div>
         </div>
         <button id="modButton">Mod Skin Chế và tải xuống</button>
-    <div class="container">    
-        <h7>Tải Tool Giải Mã & Mã Hóa Liên Quân</h7>
+        <h7>Mod Cam Xa LQ</h7>
+    <label for="zoomLevel">Chọn Mức Độ Cam Xa:</label>
+    <select id="zoomLevel">
+        <option value="camxa10.zip">Cam xa 10%</option>
+        <option value="camxa20.zip">Cam xa 20%</option>
+        <option value="camxa30.zip">Cam xa 30%</option>
+        <option value="camxa40.zip">Cam xa 40%</option>
+        <option value="camxa50.zip">Cam xa 50%</option>
+        <option value="camxa60.zip">Cam xa 60%</option>
+        <option value="camxa70.zip">Cam xa 70%</option>
+        <option value="camxa80.zip">Cam xa 80%</option>
+        <option value="camxa90.zip">Cam xa 90%</option>
+        <option value="camxa100.zip">Cam xa 100%</option>
+        <option value="ModcamGần.zip">☆Cam Gần Giống Góc Nhìn Thứ Nhất☆</option>
+    </select>
+    <button onclick="downloadModCamXa()">Tải Mod Cam Xa</button>
+    <div class="container">
+        <h8>Tải Tool Giải Mã & Mã Hóa Liên Quân</h8>
     <a href="Giải mã&mã hóa liên quân_.py" download="Giải mã&mã hóa liên quân_.py">
         <button>Tải Tool AOV - Nhấn Vào Đây</button>
     </a>    
@@ -909,6 +925,15 @@ function downloadZip9() {
         }
         return -1;
     }
+    
+    function downloadModCamXa() {
+            const zoomLevelSelect = document.getElementById('zoomLevel');
+            const fileUrl = zoomLevelSelect.value;
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = fileUrl.split('/').pop(); 
+            link.click();
+        }
     </script>
 </body>
 </html>
