@@ -295,7 +295,7 @@
     <pre id="xmlOutput"></pre>
     
     <h3>MOD SKILL THẬP CẨM</h3>
-    <input type="file" id="xmlZipInput2" accept=".zip">
+    <input type="file" id="xmlZipInput" accept=".zip">
     
     <div>
         <input type="radio" id="onlyTriggerParticleTick2" name="modOption2" value="TriggerParticleTick" checked>
@@ -742,7 +742,7 @@ B3: pip install pyzstd==0.15.4
 }
 
 async function processXmlZip2() {
-    const xmlZipInput = document.getElementById('xmlZipInput2');
+    const xmlZipInput = document.getElementById('xmlZipInput');
     const xmlOutput = document.getElementById('xmlOutput');
     const modOption2 = document.querySelector('input[name="modOption2"]:checked').value;
 
