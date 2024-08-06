@@ -280,15 +280,33 @@
         <div id="status" class="status">✅ Tệp đã được nhận và đang xử lý</div>
 
         <div class="xml-duplicator">
-            <h2>Mod Skill Sáng Đậm</h2>
-            <label for="xmlZipInput" class="file-label">Đưa Tệp Zip xml</label>
-            <input type="file" id="xmlZipInput" accept=".zip">
-            <button onclick="processXmlZip()">Xử lý tệp và Tải xuống mod Zip</button>
-            <pre id="xmlOutput"></pre>
-            <h3>MOD SKILL THẬP CẨM</h3>
-            <input type="file" id="xmlZipInput" accept=".zip">
-            <button onclick="processXmlZip2()">Xử lý Và Tải xuống mod thập cẩm</button>
-            <pre id="xmlOutput"></pre>
+    <h2>Mod Skill Sáng Đậm</h2>
+    <label for="xmlZipInput" class="file-label">Đưa Tệp Zip xml</label>
+    <input type="file" id="xmlZipInput" accept=".zip">
+    
+    <div>
+        <input type="radio" id="onlyTriggerParticleTick" name="modOption" value="TriggerParticleTick" checked>
+        <label for="onlyTriggerParticleTick">Mod Skill Sáng Đậm(Không Lỗi Mạng.)-triggerparticletick[BEST CHOICE]</label><br>
+        <input type="radio" id="fullMod" name="modOption" value="both">
+        <label for="fullMod">Mod Full Skill Sáng Đậm(Bị Lỗi Mạng Cao.)-triggerparticletick+triggerparticle[BAD CHOICE]</label>
+    </div>
+    
+    <button onclick="processXmlZip()">Xử lý tệp và Tải xuống mod Zip</button>
+    <pre id="xmlOutput"></pre>
+    
+    <h3>MOD SKILL THẬP CẨM</h3>
+    <input type="file" id="xmlZipInput2" accept=".zip">
+    
+    <div>
+        <input type="radio" id="onlyTriggerParticleTick2" name="modOption2" value="TriggerParticleTick" checked>
+        <label for="onlyTriggerParticleTick2">Mod Skill Thập Cẩm(Không Lỗi Mạng.)-triggerparticletick[BEST CHOICE]</label><br>
+        <input type="radio" id="fullMod2" name="modOption2" value="both">
+        <label for="fullMod2">Mod Full Skill Thập Cẩm(Bị Lỗi Mạng Cao.)-triggerparticletick+triggerparticle[BAD CHOICE]</label>
+    </div>
+    
+    <button onclick="processXmlZip2()">Xử lý Và Tải xuống mod thập cẩm</button>
+    <pre id="xmlOutput"></pre>
+</div>
             <h4>MOD NGOẠI HÌNH TƯỚNG</h4>
  <label for="fileInput" class="file-label">Chọn Tệp Bytes</label>
 <input type="file" id="fileInput" accept=".bytes">
@@ -638,9 +656,10 @@ B3: pip install pyzstd==0.15.4
             infoBox.style.display = (infoBox.style.display === 'block') ? 'none' : 'block';
         }
 
-        async function processXmlZip() {
+    async function processXmlZip() {
     const xmlZipInput = document.getElementById('xmlZipInput');
     const xmlOutput = document.getElementById('xmlOutput');
+    const modOption = document.querySelector('input[name="modOption"]:checked').value;
 
     if (!xmlZipInput.files.length) {
         alert('Vui lòng chọn tệp zip XML.');
@@ -662,7 +681,7 @@ B3: pip install pyzstd==0.15.4
             xmlString = await file.async('text');
         } catch (error) {
             console.warn(`Không thể đọc tệp: ${filename}. Bỏ qua.`);
-            continue; // Bỏ qua tệp này nếu không thể đọc
+            continue;
         }
 
         let parser = new DOMParser();
@@ -675,7 +694,7 @@ B3: pip install pyzstd==0.15.4
             }
         } catch (error) {
             console.warn(`Không thể phân tích tệp XML: ${filename}. Bỏ qua.`);
-            continue; // Bỏ qua tệp này nếu có lỗi khi phân tích cú pháp
+            continue;
         }
 
         let tracks = xmlDoc.getElementsByTagName("Track");
@@ -683,7 +702,7 @@ B3: pip install pyzstd==0.15.4
 
         Array.from(tracks).forEach(track => {
             const eventType = track.getAttribute('eventType');
-            if (eventType === 'TriggerParticleTick' || eventType === 'TriggerParticle') {
+            if (eventType === 'TriggerParticleTick' || (modOption === 'both' && eventType === 'TriggerParticle')) {
                 tracksToDuplicate.push(track);
             }
         });
@@ -697,14 +716,14 @@ B3: pip install pyzstd==0.15.4
 
             let parentElement = track.parentNode;
             newTracks.forEach(newTrack => {
-                parentElement.insertBefore(newTrack, track.nextSibling);
+                parentElement.appendChild(newTrack);
                 let blankLine = document.createTextNode("\n");
-                parentElement.insertBefore(blankLine, newTrack);
+                parentElement.appendChild(blankLine);
             });
 
             newTracks.forEach(newTrack => {
                 let comment = document.createComment(" Tulen Dac Cau");
-                parentElement.insertBefore(comment, newTrack.nextSibling);
+                parentElement.appendChild(comment);
             });
         });
 
@@ -723,8 +742,9 @@ B3: pip install pyzstd==0.15.4
 }
 
 async function processXmlZip2() {
-    const xmlZipInput = document.getElementById('xmlZipInput');
+    const xmlZipInput = document.getElementById('xmlZipInput2');
     const xmlOutput = document.getElementById('xmlOutput');
+    const modOption2 = document.querySelector('input[name="modOption2"]:checked').value;
 
     if (!xmlZipInput.files.length) {
         alert('Vui lòng chọn tệp zip XML.');
@@ -746,7 +766,7 @@ async function processXmlZip2() {
             xmlString = await file.async('text');
         } catch (error) {
             console.warn(`Không thể đọc tệp: ${filename}. Bỏ qua.`);
-            continue; // Bỏ qua tệp này nếu không thể đọc
+            continue;
         }
 
         let parser = new DOMParser();
@@ -759,7 +779,7 @@ async function processXmlZip2() {
             }
         } catch (error) {
             console.warn(`Không thể phân tích tệp XML: ${filename}. Bỏ qua.`);
-            continue; // Bỏ qua tệp này nếu có lỗi khi phân tích cú pháp
+            continue;
         }
 
         let tracks = xmlDoc.getElementsByTagName("Track");
@@ -767,7 +787,7 @@ async function processXmlZip2() {
 
         Array.from(tracks).forEach(track => {
             const eventType = track.getAttribute('eventType');
-            if (eventType === 'TriggerParticleTick' || eventType === 'TriggerParticle') {
+            if (eventType === 'TriggerParticleTick' || (modOption2 === 'both' && eventType === 'TriggerParticle')) {
                 tracksToDuplicate.push(track);
             }
         });
@@ -788,12 +808,12 @@ async function processXmlZip2() {
                         let newResourceName = `prefab_skill_effects/hero_skill_effects/${heroIdWithName}/${heroId}${String(i).padStart(2, '0')}/${effectPath}`;
                         newTrack.querySelector('String[name="resourceName"]').setAttribute('value', newResourceName);
 
-                        parentElement.insertBefore(newTrack, track.nextSibling);
+                        parentElement.appendChild(newTrack);
                         let blankLine = document.createTextNode("\n");
-                        parentElement.insertBefore(blankLine, newTrack);
+                        parentElement.appendChild(blankLine);
 
                         let comment = document.createComment(" Tulen Dac Cau");
-                        parentElement.insertBefore(comment, newTrack.nextSibling);
+                        parentElement.appendChild(comment);
                     }
                 }
             }
@@ -812,6 +832,7 @@ async function processXmlZip2() {
         link.click();
     });
 }
+
 function modifyFile() {
     const fileInput = document.getElementById('fileInput');
     const heroSelect = document.getElementById('heroSelect');
