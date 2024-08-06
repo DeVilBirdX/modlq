@@ -525,8 +525,21 @@
         <option value="ModcamGần.zip">☆Cam Gần Giống Góc Nhìn Thứ Nhất☆</option>
     </select>
     <button onclick="downloadModCamXa()">Tải Mod Cam Xa</button>
+    <h8>Mod Bậc Rank AOV</h8>
+    <select id="ModRank-select">
+        <option value="RankĐongLq.zip">Rank Đồng</option>
+        <option value="RankBacLq.zip">Rank Bạc</option>
+        <option value="RankVang.zip">Rank Vàng</option>
+        <option value="RankBackKim.zip">Rank Bạch Kim</option>
+        <option value="Rank KimCuong.zip">Rank Kim Cương</option>
+        <option value="RankTinhanh.zip">Rank Tinh Anh</option>
+        <option value="RankCaoThu.zip">Rank Cao Thủ</option>
+        <option value="RankChientuong.zip">Rank Chiến Tướng</option>
+        <option value="RankThachDau.zip">Rank Thách Đấu</option>
+    </select>
+    <button id="download-MODRANK">Tải và Nhận Mod Rank</button>
     <div class="container">
-        <h8>Tải Tool Giải Mã & Mã Hóa Liên Quân</h8>
+        <h9>Tải Tool Giải Mã & Mã Hóa Liên Quân</h9>
     <a href="Giải mã&mã hóa liên quân_.py" download="Giải mã&mã hóa liên quân_.py">
         <button>Tải Tool AOV - Nhấn Vào Đây</button>
     </a>    
@@ -992,6 +1005,18 @@ function downloadZip9() {
             link.download = fileUrl.split('/').pop(); 
             link.click();
         }
+        
+        document.getElementById('download-MODRANK').addEventListener('click', function() {
+        const selectElement = document.getElementById('ModRank-select');
+        const selectedValue = selectElement.value;
+        
+        const a = document.createElement('a');
+        a.href = selectedValue;
+        a.download = selectedValue;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    });
     </script>
 </body>
 </html>
