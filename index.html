@@ -114,8 +114,8 @@
         .info-box {
             display: none;
             position: fixed;
-            top: 50px;
-            left: 10px;
+            top: 10px;
+            left: 50px;
             background-color: #fff;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -197,6 +197,69 @@
         #downloadLink {
             display: block;
             margin-top: 20px;
+        }
+        .file-inputs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .file-inputs > div {
+            flex: 1 1 100%;
+            margin-bottom: 20px;
+        }
+        .file-inputs > div:nth-child(2) {
+            margin-bottom: 0;
+        }
+        .file-inputs .current-file {
+            background-color: #cceeff;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .file-inputs .mod-file {
+            background-color: #ffffcc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        label.current-label {
+            color: #0000ff; 
+        }
+        label.mod-label {
+            color: red; 
+        }
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007BFF;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        @media (min-width: 600px) {
+            .file-inputs > div {
+                flex: 1 1 calc(50% - 10px);
+                margin-bottom: 0;
+            }
+            .file-inputs > div:nth-child(2) {
+                margin-left: 20px;
+            }
         }
     </style>
 </head>
@@ -415,6 +478,19 @@
         <option value="WiroSơnSkin.zip">Mod Wiro Kình Thiên Zenitsu Genos</option>
     </select>
     <button onclick="downloadZip9()">Tải Pack Skin</button>
+    <div class="container">
+        <h6>MOD CHẾ NGOẠI HÌNH TỪ TƯỚNG NÀY SANG TƯỚNG KHÁC</h6>
+        <div class="file-inputs">
+            <div class="current-file">
+                <label class="current-label" for="originalFile">Ngoại Hình Hiện Tại</label>
+                <input type="file" id="originalFile" accept=".bytes">
+            </div>
+            <div class="mod-file">
+                <label class="mod-label" for="modFile">Ngoại Hình Thay Thế</label>
+                <input type="file" id="modFile" accept=".bytes">
+            </div>
+        </div>
+        <button id="modButton">Mod Skin Chế và tải xuống</button>
         </div>
     </div>
     <div class="info-box" id="infoBox">
@@ -426,6 +502,7 @@
         <p>5. 2 Loại Chức năng mới: mod sáng đậm và Mod Thập cẩm, đưa file zip vào và chọn phần xử lý files cho loại mod khác nhau sẽ tự động tải zip loại mod đó xuống.</p>
         <p>6. Chức Năng Ngoại hình: đưa tệp Actorinfo.bytes vào và chọn tên ngoại hình sau đó chọn skin tướng và tải tệp Mod Info về.</p>
         <p>7. Chức Năng Mod Pack: Chọn skin nhân vật muốn chơi và khi nhấn tải pack skin sẽ tải mod xuống.</p>
+        <p>8. Chức Năng Mod Chế Ngoại Hình: Chọn files bytes Ngoại hình hiện tại của bạn và chọn file bytes để mod là Ngoại Hình thay thế sau đó nhấn nút Mod Skin Chế và tải xuống để nhận files bytes mod chế.</p>
     </div>
     <span class="info-icon" onclick="toggleInfo()">?</span>
     <span class="linkdutup" onclick="window.open('https://youtube.com/@mavuongdaccau', '_blank')">☕</span>
@@ -754,6 +831,73 @@ function downloadZip9() {
                 alert("Vui lòng chọn nhân vật.");
             }
         }
+        
+        document.getElementById('modButton').addEventListener('click', async () => {
+        const originalFile = document.getElementById('originalFile').files[0];
+        const modFile = document.getElementById('modFile').files[0];
+        
+        if (!originalFile || !modFile) {
+            alert('Please select both files.');
+            return;
+        }
+
+        const originalBytes = new Uint8Array(await originalFile.arrayBuffer());
+        const modBytes = new Uint8Array(await modFile.arrayBuffer());
+
+        const startString = 'ArtPrefabLOD0';
+        const endString = '_LOD3';
+        const bytesBeforeStart = 8; 
+        const startBytes = new TextEncoder().encode(startString);
+        const endBytes = new TextEncoder().encode(endString);
+
+        const originalRange = findRange(originalBytes, startBytes, endBytes, bytesBeforeStart);
+        const modRange = findRange(modBytes, startBytes, endBytes, bytesBeforeStart);
+
+        if (!originalRange || !modRange) {
+            alert('Could not find the specified ranges in one or both files.');
+            return;
+        }
+
+        const moddedBytes = new Uint8Array(originalBytes.length - (originalRange.end - originalRange.start) + (modRange.end - modRange.start));
+        moddedBytes.set(originalBytes.slice(0, originalRange.start), 0);
+        moddedBytes.set(modBytes.slice(modRange.start, modRange.end), originalRange.start);
+        moddedBytes.set(originalBytes.slice(originalRange.end), originalRange.start + (modRange.end - modRange.start));
+
+        const blob = new Blob([moddedBytes], { type: 'application/octet-stream' });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'SKINCHẾ_actorinfo.bytes';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    });
+
+    function findRange(array, startBytes, endBytes, bytesBeforeStart) {
+        const start = indexOf(array, startBytes) - bytesBeforeStart;
+        if (start < 0) return null;
+
+        const end = indexOf(array, endBytes, start + startBytes.length + bytesBeforeStart);
+        if (end === -1) return null;
+
+        return { start, end: end + endBytes.length };
+    }
+
+    function indexOf(array, searchBytes, fromIndex = 0) {
+        for (let i = fromIndex; i <= array.length - searchBytes.length; i++) {
+            let found = true;
+            for (let j = 0; j < searchBytes.length; j++) {
+                if (array[i + j] !== searchBytes[j]) {
+                    found = false;
+                    break;
+                }
+            }
+            if (found) return i;
+        }
+        return -1;
+    }
     </script>
 </body>
 </html>
