@@ -551,8 +551,12 @@
         <li><a href="Tiếng Ấn Độ.zip" download="Tiếng Ấn Độ.zip">Tiếng Ấn Độ - India</a></li>
         <li><a href="Tiếng Ả Rập.zip" download="Tiếng Ả Rập.zip">Tiếng Ả Rập - Tunisia</a></li>
     </ul>
+        <h10>Mod Lính, Quái, Trụ Liên Quân</h10>
+    <button onclick="downloadFileModLinhQuaiTru('Lính.zip')">Mod Lính Vệ Thần</button>
+    <button onclick="downloadFileModLinhQuaiTru('Quái.zip')">Mod Quái Vệ Thần</button>
+    <button onclick="downloadFileModLinhQuaiTru('Trụ.zip')">Mod Trụ Vệ THần</button>
     <div class="container">
-        <h10>Tải Tool Giải Mã & Mã Hóa Liên Quân</h10>
+        <h11>Tải Tool Giải Mã & Mã Hóa Liên Quân</h11>
     <a href="Giải mã&mã hóa liên quân_.py" download="Giải mã&mã hóa liên quân_.py">
         <button>Tải Tool AOV - Nhấn Vào Đây</button>
     </a>    
@@ -1031,6 +1035,15 @@ function downloadZip9() {
         a.click();
         document.body.removeChild(a);
     });
+    
+    function downloadFileModLinhQuaiTru(filename) {
+            const link = document.createElement('a');
+            link.href = filename;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
     </script>
 </body>
 </html>
