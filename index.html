@@ -519,8 +519,11 @@
     <button onclick="downloadFileModLinhQuaiTru('Lính.zip')">Mod Lính Vệ Thần</button>
     <button onclick="downloadFileModLinhQuaiTru('Quái.zip')">Mod Quái Vệ Thần</button>
     <button onclick="downloadFileModLinhQuaiTru('Trụ.zip')">Mod Trụ Vệ THần</button>
+        <h11>Mod Video Sảnh Nền LQ</h11>
+    <input type="file" id="videoUpload" accept="video/mp4">
+    <button onclick="createModVideosex()">Tải mod sảnh nền</button>
     <div class="container">
-        <h11>Tải Tool Giải Mã & Mã Hóa Liên Quân</h11>
+        <h12>Tải Tool Giải Mã & Mã Hóa Liên Quân</h12>
     <a href="Giải mã&mã hóa liên quân_.py" download="Giải mã&mã hóa liên quân_.py">
         <button>Tải Tool AOV - Nhấn Vào Đây</button>
     </a>    
@@ -1008,6 +1011,37 @@ function downloadZip9() {
             link.click();
             document.body.removeChild(link);
         }
+        
+        function createModVideosex() {
+    const fileInput = document.getElementById('videoUpload');
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert('Please select a video file.');
+        return;
+    }
+
+    const folderName = 'Mod sảnh video/files/Extra/2019.V2/ISPDiff/LobbyMovie/';
+    const zip = new JSZip();
+    const folder = zip.folder(folderName);
+
+    const newFileName = 'PvpBtnDynamic132.mp4';
+
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onload = function(event) {
+        const arrayBuffer = event.target.result;
+
+        folder.file(newFileName, arrayBuffer);
+
+        zip.generateAsync({ type: 'blob' }).then(function(content) {
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(content);
+            link.download = 'Mod video Sảnh_LQ.zip';
+            link.click();
+        });
+    };
+}
     </script>
 </body>
 </html>
