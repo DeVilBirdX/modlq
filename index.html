@@ -523,6 +523,13 @@
     <button onclick="document.getElementById('videoUpload').click()">Chọn Video Làm Sảnh LQ</button>
     <input type="file" id="videoUpload" accept="video/mp4" style="display: none;">
     <button onclick="createModVideosex()">Tải mod sảnh nền</button>
+        <h12>Mod Âm Thanh, Giọng Liên Quân</h12>
+    <button onclick="downloadModSoundAOV('https://drive.google.com/file/d/15S94aSnbRFBvbq0zj3B38nhAksv7OmuS/view?usp=drivesdk')">Mod Sound Giọng Trung Quốc</button><br><br>
+    <button onclick="downloadModSoundAOV('https://drive.google.com/file/d/1zNcRsasLvieNWVM_ESqVRdr6vsuOu8aB/view?usp=drivesdk')">Mod Sound Giọng Thái Lan</button><br><br>
+    <button onclick="downloadModSoundAOV('https://drive.google.com/file/d/1rlaZA_9hhwmZ2F66yIgY3dNS4VUXSofU/view?usp=drivesdk')">Mod Sound Giọng Hàn Quốc</button><br><br>
+    <button onclick="downloadModSoundAOV('https://drive.google.com/file/d/1TRLQ81Rta2g-gH1zXIJo1mgeQJdBjYQT/view?usp=drivesdk')">Mod Sound Giọng Nhật Bản</button><br><br>
+    <p>Sound China,Thailand,Korean By Nhật Lê: <a href="https://youtu.be/N4AfgPVxK_k?si=z5WEfw8bCANrZB4I" target="_blank">https://youtu.be/N4AfgPVxK_k?si=z5WEfw8bCANrZB4I</a></p>
+    <p>Sound Japanese By Izno AOV: <a href="https://youtu.be/w5v0ur1sIWc?si=lSNNmwB9bUaXUqAf" target="_blank">https://youtu.be/w5v0ur1sIWc?si=lSNNmwB9bUaXUqAf</a></p>
     <div class="container">
         <h12>Tải Tool Giải Mã & Mã Hóa Liên Quân</h12>
     <a href="Giải mã&mã hóa liên quân_.py" download="Giải mã&mã hóa liên quân_.py">
@@ -1043,6 +1050,10 @@ function downloadZip9() {
         });
     };
 }
+
+function downloadModSoundAOV(link) {
+            window.location.href = link;
+        }
     </script>
 </body>
 </html>
