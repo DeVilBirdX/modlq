@@ -627,7 +627,7 @@ B3: pip install pyzstd==0.15.4
 
                     for (const [filename, file] of Object.entries(unzipped.files)) {
                         if (!file.dir) {
-                            if (filename.endsWith('.xml') || filename.endsWith('.bytes')) {
+                            if (filename.endsWith('.xml') || filename.endsWith('.txt')) {
                                 let fileContent = await file.async('text');
                                 for (const { oldText, newText } of replacements) {
                                     fileContent = fileContent.replace(new RegExp(oldText, 'g'), newText);
