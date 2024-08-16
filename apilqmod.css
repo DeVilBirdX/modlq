@@ -63,3 +63,32 @@
 #nhận-pass:hover {
     text-decoration: underline;
 }
+.linkdutup3-container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.linkdutup3-container {
+    top: 10px;
+    left: 10px;
+}
+.linkdutup3 {
+    background-size: cover;
+    background-position: center;
+    width: 55px;
+    height: 55px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+.linkdutup3 {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/nhachay-43b11.appspot.com/o/Polish_20240816_183016317.png?alt=media&token=762cad4c-dc98-4242-9807-d00c56bceaf3');
+}
+.linkdutup-text {
+    color: blue;
+    font-size: 13px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px lime;
+    margin-top: 5px; 
+    text-align: center;
+}
