@@ -6,6 +6,7 @@
     <title>TOOL MOD AOV VIP</title>
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.7.1/dist/jszip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="apilqmod.css">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -95,48 +96,42 @@
             opacity: 0;
             transition: opacity 0.5s;
         }
-        .info-icon {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            background-color: #0284c7;
-            color: white;
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 20px;
-            text-align: center;
-        }
-        .info-box {
-            display: none;
-            position: fixed;
-            top: 10px;
-            left: 50px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            width: 260px;
-            z-index: 10;
-        }
-        .linkdutup {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background-color: #0284c7;
-            color: white;
-            border-radius: 4px;
-            padding: 5px 15px;
-            cursor: pointer;
-            font-size: 20px;
-            text-align: center;
-            z-index: 10;
-        }
+.linkdutup2-container, .linkdutup-container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.linkdutup2-container {
+    top: 10px;
+    left: 10px;
+}
+.linkdutup-container {
+    top: 10px;
+    right: 10px;
+}
+.linkdutup2, .linkdutup {
+    background-size: cover;
+    background-position: center;
+    width: 55px;
+    height: 55px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+.linkdutup2 {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/nhachay-43b11.appspot.com/o/Polish_20240816_003132500.png?alt=media&token=695dd6d8-5c73-403e-8e52-1b5b2fa1cfd7');
+}
+.linkdutup {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/nhachay-43b11.appspot.com/o/Polish_20240816_003230296.png?alt=media&token=70b571ac-4bfc-4eca-b62f-7c83db2c48e0');
+}
+.linkdutup-text {
+    color: blue;
+    font-size: 13px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px lime;
+    margin-top: 5px; 
+    text-align: center;
+}
         .replacement-pair {
             display: flex;
             justify-content: center;
@@ -291,8 +286,9 @@
     </style>
 </head>
 <body>
+<div id="lockscreen-container"></div>
     <div class="container">
-        <h1>Mod Tệp Liên Quân</h1>
+        <h1>Mod Tệp Văn Bản Liên Quân</h1>
         <label for="fileInput" class="file-label">Chọn Tệp Zip</label>
         <input type="file" id="fileInput" accept=".zip">
         <div id="replacementContainer">
@@ -304,6 +300,7 @@
         </div>
         <button class="add-pair" onclick="addPair()">Thêm Cặp Văn Bản</button>
         <button onclick="replaceText()">Thay Thế Chữ Và Tải Xuống</button>
+        <p>*lưu ý nhỏ*:không sửa được tệp mã hóa hãy cẩn thận và xóa tệp đó đi.thank</p>
         <div id="status" class="status">✅ Tệp đã được nhận và đang xử lý</div>
 
         <div class="xml-duplicator">
@@ -586,21 +583,14 @@ B2: pip install --upgrade pip
 B3: pip install pyzstd==0.15.4
     </pre>
         </div>
-    </div>
-    <div class="info-box" id="infoBox">
-        <p><strong>Cách Làm:</strong></p>
-        <p>1. Nén 1 tệp zip lại rồi chọn tệp zip chứa file.</p>
-        <p>2. Nhập các văn bản chữ cần sửa và chữ thay thế.</p>
-        <p>3. Nhấn nút "Tải Xuống" để lấy file zip đã mod tệp và trải nghiệm.</p>
-        <p>4. Có thêm chức năng thêm các cặp văn bản để lưu trữ được nhiều văn bản thay thế hơn.</p>
-        <p>5. 2 Loại Chức năng mới: mod sáng đậm và Mod Thập cẩm, đưa file zip vào và chọn phần xử lý files cho loại mod khác nhau sẽ tự động tải zip loại mod đó xuống.</p>
-        <p>6. Chức Năng Ngoại hình: đưa tệp Actorinfo.bytes vào và chọn tên ngoại hình sau đó chọn skin tướng và tải tệp Mod Info về.</p>
-        <p>7. Chức Năng Mod Pack: Chọn skin nhân vật muốn chơi và khi nhấn tải pack skin sẽ tải mod xuống.</p>
-        <p>8. Chức Năng Mod Chế Ngoại Hình: Chọn files bytes Ngoại hình hiện tại của bạn và chọn file bytes để mod là Ngoại Hình thay thế sau đó nhấn nút Mod Skin Chế và tải xuống để nhận files bytes mod chế.</p>
-        <p>Và nhiều chức năng khác...</p>
-    </div>
-    <span class="info-icon" onclick="toggleInfo()">?</span>
-    <span class="linkdutup" onclick="window.open('https://youtube.com/@mavuongdaccau', '_blank')">Kênh YTB☕</span>
+    <div class="linkdutup2-container">
+    <div class="linkdutup2" onclick="window.open('https://youtube.com/@dnturbo02', '_blank')"></div>
+    <span class="linkdutup-text">•KN Turbo•</span>
+</div>
+<div class="linkdutup-container">
+    <div class="linkdutup" onclick="window.open('https://youtube.com/@mavuongdaccau', '_blank')"></div>
+    <span class="linkdutup-text">•TulenĐặcCầu•</span>
+</div>
 
     <script>
         function handleFileSelect() {
@@ -701,10 +691,6 @@ B3: pip install pyzstd==0.15.4
             zipReader.readAsArrayBuffer(zipFile);
         }
 
-        function toggleInfo() {
-            const infoBox = document.getElementById('infoBox');
-            infoBox.style.display = (infoBox.style.display === 'block') ? 'none' : 'block';
-        }
 
     async function processXmlZip() {
     const xmlZipInput = document.getElementById('xmlZipInput');
@@ -1098,6 +1084,62 @@ function downloadZip9() {
 function downloadModSoundAOV(link) {
             window.location.href = link;
         }
+        
+        fetch('modulelq.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('lockscreen-container').innerHTML = html;
+            });
+                        
+setTimeout(function() {
+    window.location.reload();
+  }, 12 * 60 * 60 * 1000);
+            
+    (function() {
+    let devToolsOpened = false;
+
+    document.addEventListener('keydown', function(e) {
+        if (
+            e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C')) || 
+            (e.ctrlKey && e.key === 'U') ||
+            (e.ctrlKey && e.key === 'C') || 
+            (e.ctrlKey && e.key === 'P') || 
+            (e.ctrlKey && e.key === 'S') || 
+            (e.ctrlKey && e.shiftKey && e.key === 'S')
+        ) {
+            e.preventDefault();
+            alert("Lỗi! Không được hỗ trợ.");
+        }
+    }, false);
+
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        alert("Lỗi! Không được hỗ trợ.");
+    }, false);
+
+    function detectDevTools() {
+        const start = performance.now();
+
+        debugger; 
+
+        const end = performance.now();
+
+        if (end - start > 100) {
+            devToolsOpened = true;
+            alert("Phát Hiện DevTool. Web Đã Bị Lỗi!");
+            window.location.reload();
+        }
+    }
+
+    setInterval(function() {
+        if (!devToolsOpened) {
+            detectDevTools();
+        }
+    }, 1000);
+})();
+
     </script>
+    <script src="9999.js"></script>
 </body>
 </html>
