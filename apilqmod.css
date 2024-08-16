@@ -63,15 +63,18 @@
 #nhận-pass:hover {
     text-decoration: underline;
 }
-.youtube-icon-container {
-    position: absolute;
+.youtube-container {
+    position: fixed; 
     top: 10px;
-    right: 10px; 
+    right: 10px;
     z-index: 1001; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.youtube-icon {
-    width: 55px; 
-    height: 55px; 
+.youtube {
+    width: 55px;
+    height: 55px;
     background-image: url('https://firebasestorage.googleapis.com/v0/b/nhachay-43b11.appspot.com/o/Polish_20240816_183016317.png?alt=media&token=762cad4c-dc98-4242-9807-d00c56bceaf3'); 
     background-size: cover;
     background-position: center;
