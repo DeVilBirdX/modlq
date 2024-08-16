@@ -1113,8 +1113,10 @@ setTimeout(function() {
     }, false);
 
     document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        alert("Lỗi! Không được hỗ trợ.");
+        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+            e.preventDefault();
+            alert("Lỗi! Không được hỗ trợ.");
+        }
     }, false);
 
     function detectDevTools() {
