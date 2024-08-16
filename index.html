@@ -104,17 +104,17 @@
 }
 .linkdutup2-container {
     top: 10px;
-    left: 20px;
+    left: 15px;
 }
 .linkdutup-container {
     top: 10px;
-    right: 20px;
+    right: 15px;
 }
 .linkdutup2, .linkdutup {
     background-size: cover;
     background-position: center;
-    width: 55px;
-    height: 55px;
+    width: 58px;
+    height: 58px;
     border-radius: 100%;
     cursor: pointer;
 }
@@ -124,12 +124,29 @@
 .linkdutup {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/nhachay-43b11.appspot.com/o/Polish_20240816_003230296.png?alt=media&token=70b571ac-4bfc-4eca-b62f-7c83db2c48e0');
 }
+@keyframes colorShift {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
 .linkdutup-text {
-    color: blue;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: bold;
-    text-shadow: 1px 1px 2px lime;
-    margin-top: 5px; 
+    color: transparent;
+    background: linear-gradient(360deg, #FF0081, #FFEA00, #00D084, #1E90FF, #BF00FF, #FF6F61, #FF4500, #32CD32, #8A2BE2, #FF1493, #FFD700, #00BFFF);
+    background-size: 800% 800%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: colorShift 3s linear infinite;
+    display: inline-block;
+    text-shadow: 0 0 5px lime; 
+    margin-top: 5px;
     text-align: center;
 }
         .replacement-pair {
