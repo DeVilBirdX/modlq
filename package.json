@@ -6,9 +6,9 @@
     "start": "netlify dev"
   },
   "dependencies": {
-    "@octokit/rest": "^latest-version"
+    "@octokit/rest": "^21.0.2"
   },
   "devDependencies": {
-    "netlify-cli": "^latest-version"
+    "netlify-cli": "^17.34.1"
   }
 }

@@ -1329,7 +1329,7 @@ chooseFromYoutube.addEventListener('click', function() {
             const message = document.getElementById('message').value;
             const feedback = `Tên của bạn: ${name}\nTin nhắn: ${message}`;
 
-            fetch('/.netlify/functions/save-feedback', {
+            fetch('/.netlify/functions/feedback', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
