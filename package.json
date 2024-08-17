@@ -1,0 +1,15 @@
+{
+  "name": "modlq",
+  "version": "1.0.0",
+  "main": "netlify/functions/feedback.js",
+  "scripts": {
+    "build": "echo 'Building...'",
+    "start": "netlify dev"
+  },
+  "dependencies": {
+    "@octokit/rest": "^latest-version"
+  },
+  "devDependencies": {
+    "netlify-cli": "^latest-version"
+  }
+}
