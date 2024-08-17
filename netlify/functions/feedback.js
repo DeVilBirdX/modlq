@@ -9,11 +9,10 @@ exports.handler = async (event) => {
             const repo = 'DeVilBirdX/modlq';  
             let filePath = 'PHANHOIMOD.txt';
 
-            
             while (true) {
                 try {
                     await octokit.repos.getContent({
-                        owner: 'DeVilBirdX',  
+                        owner: 'DeVilBirdX',
                         repo,
                         path: filePath
                     });
@@ -23,7 +22,6 @@ exports.handler = async (event) => {
                     filePath = `PHANHOIMOD${num + 1}.txt`;
                 } catch (error) {
                     if (error.status === 404) {
-                        
                         break;
                     }
                     throw error; 
@@ -31,7 +29,7 @@ exports.handler = async (event) => {
             }
 
             await octokit.repos.createOrUpdateFileContents({
-                owner: 'DeVilBirdX',  
+                owner: 'DeVilBirdX',
                 repo,
                 path: filePath,
                 message: 'Add feedback file',
