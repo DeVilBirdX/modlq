@@ -311,6 +311,79 @@
         .downloadCheckMapV-button:hover {
             background-color: #45a049;
         }
+        .playlist {
+            display: flex;
+            overflow-x: auto;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .playlist-item {
+            cursor: pointer;
+            margin: 0 10px;
+            padding: 10px;
+            min-width: 120px;
+            text-align: center;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .playlist-item:hover {
+            background-color: #4CAF50;
+            color: white;
+            transform: translateY(-5px);
+        }       
+        #music-options {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        #music-options button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        #music-options button:hover {
+            background-color: #45a049;
+        }
+        #close-options {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            background: none;
+            border: none;
+            color: #666;
+        }
+        #close-options:hover {
+            color: #333;
+        }
+        #video-player {
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -332,7 +405,7 @@
         <div id="status" class="status">✅ Tệp đã được nhận và đang xử lý</div>
 
         <div class="xml-duplicator">
-    <h2>Mod Skill Sáng Đậm</h2>
+    <h2>MOD SKILL SÁNG ĐẬM</h2>
     <label for="xmlZipInput" class="file-label">Đưa Tệp Zip xml</label>
     <input type="file" id="xmlZipInput" accept=".zip">
     
@@ -346,7 +419,7 @@
     <button onclick="processXmlZip()">Xử lý tệp và Tải xuống mod Zip</button>
     <pre id="xmlOutput"></pre>
     
-    <h3>MOD SKILL THẬP CẨM</h3>
+    <h1>MOD SKILL THẬP CẨM</h1>
     <input type="file" id="xmlZipInput" accept=".zip">
     
     <div>
@@ -359,7 +432,7 @@
     <button onclick="processXmlZip2()">Xử lý Và Tải xuống mod thập cẩm</button>
     <pre id="xmlOutput"></pre>
 </div>
-            <h4>MOD NGOẠI HÌNH TƯỚNG</h4>
+            <h2>MOD NGOẠI HÌNH TƯỚNG</h2>
  <label for="fileInput" class="file-label">Chọn Tệp Bytes</label>
 <input type="file" id="fileInput" accept=".bytes">
     <br>
@@ -514,14 +587,14 @@
     <br>
     <button onclick="modifyFile()">Mod InFo Byte Và Tải xuống</button>
     <a id="downloadLink" style="display:none">Download Mod File</a>
-        <h5>MOD PACK SKIN LQ</h5>
+        <h1>MOD PACK SKIN LQ</h1>
     <select id="championSelect">
         <option value="ModPackA.zip">Mod Full 119 Skin Pack Cực Đẹp</option>
         <option value="ModPackSadThu.zip">Mod Pack Sát Thủ Đẹp</option>
         <option value="WiroSơnSkin.zip">Mod Wiro Kình Thiên Zenitsu Genos</option>
     </select>
     <button onclick="downloadZip9()">Tải Pack Skin</button>
-        <h6>MOD CHẾ NGOẠI HÌNH TỪ TƯỚNG NÀY SANG TƯỚNG KHÁC</h6>
+        <h2>MOD CHẾ NGOẠI HÌNH TỪ TƯỚNG NÀY SANG TƯỚNG KHÁC</h2>
         <div class="file-inputs">
             <div class="current-file">
                 <label class="current-label" for="originalFile">Ngoại Hình Hiện Tại</label>
@@ -533,7 +606,7 @@
             </div>
         </div>
         <button id="modButton">Mod Skin Chế và tải xuống</button>
-        <h7>Mod Cam Xa LQ</h7>
+        <h1>Mod Cam Xa LQ</h1>
     <label for="zoomLevel">Chọn Mức Độ Cam Xa:</label>
     <select id="zoomLevel">
         <option value="camxa10.zip">Cam xa 10%</option>
@@ -549,13 +622,13 @@
         <option value="ModcamGần.zip">☆Cam Gần Giống Góc Nhìn Thứ Nhất☆</option>
     </select>
     <button onclick="downloadModCamXa()">Tải Mod Cam Xa</button>
-    <h8>Mod Bậc Rank AOV</h8>
+    <h2>Mod Bậc Rank AOV</h2>
         <p>LIÊN HỆ ZALO 0562335641 MUA TOOL MOD FULL 28 RANK TỪ ĐỒNG 3 TỚI THÁCH ĐẤU GIÁ RẺ 25K. Sẽ Không Chia Sẻ Mod Rank Nên Hãy Mua Tool Và Trải Nghiệm❤. MUA TOOL CÓ ID RANK VÀ HƯỚNG DẪN</p>
     <select id="ModRank-select">
         <option value="giảm cấm chat Xóa file tố cáo.zip">Hack Giảm Cấm Chat Và Xóa Tố Cáo</option>
     </select>
     <button id="download-MODRANK">Tải và Nhận Mod Rank</button>
-    <h9>Đổi Ngôn Ngữ Liên Quân</h9>
+    <h1>Đổi Ngôn Ngữ Liên Quân</h1>
     <ul>
         <li><a href="Tiếng Việt.zip" download="Tiếng Việt.zip">Tiếng Việt - Vietnamese</a></li>
         <li><a href="Tiếng Đài Loan.zip" download="Tiếng Đài Loan.zip">Tiếng Đài Loan - TaiWan</a></li>
@@ -567,22 +640,22 @@
         <li><a href="Tiếng Ấn Độ.zip" download="Tiếng Ấn Độ.zip">Tiếng Ấn Độ - India</a></li>
         <li><a href="Tiếng Ả Rập.zip" download="Tiếng Ả Rập.zip">Tiếng Ả Rập - Tunisia</a></li>
     </ul>
-        <h10>Mod Lính, Quái, Trụ Liên Quân</h10>
+        <h2>Mod Lính, Quái, Trụ Liên Quân</h2>
     <button onclick="downloadFileModLinhQuaiTru('Lính.zip')">Mod Lính Vệ Thần</button>
     <button onclick="downloadFileModLinhQuaiTru('Quái.zip')">Mod Quái Vệ Thần</button>
     <button onclick="downloadFileModLinhQuaiTru('Trụ.zip')">Mod Trụ Vệ THần</button>
-        <h11>Mod Video Sảnh Nền LQ</h11>
+        <h1>Mod Video Sảnh Nền LQ</h1>
     <button onclick="document.getElementById('videoUpload').click()">Chọn Video Làm Sảnh LQ</button>
     <input type="file" id="videoUpload" accept="video/mp4" style="display: none;">
     <button onclick="createModVideosex()">Tải mod sảnh nền</button>
-        <h12>Mod Âm Thanh, Giọng Liên Quân</h12>
+        <h2>Mod Âm Thanh, Giọng Liên Quân</h2>
     <button onclick="downloadModSoundAOV('https://drive.google.com/file/d/15S94aSnbRFBvbq0zj3B38nhAksv7OmuS/view?usp=drivesdk')">Mod Sound Giọng Trung Quốc</button><br><br>
     <button onclick="downloadModSoundAOV('https://drive.google.com/file/d/1zNcRsasLvieNWVM_ESqVRdr6vsuOu8aB/view?usp=drivesdk')">Mod Sound Giọng Thái Lan</button><br><br>
     <button onclick="downloadModSoundAOV('https://drive.google.com/file/d/1rlaZA_9hhwmZ2F66yIgY3dNS4VUXSofU/view?usp=drivesdk')">Mod Sound Giọng Hàn Quốc</button><br><br>
     <button onclick="downloadModSoundAOV('https://drive.google.com/file/d/1TRLQ81Rta2g-gH1zXIJo1mgeQJdBjYQT/view?usp=drivesdk')">Mod Sound Giọng Nhật Bản</button><br><br>
     <p>Sound China,Thailand,Korean By Nhật Lê: <a href="https://youtu.be/N4AfgPVxK_k?si=z5WEfw8bCANrZB4I" target="_blank">https://youtu.be/N4AfgPVxK_k?si=z5WEfw8bCANrZB4I</a></p>
     <p>Sound Japanese By Izno AOV: <a href="https://youtu.be/w5v0ur1sIWc?si=lSNNmwB9bUaXUqAf" target="_blank">https://youtu.be/w5v0ur1sIWc?si=lSNNmwB9bUaXUqAf</a></p>
-    <h13>Mod Map Giảm Lag LQ Cực Đẹp</h13>
+    <h1>Mod Map Giảm Lag Cực Đẹp</h1>
 <div class="modmap-container">
     <img src="mapxanh.jpg" alt="Mod Map Xanh - Đại Dương">
     <a href="mod map xanh.zip" download="mod map xanh.zip">
@@ -598,10 +671,34 @@
     <a href="mod map đen.zip" download="mod map đen.zip">
     <button>Tải Mod Map Đen Hôi</button>
 </div>
-    <h14></h14>
+    <h2></h2>
     <a href="Check Map beta.zip" download="Check Map beta.zip" class="downloadCheckMapV-button">Tải Check Map</a>
+    <h1>Nhạc Remix Leo Rank Chơi Game - Cân Team Là Dễ</h1>
+    <div>
+        <audio id="music-player" controls autoplay loop>
+            <source src="" type="audio/mpeg">
+        </audio>
+    </div>
+    <div class="playlist">
+        <div class="playlist-item" data-src="Y2meta.app - Legend Never Die x Warriors - Mit Remix _ Nhạc Hot Tik Tok Remix Mới Nhất 2023 (128 kbps).mp3" data-type="audio">Legend Never Die x Warriors - Mit Remix</div>
+        <div class="playlist-item" data-src="Y2meta.app - Khuất Lối Remix (Theron x Ness) - H Kray _ Hôm Nay Mưa Phụ Bay Remix Hot TikTok 2024 (128 kbps).mp3" data-type="audio">Khuất Lối Remix (Theron x Ness) - H Kray</div>
+        <div class="playlist-item" data-src="Y2meta.app - Vở Kịch Của Em - Vây Giữ REMIX (HuyN - Trường Alex) _ Chạy Theo Những Cuộc Vui Tình Ta Giờ Phai Nhoà (128 kbps).mp3" data-type="audio">Vở Kịch Của Em - Vây Giữ REMIX (HuyN - Trường Alex)</div>
+        <p>Nhạc Youtube</p>
+        <div class="playlist-item" data-src="https://www.youtube.com/embed/lVGsDrA_VLk" data-type="video">Nhạc Chill Tiktok - Tổng Hợp Những Bài Hát Tiktok "Nghe Là Nghiện"</div>
+    </div>
+    <div id="file-input-container">
+        <button id="file-input-button">Chọn Nhạc Yêu Thích Của Bạn</button>
+    </div>
+    <div id="music-options">
+        <button id="close-options">×</button>
+        <button id="choose-from-device">Chọn Từ Máy Bạn</button>
+        <button id="choose-from-youtube">Tìm Kiếm Nhạc Youtube</button>
+    </div>
+    <input type="file" id="file-input" accept="audio/mp3">
+    <iframe id="video-player" src="" frameborder="1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
     <div class="container">
-        <h15>Tải Tool Giải Mã & Mã Hóa Liên Quân</h15>
+        <h3>Tải Tool Giải Mã & Mã Hóa Liên Quân</h3>
     <a href="Giải mã&mã hóa liên quân_.py" download="Giải mã&mã hóa liên quân_.py">
         <button>Tải Tool AOV - Nhấn Vào Đây</button>
     </a>    
@@ -1113,6 +1210,91 @@ function downloadZip9() {
 function downloadModSoundAOV(link) {
             window.location.href = link;
         }
+
+        const fileInput = document.getElementById('file-input');
+        const musicPlayer = document.getElementById('music-player');
+        const videoPlayer = document.getElementById('video-player');
+        const playlistItems = document.querySelectorAll('.playlist-item');
+        const musicOptions = document.getElementById('music-options');
+        const fileInputButton = document.getElementById('file-input-button');
+        const chooseFromDevice = document.getElementById('choose-from-device');
+        const chooseFromYoutube = document.getElementById('choose-from-youtube');
+        const closeOptions = document.getElementById('close-options');
+
+        fileInputButton.addEventListener('click', function() {
+            musicOptions.style.display = 'block';
+        });
+
+        chooseFromDevice.addEventListener('click', function() {
+            musicOptions.style.display = 'none';
+            fileInput.click();
+        });
+
+chooseFromYoutube.addEventListener('click', function() {
+    musicOptions.style.display = 'none';
+    const youtubeURL = prompt('Nhập Link Youtube:');
+    if (youtubeURL) {
+        let videoId = '';
+
+        if (youtubeURL.includes('youtube.com/watch') || youtubeURL.includes('m.youtube.com/watch')) {
+            const urlParams = new URLSearchParams(new URL(youtubeURL).search);
+            videoId = urlParams.get('v');
+        } 
+        else if (youtubeURL.includes('youtu.be/')) {
+            videoId = youtubeURL.split('youtu.be/')[1]?.split('?')[0];
+        } 
+        else if (youtubeURL.includes('youtube.com/playlist')) {
+            const urlParams = new URLSearchParams(new URL(youtubeURL).search);
+            videoId = urlParams.get('list');
+        }
+
+        if (videoId) {
+            let embedURL = '';
+            if (youtubeURL.includes('youtube.com/playlist') || youtubeURL.includes('m.youtube.com/playlist')) {
+                embedURL = `https://www.youtube.com/embed/?listType=playlist&list=${videoId}`;
+            } else {
+                embedURL = `https://www.youtube.com/embed/${videoId}`;
+            }
+            videoPlayer.src = embedURL;
+            videoPlayer.style.display = "block";
+            musicPlayer.style.display = "none";
+        } else {
+            alert('Link Nhạc không hợp lệ.');
+        }
+    }
+});
+
+        closeOptions.addEventListener('click', function() {
+            musicOptions.style.display = 'none';
+        });
+
+        fileInput.addEventListener('change', function() {
+            const files = fileInput.files;
+            if (files.length > 0) {
+                const fileURL = URL.createObjectURL(files[0]);
+                musicPlayer.src = fileURL;
+                videoPlayer.style.display = "none"; 
+                musicPlayer.style.display = "block";
+                musicPlayer.play();
+            }
+        });
+
+        playlistItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const src = item.getAttribute('data-src');
+                const type = item.getAttribute('data-type');
+                if (type === "video") {
+                    videoPlayer.src = src;
+                    videoPlayer.style.display = "block";
+                    musicPlayer.style.display = "none"; 
+                } else {
+                    musicPlayer.src = src;
+                    videoPlayer.style.display = "none"; 
+                    musicPlayer.style.display = "block";
+                    musicPlayer.play();
+                }
+            });
+        });        
         
         fetch('modulelq.html')
             .then(response => response.text())
