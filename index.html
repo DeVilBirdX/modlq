@@ -366,11 +366,10 @@
         }
         #close-options {
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: 170px;
+            left: 5px;
             cursor: pointer;
-            font-size: 5px;
-            background: none;
+            font-size: 0px;
             border: none;
             color: #666;
         }
@@ -404,35 +403,28 @@
         <p>*lưu ý nhỏ*:không sửa được tệp mã hóa hãy cẩn thận và xóa tệp đó đi.thank</p>
         <div id="status" class="status">✅ Tệp đã được nhận và đang xử lý</div>
 
-        <div class="xml-duplicator">
+    <div class="xml-duplicator">
     <h2>MOD SKILL SÁNG ĐẬM</h2>
     <label for="xmlZipInput" class="file-label">Đưa Tệp Zip xml</label>
     <input type="file" id="xmlZipInput" accept=".zip">
-    
     <div>
-        <input type="radio" id="onlyTriggerParticleTick" name="modOption" value="TriggerParticleTick" checked>
-        <label for="onlyTriggerParticleTick">•Mod Skill Sáng Đậm Ít Effect(Không Lỗi Mạng.)-triggerparticletick[LỰA CHỌN ỔN ĐỊNH]•</label><br>
-        <input type="radio" id="fullMod" name="modOption" value="both">
-        <label for="fullMod">▪︎Mod Full Skill Effect Sáng Đậm(Không Lỗi Mạng.)-triggerparticletick+triggerparticle[LỰA CHỌN TỐT NHẤT]▪︎</label>
-    </div>
-    
+        <input type="radio" id="fullMod" name="modType" value="sangdam" checked>
+        <label for="fullMod">▪︎MOD FULL SKILL EFFECT SÁNG ĐẬM(KHÔNG LỖI MẠNG) - ×triggerparticletick+triggerparticle×▪︎</label>
+    </div>    
     <button onclick="processXmlZip()">Xử lý tệp và Tải xuống mod Zip</button>
-    <pre id="xmlOutput"></pre>
-    
+    <pre id="xmlOutput"></pre>    
     <h1>MOD SKILL THẬP CẨM</h1>
+    <label for="xmlZipInput" class="file-label">Đưa Tệp Zip xml</label>
     <input type="file" id="xmlZipInput" accept=".zip">
-    
     <div>
-        <input type="radio" id="onlyTriggerParticleTick2" name="modOption2" value="TriggerParticleTick" checked>
-        <label for="onlyTriggerParticleTick2">•Mod Skill Thập Cẩm Ít Effect(Không Lỗi Mạng.)-triggerparticletick[LỰA CHỌN ỔN ĐỊNH]•</label><br>
-        <input type="radio" id="fullMod2" name="modOption2" value="both">
-        <label for="fullMod2">▪︎Mod Full Skill Effect Thập Cẩm(Không Lỗi Mạng.)-triggerparticletick+triggerparticle[LỰA CHỌN TỐT NHẤT]▪︎</label>
-    </div>
-    
+        <input type="radio" id="fullMod2" name="modType" value="thapcam">
+        <label for="fullMod2">▪︎MOD FULL SKILL EFFECT THẬP CẨM(KHÔNG LỖI MẠNG) - ×triggerparticletick+triggerparticle×▪︎</label>
+    </div>    
     <button onclick="processXmlZip2()">Xử lý Và Tải xuống mod thập cẩm</button>
     <pre id="xmlOutput"></pre>
 </div>
-            <h2>MOD NGOẠI HÌNH TƯỚNG</h2>
+    
+      <h2>MOD NGOẠI HÌNH TƯỚNG</h2>
  <label for="fileInput" class="file-label">Chọn Tệp Bytes</label>
 <input type="file" id="fileInput" accept=".bytes">
     <br>
@@ -673,7 +665,7 @@
 </div>
     <h2></h2>
     <a href="Check Map beta.zip" download="Check Map beta.zip" class="downloadCheckMapV-button">Tải Check Map</a>
-    <h1>Nhạc Remix Leo Rank Chơi Game - Cân Team Là Dễ</h1>
+    <h2>Nhạc Remix Leo Rank Chơi Game - Cân Team Là Dễ</h2>
     <div>
         <audio id="music-player" controls autoplay loop>
             <source src="" type="audio/mpeg">
@@ -690,9 +682,9 @@
         <button id="file-input-button">Chọn Nhạc Yêu Thích Của Bạn</button>
     </div>
     <div id="music-options">
-        <button id="close-options">×</button>
-        <button id="choose-from-device">Chọn Từ Máy Bạn</button>
+        <button id="choose-from-device">Chọn Mp3 Của Bạn</button>
         <button id="choose-from-youtube">Tìm Kiếm Nhạc Youtube</button>
+        <button id="close-options">✖</button>
     </div>
     <input type="file" id="file-input" accept="audio/mp3">
     <iframe id="video-player" src="" frameborder="1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -818,181 +810,191 @@ B3: pip install pyzstd==0.15.4
 
 
     async function processXmlZip() {
-    const xmlZipInput = document.getElementById('xmlZipInput');
-    const xmlOutput = document.getElementById('xmlOutput');
-    const modOption = document.querySelector('input[name="modOption"]:checked').value;
+        const xmlZipInput = document.getElementById('xmlZipInput');
+        const xmlOutput = document.getElementById('xmlOutput');
+        const modType = document.querySelector('input[name="modType"]:checked').value;
 
-    if (!xmlZipInput.files.length) {
-        alert('Vui lòng chọn tệp zip XML.');
-        return;
-    }
-
-    const zipFile = xmlZipInput.files[0];
-    const zip = new JSZip();
-    const zipContent = await zip.loadAsync(zipFile);
-
-    const files = Object.keys(zipContent.files);
-    const xmlFiles = files.filter(filename => filename.endsWith('.xml'));
-
-    for (let filename of xmlFiles) {
-        let file = zipContent.files[filename];
-        let xmlString;
-
-        try {
-            xmlString = await file.async('text');
-        } catch (error) {
-            console.warn(`Không thể đọc tệp: ${filename}. Bỏ qua.`);
-            continue;
+        if (modType !== 'sangdam') {
+            alert('Bạn đã chọn mod loại khác. Vui lòng chọn lại loại mod sáng đậm.');
+            return;
         }
 
-        let parser = new DOMParser();
-        let xmlDoc;
-
-        try {
-            xmlDoc = parser.parseFromString(xmlString, "text/xml");
-            if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
-                throw new Error("Error parsing XML");
-            }
-        } catch (error) {
-            console.warn(`Không thể phân tích tệp XML: ${filename}. Bỏ qua.`);
-            continue;
+        if (!xmlZipInput.files.length) {
+            alert('Vui lòng chọn tệp zip XML.');
+            return;
         }
 
-        let tracks = xmlDoc.getElementsByTagName("Track");
-        let tracksToDuplicate = [];
+        const zipFile = xmlZipInput.files[0];
+        const zip = new JSZip();
+        const zipContent = await zip.loadAsync(zipFile);
 
-        Array.from(tracks).forEach(track => {
-            const eventType = track.getAttribute('eventType');
-            if (eventType === 'TriggerParticleTick' || (modOption === 'both' && eventType === 'TriggerParticle')) {
-                tracksToDuplicate.push(track);
+        const files = Object.keys(zipContent.files);
+        const xmlFiles = files.filter(filename => filename.endsWith('.xml'));
+
+        for (let filename of xmlFiles) {
+            let file = zipContent.files[filename];
+            let xmlString;
+
+            try {
+                xmlString = await file.async('text');
+            } catch (error) {
+                console.warn(`Không thể đọc tệp: ${filename}. Bỏ qua.`);
+                continue;
             }
-        });
 
-        tracksToDuplicate.forEach(track => {
-            let newTracks = [];
-            for (let i = 0; i < 15; i++) {
-                let newTrack = track.cloneNode(true);
-                newTracks.push(newTrack);
+            let parser = new DOMParser();
+            let xmlDoc;
+
+            try {
+                xmlDoc = parser.parseFromString(xmlString, "text/xml");
+                if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
+                    throw new Error("Error parsing XML");
+                }
+            } catch (error) {
+                console.warn(`Không thể phân tích tệp XML: ${filename}. Bỏ qua.`);
+                continue;
             }
 
-            let parentElement = track.parentNode;
-            newTracks.forEach(newTrack => {
-                parentElement.appendChild(newTrack);
-                let blankLine = document.createTextNode("\n");
-                parentElement.appendChild(blankLine);
+            let tracks = xmlDoc.getElementsByTagName("Track");
+            let tracksToDuplicate = [];
+
+            Array.from(tracks).forEach(track => {
+                const eventType = track.getAttribute('eventType');
+                if (eventType === 'TriggerParticleTick' || eventType === 'TriggerParticle') {
+                    tracksToDuplicate.push(track);
+                }
             });
 
-            newTracks.forEach(newTrack => {
-                let comment = document.createComment(" Tulen Dac Cau");
-                parentElement.appendChild(comment);
+            tracksToDuplicate.forEach(track => {
+                let newTracks = [];
+                for (let i = 0; i < 15; i++) {
+                    let newTrack = track.cloneNode(true);
+                    newTracks.push(newTrack);
+                }
+
+                let parentElement = track.parentNode;
+                newTracks.forEach(newTrack => {
+                    parentElement.appendChild(newTrack);
+                    let blankLine = document.createTextNode("\n");
+                    parentElement.appendChild(blankLine);
+                });
+
+                newTracks.forEach(newTrack => {
+                    let comment = document.createComment(" Tulen Dac Cau");
+                    parentElement.appendChild(comment);
+                });
             });
-        });
 
-        let serializer = new XMLSerializer();
-        let newXmlString = serializer.serializeToString(xmlDoc);
-        zip.file(filename, newXmlString);
-        xmlOutput.textContent += `Processed File: ${filename}\n`;
-    }
-
-    zip.generateAsync({ type: "blob" }).then(content => {
-        let link = document.createElement('a');
-        link.href = URL.createObjectURL(content);
-        link.download = 'sángđậmEFFect.zip';
-        link.click();
-    });
-}
-
-async function processXmlZip2() {
-    const xmlZipInput = document.getElementById('xmlZipInput');
-    const xmlOutput = document.getElementById('xmlOutput');
-    const modOption2 = document.querySelector('input[name="modOption2"]:checked').value;
-
-    if (!xmlZipInput.files.length) {
-        alert('Vui lòng chọn tệp zip XML.');
-        return;
-    }
-
-    const zipFile = xmlZipInput.files[0];
-    const zip = new JSZip();
-    const zipContent = await zip.loadAsync(zipFile);
-
-    const files = Object.keys(zipContent.files);
-    const xmlFiles = files.filter(filename => filename.endsWith('.xml'));
-
-    for (let filename of xmlFiles) {
-        let file = zipContent.files[filename];
-        let xmlString;
-
-        try {
-            xmlString = await file.async('text');
-        } catch (error) {
-            console.warn(`Không thể đọc tệp: ${filename}. Bỏ qua.`);
-            continue;
+            let serializer = new XMLSerializer();
+            let newXmlString = serializer.serializeToString(xmlDoc);
+            zip.file(filename, newXmlString);
+            xmlOutput.textContent += `Processed File: ${filename}\n`;
         }
 
-        let parser = new DOMParser();
-        let xmlDoc;
+        zip.generateAsync({ type: "blob" }).then(content => {
+            let link = document.createElement('a');
+            link.href = URL.createObjectURL(content);
+            link.download = 'sángđậmEFFect.zip';
+            link.click();
+        });
+    }
 
-        try {
-            xmlDoc = parser.parseFromString(xmlString, "text/xml");
-            if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
-                throw new Error("Error parsing XML");
-            }
-        } catch (error) {
-            console.warn(`Không thể phân tích tệp XML: ${filename}. Bỏ qua.`);
-            continue;
+    async function processXmlZip2() {
+        const xmlZipInput = document.getElementById('xmlZipInput');
+        const xmlOutput = document.getElementById('xmlOutput');
+        const modType = document.querySelector('input[name="modType"]:checked').value;
+
+        if (modType !== 'thapcam') {
+            alert('Bạn đã chọn mod loại khác. Vui lòng chọn lại loại mod thập cẩm.');
+            return;
         }
 
-        let tracks = xmlDoc.getElementsByTagName("Track");
-        let tracksToDuplicate = [];
+        if (!xmlZipInput.files.length) {
+            alert('Vui lòng chọn tệp zip XML.');
+            return;
+        }
 
-        Array.from(tracks).forEach(track => {
-            const eventType = track.getAttribute('eventType');
-            if (eventType === 'TriggerParticleTick' || (modOption2 === 'both' && eventType === 'TriggerParticle')) {
-                tracksToDuplicate.push(track);
+        const zipFile = xmlZipInput.files[0];
+        const zip = new JSZip();
+        const zipContent = await zip.loadAsync(zipFile);
+
+        const files = Object.keys(zipContent.files);
+        const xmlFiles = files.filter(filename => filename.endsWith('.xml'));
+
+        for (let filename of xmlFiles) {
+            let file = zipContent.files[filename];
+            let xmlString;
+
+            try {
+                xmlString = await file.async('text');
+            } catch (error) {
+                console.warn(`Không thể đọc tệp: ${filename}. Bỏ qua.`);
+                continue;
             }
-        });
 
-        tracksToDuplicate.forEach(track => {
-            let resourceNameNode = track.querySelector('String[name="resourceName"]');
-            if (resourceNameNode) {
-                let resourceName = resourceNameNode.getAttribute('value');
-                let match = resourceName.match(/prefab_skill_effects\/hero_skill_effects\/(\d{3}_\w+)\//);
-                if (match) {
-                    let heroIdWithName = match[1];
-                    let heroId = heroIdWithName.split('_')[0];
-                    let effectPath = resourceName.split('/').slice(3).join('/'); // giữ nguyên phần "code hiệu ứng"
-                    let parentElement = track.parentNode;
+            let parser = new DOMParser();
+            let xmlDoc;
 
-                    for (let i = 1; i <= 20; i++) {
-                        let newTrack = track.cloneNode(true);
-                        let newResourceName = `prefab_skill_effects/hero_skill_effects/${heroIdWithName}/${heroId}${String(i).padStart(2, '0')}/${effectPath}`;
-                        newTrack.querySelector('String[name="resourceName"]').setAttribute('value', newResourceName);
+            try {
+                xmlDoc = parser.parseFromString(xmlString, "text/xml");
+                if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
+                    throw new Error("Error parsing XML");
+                }
+            } catch (error) {
+                console.warn(`Không thể phân tích tệp XML: ${filename}. Bỏ qua.`);
+                continue;
+            }
 
-                        parentElement.appendChild(newTrack);
-                        let blankLine = document.createTextNode("\n");
-                        parentElement.appendChild(blankLine);
+            let tracks = xmlDoc.getElementsByTagName("Track");
+            let tracksToDuplicate = [];
 
-                        let comment = document.createComment(" Tulen Dac Cau");
-                        parentElement.appendChild(comment);
+            Array.from(tracks).forEach(track => {
+                const eventType = track.getAttribute('eventType');
+                if (eventType === 'TriggerParticleTick' || eventType === 'TriggerParticle') {
+                    tracksToDuplicate.push(track);
+                }
+            });
+
+            tracksToDuplicate.forEach(track => {
+                let resourceNameNode = track.querySelector('String[name="resourceName"]');
+                if (resourceNameNode) {
+                    let resourceName = resourceNameNode.getAttribute('value');
+                    let match = resourceName.match(/prefab_skill_effects\/hero_skill_effects\/(\d{3}_\w+)\//);
+                    if (match) {
+                        let heroIdWithName = match[1];
+                        let heroId = heroIdWithName.split('_')[0];
+                        let effectPath = resourceName.split('/').slice(3).join('/'); // giữ nguyên phần "code hiệu ứng"
+                        let parentElement = track.parentNode;
+
+                        for (let i = 1; i <= 20; i++) {
+                            let newTrack = track.cloneNode(true);
+                            let newResourceName = `prefab_skill_effects/hero_skill_effects/${heroIdWithName}/${heroId}${String(i).padStart(2, '0')}/${effectPath}`;
+                            newTrack.querySelector('String[name="resourceName"]').setAttribute('value', newResourceName);
+
+                            parentElement.appendChild(newTrack);
+                            let blankLine = document.createTextNode("\n");
+                            parentElement.appendChild(blankLine);
+
+                            let comment = document.createComment(" Tulen Dac Cau");
+                            parentElement.appendChild(comment);
+                        }
                     }
                 }
-            }
+            });
+
+            let serializer = new XMLSerializer();
+            let newXmlString = serializer.serializeToString(xmlDoc);
+            zip.file(filename, newXmlString);
+            xmlOutput.textContent += `Processed File: ${filename}\n`;
+        }
+
+        zip.generateAsync({ type: "blob" }).then(content => {
+            let link = document.createElement('a');
+            link.href = URL.createObjectURL(content);
+            link.download = 'SKINThậpCẩm.zip';
+            link.click();
         });
-
-        let serializer = new XMLSerializer();
-        let newXmlString = serializer.serializeToString(xmlDoc);
-        zip.file(filename, newXmlString);
-        xmlOutput.textContent += `Processed File: ${filename}\n`;
     }
-
-    zip.generateAsync({ type: "blob" }).then(content => {
-        let link = document.createElement('a');
-        link.href = URL.createObjectURL(content);
-        link.download = 'SKINThậpCẩm.zip';
-        link.click();
-    });
-}
 
 function modifyFile() {
     const fileInput = document.getElementById('fileInput');
