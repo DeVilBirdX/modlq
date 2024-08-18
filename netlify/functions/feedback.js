@@ -7,26 +7,7 @@ exports.handler = async (event) => {
             const { feedback } = JSON.parse(event.body);
             const content = Buffer.from(feedback).toString('base64');
             const repo = 'DeVilBirdX/modlq';  
-            let filePath = 'PHANHOIMOD.txt';
-
-            while (true) {
-                try {
-                    await octokit.repos.getContent({
-                        owner: 'DeVilBirdX',
-                        repo,
-                        path: filePath
-                    });
-                    
-                    const match = filePath.match(/(\d+)?\.txt$/);
-                    const num = match[1] ? parseInt(match[1], 10) : 1;
-                    filePath = `PHANHOIMOD${num + 1}.txt`;
-                } catch (error) {
-                    if (error.status === 404) {
-                        break;
-                    }
-                    throw error; 
-                }
-            }
+            const filePath = `comments/${Date.now()}.txt`;  
 
             await octokit.repos.createOrUpdateFileContents({
                 owner: 'DeVilBirdX',
@@ -38,7 +19,7 @@ exports.handler = async (event) => {
 
             return {
                 statusCode: 200,
-                body: JSON.stringify({ message: 'Phản hồi đã được lưu vào ' + filePath })
+                body: JSON.stringify({ message: 'Phản hồi đã được lưu!' })
             };
         } catch (error) {
             return {
