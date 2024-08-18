@@ -1360,6 +1360,11 @@ setTimeout(function() {
     }, 1000);
 })();
 
+fetch('modulelq.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('lockscreen-container').innerHTML = html;
+            });
     </script>
     <script src="9999.js"></script>
 </body>
