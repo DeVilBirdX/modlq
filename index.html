@@ -1409,14 +1409,14 @@ setTimeout(function() {
             (e.ctrlKey && e.shiftKey && e.key === 'S')
         ) {
             e.preventDefault();
-            alert("Lỗi! Không được hỗ trợ.");
+            alert("Lỗi! Thao tác bất thường.");
         }
     }, false);
 
     document.addEventListener('contextmenu', function(e) {
         if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
             e.preventDefault();
-            alert("Lỗi! Không được hỗ trợ.");
+            alert("Lỗi! Thao tác bất thường.");
         }
     }, false);
 
