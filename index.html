@@ -702,20 +702,6 @@
     <input type="file" id="file-input" accept="audio/mp3">
     <iframe id="video-player" src="" frameborder="5" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     <div class="container">
-        <h1>Gửi Yêu Cầu Mod Thường, Mod Pack Cho Admin Nếu Cần</h1>
-        <form class="feedbackForm">
-            <label for="name">Tên của bạn:</label>
-            <input type="text" class="name" required>
-            
-            <label for="message">Tin nhắn:</label>
-            <textarea class="message" rows="6" required></textarea>
-            
-            <button type="submit">Gửi phản hồi</button>
-        </form>
-        
-        <div class="comments"></div>
-    </div>
-    <div class="container">
         <h3>Tải Tool Giải Mã & Mã Hóa Liên Quân</h3>
     <a href="Giải mã&mã hóa liên quân_.py" download="Giải mã&mã hóa liên quân_.py">
         <button>Tải Tool AOV - Nhấn Vào Đây</button>
@@ -1323,45 +1309,7 @@ chooseFromYoutube.addEventListener('click', function() {
                 }
             });
         });        
-        
-        async function fetchComments() {
-            const response = await fetch('/.netlify/functions/getComments');
-            const comments = await response.json();
-
-            const commentsDiv = document.querySelector('.comments');
-            commentsDiv.innerHTML = '';
-
-            comments.forEach(comment => {
-                const newComment = document.createElement('div');
-                newComment.classList.add('comment');
-                newComment.textContent = comment;
-                commentsDiv.appendChild(newComment);
-            });
-        }
-
-        document.querySelector('.feedbackForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const name = document.querySelector('.name').value;
-            const message = document.querySelector('.message').value;
-            const feedback = `Tên của bạn: ${name}\nTin nhắn: ${message}`;
-
-            fetch('/.netlify/functions/feedback', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ feedback })
-            }).then(response => response.json())
-              .then(data => {
-                  alert(data.message);
-                  fetchComments();  
-              })
-              .catch(error => alert('Xảy ra lỗi: ' + error));
-        });
-
-        window.onload = fetchComments;
-                        
+                                
 setTimeout(function() {
     window.location.reload();
   }, 12 * 60 * 60 * 1000);
