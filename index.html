@@ -712,6 +712,8 @@
             
             <button type="submit">Gửi phản hồi</button>
         </form>
+        
+        <div id="comments"></div>
     </div>
     <div class="container">
         <h3>Tải Tool Giải Mã & Mã Hóa Liên Quân</h3>
@@ -1322,6 +1324,21 @@ chooseFromYoutube.addEventListener('click', function() {
             });
         });        
         
+        async function fetchComments() {
+            const response = await fetch('/.netlify/functions/getComments');
+            const comments = await response.json();
+
+            const commentsDiv = document.getElementById('comments');
+            commentsDiv.innerHTML = '';
+
+            comments.forEach(comment => {
+                const newComment = document.createElement('div');
+                newComment.classList.add('comment');
+                newComment.textContent = comment;
+                commentsDiv.appendChild(newComment);
+            });
+        }
+
         document.getElementById('feedbackForm').addEventListener('submit', function(event) {
             event.preventDefault();
             
@@ -1336,15 +1353,14 @@ chooseFromYoutube.addEventListener('click', function() {
                 },
                 body: JSON.stringify({ feedback })
             }).then(response => response.json())
-              .then(data => alert('Đã được gửi!'))
+              .then(data => {
+                  alert(data.message);
+                  fetchComments();  
+              })
               .catch(error => alert('Xảy ra lỗi: ' + error));
         });
-        
-        fetch('modulelq.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('lockscreen-container').innerHTML = html;
-            });
+
+        window.onload = fetchComments;
                         
 setTimeout(function() {
     window.location.reload();
