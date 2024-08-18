@@ -703,17 +703,17 @@
     <iframe id="video-player" src="" frameborder="5" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     <div class="container">
         <h1>Gửi Yêu Cầu Mod Thường, Mod Pack Cho Admin Nếu Cần</h1>
-        <form id="feedbackForm">
+        <form class="feedbackForm">
             <label for="name">Tên của bạn:</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" class="name" required>
             
             <label for="message">Tin nhắn:</label>
-            <textarea id="message" name="message" rows="6" required></textarea>
+            <textarea class="message" rows="6" required></textarea>
             
             <button type="submit">Gửi phản hồi</button>
         </form>
         
-        <div id="comments"></div>
+        <div class="comments"></div>
     </div>
     <div class="container">
         <h3>Tải Tool Giải Mã & Mã Hóa Liên Quân</h3>
@@ -1328,7 +1328,7 @@ chooseFromYoutube.addEventListener('click', function() {
             const response = await fetch('/.netlify/functions/getComments');
             const comments = await response.json();
 
-            const commentsDiv = document.getElementById('comments');
+            const commentsDiv = document.querySelector('.comments');
             commentsDiv.innerHTML = '';
 
             comments.forEach(comment => {
@@ -1339,11 +1339,11 @@ chooseFromYoutube.addEventListener('click', function() {
             });
         }
 
-        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+        document.querySelector('.feedbackForm').addEventListener('submit', function(event) {
             event.preventDefault();
             
-            const name = document.getElementById('name').value;
-            const message = document.getElementById('message').value;
+            const name = document.querySelector('.name').value;
+            const message = document.querySelector('.message').value;
             const feedback = `Tên của bạn: ${name}\nTin nhắn: ${message}`;
 
             fetch('/.netlify/functions/feedback', {
