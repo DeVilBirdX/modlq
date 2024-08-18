@@ -1,5 +1,5 @@
 const { Octokit } = require('@octokit/rest');
-const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+const octokit = new Octokit({ auth: process.env.Tulen_Daccau });
 
 exports.handler = async (event) => {
     if (event.httpMethod === 'POST') {
