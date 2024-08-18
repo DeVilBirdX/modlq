@@ -5,6 +5,12 @@ exports.handler = async (event) => {
     if (event.httpMethod === 'POST') {
         try {
             const { feedback } = JSON.parse(event.body);
+            if (!feedback) {
+                return {
+                    statusCode: 400,
+                    body: JSON.stringify({ message: 'Feedback không hợp lệ.' })
+                };
+            }
             const content = Buffer.from(feedback).toString('base64');
             const repo = 'DeVilBirdX/modlq';  
             const filePath = `comments/${Date.now()}.txt`;  
