@@ -448,6 +448,44 @@
             line-height: 1.5;
             color: #666;
         }
+        #image-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 800px; 
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #image-list img {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        #image-list img:hover {
+            transform: scale(1.1);
+            transition: transform 0.2s ease-in-out;
+        }
+        #image-list img:active {
+            transform: scale(1.2);
+            transition: transform 0.2s ease-in-out;
+        }
+        #image-list {
+            background-image: linear-gradient(to bottom, #fff, #f2f2f2);
+        }
+        #image-list img {
+            transition: all 0.2s ease-in-out;
+        }
+        #image-list img:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -1064,7 +1102,7 @@ B3: pip install pyzstd==0.15.4
                     if (match) {
                         let heroIdWithName = match[1];
                         let heroId = heroIdWithName.split('_')[0];
-                        let effectPath = resourceName.split('/').slice(3).join('/'); // giữ nguyên phần "code hiệu ứng"
+                        let effectPath = resourceName.split('/').slice(3).join('/'); 
                         let parentElement = track.parentNode;
 
                         for (let i = 1; i <= 20; i++) {
@@ -1464,6 +1502,41 @@ fetch('modulelq.html')
             
             window.location.href = mailtoLink;
         }
+        
+        const imageList = document.getElementById("image-list");
+
+        fetch('image-names.json')
+       .then(response => response.json())
+       .then(data => {
+                const imageNames = data.images;
+                imageNames.forEach(name => {
+                    const img = document.createElement("img");
+                    img.src = `files/CDNImage/HeroHeadIcon/${name}`;
+                    img.alt = name;
+                    img.id = name;
+                    img.addEventListener('click', function() {
+                        const fileInput = document.createElement('input');
+                        fileInput.type = 'file';
+                        fileInput.accept = 'image/*';
+                        fileInput.addEventListener('change', function(event) {
+                            const selectedFile = event.target.files[0];
+                            const newFileName = name; 
+
+                            const zip = new JSZip();
+                            zip.file(`files/CDNImage/HeroHeadIcon/${newFileName}`, selectedFile);
+
+                            zip.generateAsync({ type: "blob" }).then(content => {
+                                const link = document.createElement("a");
+                                link.href = URL.createObjectURL(content);
+                                link.download = "Mod Ảnh Tướng.zip";
+                                link.click();
+                            });
+                        });
+                        fileInput.click();
+                    });
+                    imageList.appendChild(img);
+                });
+            });
     </script>
     <script src="9999.js"></script>
 </body>
