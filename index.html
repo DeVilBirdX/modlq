@@ -1615,54 +1615,54 @@ fetch('modulelq.html')
                 });
             });
             
-    const randomBtn = document.getElementById('random-btn');
-    const resultDiv = document.getElementById('result');
-    const keyContainer = document.getElementById('key-container');
-    const keyInput = document.getElementById('key-input');
-    const submitKeyBtn = document.getElementById('submit-key-btn');
+const randomBtn = document.getElementById('random-btn');
+const resultDiv = document.getElementById('result');
+const keyContainer = document.getElementById('key-container');
+const keyInput = document.getElementById('key-input');
+const submitKeyBtn = document.getElementById('submit-key-btn');
 
-    const validKey = "KeyDung960"; 
-    let isKeyValid = false;
+const validKey = "KeyDung960"; 
+let isKeyValid = false;
+let accountData = [];
 
-    randomBtn.addEventListener('click', () => {
-      if (!isKeyValid) {
-        keyContainer.style.display = 'block';
-      } else {
-        fetchAccData();
-      }
-    });
+document.addEventListener('DOMContentLoaded', () => {
+  // Tải trước dữ liệu từ tệp acc.json khi trang web vừa mở
+  fetch('acc.json')
+    .then(response => response.json())
+    .then(data => {
+      accountData = data;
+    })
+    .catch(error => console.error('Error:', error));
+});
 
-    submitKeyBtn.addEventListener('click', () => {
-      const userKey = keyInput.value;
-      if (userKey === validKey) {
-        isKeyValid = true;
-        keyContainer.style.display = 'none';
-        fetchAccData();
-      } else {
-        resultDiv.innerHTML = '<p style="color: red;">Key không chính xác, vui lòng nhập lại...</p>';
-        setTimeout(() => {
-          resultDiv.innerHTML = '';
-        }, 200); 
-      }
-    });
+randomBtn.addEventListener('click', () => {
+  if (!isKeyValid) {
+    keyContainer.style.display = 'block';
+  } else {
+    displayRandomAccount();
+  }
+});
 
-    function fetchAccData() {
-      fetch('acc.json')
-        .then(response => response.json())
-        .then(data => {
-          const randomLines = [];
-          for (let i = 0; i < 1; i++) {
-            const randomIndex = Math.floor(Math.random() * data.length);
-            randomLines.push(data[randomIndex]);
-            data.splice(randomIndex, 1);
-          }
-          resultDiv.innerHTML = '';
-          randomLines.forEach(line => {
-            resultDiv.innerHTML += `<p>Tài khoản: ${line.taikhoan} | Mật khẩu: ${line.matkhau}</p>`;
-          });
-        })
-        .catch(error => console.error('Error:', error));
-    }
+submitKeyBtn.addEventListener('click', () => {
+  const userKey = keyInput.value;
+  if (userKey === validKey) {
+    isKeyValid = true;
+    keyContainer.style.display = 'none';
+    displayRandomAccount();
+  } else {
+    resultDiv.innerHTML = '<p style="color: red;">Key không chính xác, vui lòng nhập lại...</p>';
+    setTimeout(() => {
+      resultDiv.innerHTML = '';
+    }, 1000); 
+  }
+});
+
+function displayRandomAccount() {
+  const randomIndex = Math.floor(Math.random() * accountData.length);
+  const randomAccount = accountData[randomIndex];
+  resultDiv.innerHTML = `<p>Tài khoản: ${randomAccount.taikhoan} | Mật khẩu: ${randomAccount.matkhau}</p>`;
+  accountData.splice(randomIndex, 1);
+}
     </script>
     <script src="9999.js"></script>
 </body>
