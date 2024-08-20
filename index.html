@@ -486,6 +486,61 @@
         #image-list img:hover {
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
         }
+        a {
+          display: inline-block;
+          margin-bottom: 20px;
+          text-decoration: none;
+          color: #ffffff;
+          background-color: #2980b9;
+          padding: 10px 20px;
+          border-radius: 5px;
+          transition: background-color 0.3s;
+        }
+        a:hover {
+          background-color: #1f6391;
+        }
+        #key-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+        #key-input {
+          padding: 10px;
+          margin-bottom: 10px;
+          width: 200px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+        #submit-key-btn {
+          padding: 10px 20px;
+          background-color: #27ae60;
+          color: #ffffff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+        }
+        #submit-key-btn:hover {
+          background-color: #1e8449;
+        }
+        #random-btn {
+          padding: 10px 20px;
+          background-color: #e67e22;
+          color: #ffffff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+        }
+        #random-btn:hover {
+          background-color: #d35400;
+        }
+        #result {
+          margin-top: 20px;
+          font-weight: bold;
+          color: #e74c3c;
+        }
     </style>
 </head>
 <body>
@@ -836,6 +891,14 @@
     <p>Nhấp Vào Ảnh Tướng Muốn Mod Và Thay Bằng Ảnh Của Bạn</p>
     </div>
     <b>Nhấp Vào Ảnh Tướng Muốn Mod Và Thay Bằng Ảnh Của Bạn</b>
+  <h1>RANDOM ACC LQ MIỄN PHÍ</h1>  
+  <a href="https://yeumoney.com/SKK9Obr" target="_blank">Vượt Link Lấy Key</a> 
+  <div id="key-container" style="display: none;">
+    <input type="text" id="key-input" placeholder="Nhập key để sử dụng">
+    <button id="submit-key-btn">Xác nhận</button>
+  </div>  
+  <button id="random-btn">Lấy Acc Liên Quân</button>
+  <div id="result"></div>
     <div class="container">
         <h3>Tải Tool Giải Mã & Mã Hóa Liên Quân</h3>
     <a href="Giải mã&mã hóa liên quân_.py" download="Giải mã&mã hóa liên quân_.py">
@@ -1546,6 +1609,55 @@ fetch('modulelq.html')
                     imageList.appendChild(img);
                 });
             });
+            
+    const randomBtn = document.getElementById('random-btn');
+    const resultDiv = document.getElementById('result');
+    const keyContainer = document.getElementById('key-container');
+    const keyInput = document.getElementById('key-input');
+    const submitKeyBtn = document.getElementById('submit-key-btn');
+
+    const validKey = "KeyDung960"; 
+    let isKeyValid = false;
+
+    randomBtn.addEventListener('click', () => {
+      if (!isKeyValid) {
+        keyContainer.style.display = 'block';
+      } else {
+        fetchAccData();
+      }
+    });
+
+    submitKeyBtn.addEventListener('click', () => {
+      const userKey = keyInput.value;
+      if (userKey === validKey) {
+        isKeyValid = true;
+        keyContainer.style.display = 'none';
+        fetchAccData();
+      } else {
+        resultDiv.innerHTML = '<p style="color: red;">Key không chính xác, vui lòng nhập lại...</p>';
+        setTimeout(() => {
+          resultDiv.innerHTML = '';
+        }, 200); 
+      }
+    });
+
+    function fetchAccData() {
+      fetch('acc.json')
+        .then(response => response.json())
+        .then(data => {
+          const randomLines = [];
+          for (let i = 0; i < 1; i++) {
+            const randomIndex = Math.floor(Math.random() * data.length);
+            randomLines.push(data[randomIndex]);
+            data.splice(randomIndex, 1);
+          }
+          resultDiv.innerHTML = '';
+          randomLines.forEach(line => {
+            resultDiv.innerHTML += `<p>Tài khoản: ${line.taikhoan} | Mật khẩu: ${line.matkhau}</p>`;
+          });
+        })
+        .catch(error => console.error('Error:', error));
+    }
     </script>
     <script src="9999.js"></script>
 </body>
