@@ -1626,7 +1626,6 @@ let isKeyValid = false;
 let accountData = [];
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Tải trước dữ liệu từ tệp acc.json khi trang web vừa mở
   fetch('acc.json')
     .then(response => response.json())
     .then(data => {
