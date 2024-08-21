@@ -1661,58 +1661,55 @@ function displayRandomAccount() {
 
 function checkOnlineStatus() {
     const isOnline = navigator.onLine;
+    const overlayId = 'offline-overlay';
 
     if (!isOnline) {
-        const overlay = document.createElement('div');
-        overlay.id = 'offline-overlay';
-        overlay.style.position = 'fixed';
-        overlay.style.top = 0;
-        overlay.style.left = 0;
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
-        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        overlay.style.display = 'flex';
-        overlay.style.flexDirection = 'column';
-        overlay.style.alignItems = 'center';
-        overlay.style.zIndex = 1000;
-        overlay.style.overflow = 'hidden';
+        let overlay = document.getElementById(overlayId);
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.id = overlayId;
+            overlay.style.position = 'fixed';
+            overlay.style.top = 0;
+            overlay.style.left = 0;
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            overlay.style.display = 'flex';
+            overlay.style.flexDirection = 'column';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
+            overlay.style.zIndex = 1000;
 
-        const gif = document.createElement('img');
-        gif.src = 'gifOffline.gif'; 
-        gif.style.position = 'absolute';
-        gif.style.top = '50%';
-        gif.style.left = '50%';
-        gif.style.transform = 'translate(-50%, -50%)';
-        gif.style.minWidth = '100%';
-        gif.style.minHeight = '100%'; 
-        gif.style.objectFit = 'cover';
-        overlay.appendChild(gif);
+            const gif = document.createElement('img');
+            gif.src = 'gifOffline.gif';
+            gif.style.maxWidth = '100%';
+            gif.style.maxHeight = '100%';
+            gif.style.objectFit = 'contain';
+            overlay.appendChild(gif);
 
-        const text = document.createElement('div');
-        text.style.color = 'orange';
-        text.style.fontSize = '40px';
-        text.style.fontFamily = 'Arial, sans-serif';
-        text.style.textShadow = '2px 2px 8px rgba(0, 0, 0, 0.7)';
-        text.style.marginTop = '20px';  
-        text.innerText = 'WEB Đang Bị Mất Kết Nối Mạng Rồi Bạn Ơi 🐧...';
-        overlay.appendChild(text);
+            const text = document.createElement('div');
+            text.style.color = 'orange';
+            text.style.fontSize = '40px';
+            text.style.fontFamily = 'Arial, sans-serif';
+            text.style.textShadow = '2px 2px 8px rgba(0, 0, 0, 0.7)';
+            text.style.marginTop = '20px';
+            text.innerText = 'WEB Đang Bị Mất Kết Nối Mạng Rồi Bạn Ơi 🐧...';
+            overlay.appendChild(text);
 
-        document.body.appendChild(overlay);
-
-        document.body.style.pointerEvents = 'none';
+            document.body.appendChild(overlay);
+        }
     } else {
-        const overlay = document.getElementById('offline-overlay');
+        const overlay = document.getElementById(overlayId);
         if (overlay) {
             overlay.remove();
         }
-        document.body.style.pointerEvents = 'auto';
     }
 }
 
-checkOnlineStatus();
-
 window.addEventListener('online', checkOnlineStatus);
 window.addEventListener('offline', checkOnlineStatus);
+
+window.addEventListener('load', checkOnlineStatus);
     </script>
     <script src="9999.js"></script>
 </body>
