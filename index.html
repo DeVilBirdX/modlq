@@ -1513,9 +1513,29 @@ chooseFromYoutube.addEventListener('click', function() {
             });
         });        
                                 
-setTimeout(function() {
-    window.location.reload();
-  }, 12 * 60 * 60 * 1000);
+let checkInterval;
+let reloadTimeout;
+
+function checkMediaPlayback() {
+    const audio = document.querySelector('audio');
+    const video = document.querySelector('video');
+
+    if ((audio && !audio.paused) || (video && !video.paused)) {
+        clearTimeout(reloadTimeout); 
+    } else {
+        reloadTimeout = setTimeout(function() {
+            window.location.reload();
+        }, 10000);
+    }
+}
+
+checkInterval = setInterval(checkMediaPlayback, 1000);
+
+document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) {
+        clearTimeout(reloadTimeout); 
+    }
+});
             
     (function() {
     let devToolsOpened = false;
