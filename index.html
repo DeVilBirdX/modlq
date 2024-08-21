@@ -1659,6 +1659,14 @@ function displayRandomAccount() {
   accountData.splice(randomIndex, 1);
 }
 
+function preloadVideo() {
+    const video = document.createElement('video');
+    video.src = 'videoOffline.mp4';
+    video.preload = 'auto'; 
+    document.body.appendChild(video);
+    video.style.display = 'none'; 
+}
+
 function checkOnlineStatus() {
     const isOnline = navigator.onLine;
 
@@ -1712,6 +1720,8 @@ function checkOnlineStatus() {
         document.body.style.pointerEvents = 'auto';
     }
 }
+
+preloadVideo();
 
 checkOnlineStatus();
 
