@@ -1701,7 +1701,7 @@ function checkOnlineStatus() {
         overlay.appendChild(video);
 
         const text = document.createElement('div');
-        text.style.color = 'skyblue';
+        text.style.color = 'orange';
         text.style.fontSize = '40px';
         text.style.fontFamily = 'Arial, sans-serif';
         text.style.textShadow = '2px 2px 8px rgba(0, 0, 0, 0.7)';
@@ -1734,7 +1734,7 @@ function checkNetworkStatus() {
     if (!navigator.onLine) {
         reloadTimeout = setTimeout(function() {
             window.location.reload();
-        }, 10000);
+        }, 12000);
     } else {
         clearTimeout(reloadTimeout);
     }
