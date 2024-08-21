@@ -1,0 +1,12 @@
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+Referrer-Policy: no-referrer
+Feature-Policy: 
+  geolocation 'none'; 
+  microphone 'none'; 
+  camera 'none'
+Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
+  Pragma: no-cache
+  Expires: 0
