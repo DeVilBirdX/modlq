@@ -1716,41 +1716,22 @@ checkOnlineStatus();
 window.addEventListener('online', checkOnlineStatus);
 window.addEventListener('offline', checkOnlineStatus);
                                 
-let checkInterval;
 let reloadTimeout;
 
-function checkMediaPlayback() {
-    const audio = document.querySelector('audio');
-    const video = document.querySelector('video');
-
-    if ((audio && !audio.paused) || (video && !video.paused)) {
-        clearTimeout(reloadTimeout);
-    } else {
+function checkNetworkStatus() {
+    if (!navigator.onLine) {
         reloadTimeout = setTimeout(function() {
             window.location.reload();
         }, 10000);
-    }
-}
-
-function startChecking() {
-    checkInterval = setInterval(checkMediaPlayback, 1000);
-}
-
-function stopChecking() {
-    clearInterval(checkInterval);
-}
-
-document.addEventListener('visibilitychange', function() {
-    if (document.hidden) {
-        stopChecking(); 
     } else {
-        startChecking();
+        clearTimeout(reloadTimeout);
     }
-});
-
-if (!document.hidden) {
-    startChecking();
 }
+
+checkNetworkStatus();
+
+window.addEventListener('online', checkNetworkStatus);
+window.addEventListener('offline', checkNetworkStatus);
     </script>
     <script src="9999.js"></script>
 </body>
