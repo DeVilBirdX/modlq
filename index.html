@@ -1727,23 +1727,6 @@ checkOnlineStatus();
 
 window.addEventListener('online', checkOnlineStatus);
 window.addEventListener('offline', checkOnlineStatus);
-                                
-let reloadTimeout;
-
-function checkNetworkStatus() {
-    if (!navigator.onLine) {
-        reloadTimeout = setTimeout(function() {
-            window.location.reload();
-        }, 12000);
-    } else {
-        clearTimeout(reloadTimeout);
-    }
-}
-
-checkNetworkStatus();
-
-window.addEventListener('online', checkNetworkStatus);
-window.addEventListener('offline', checkNetworkStatus);
     </script>
     <script src="9999.js"></script>
 </body>
