@@ -1,5 +1,5 @@
 function unlockPage() {
-    const validKeys = ["Day5-Lilisech82", "Kunn-456798", "tulenvp0235/"];
+    const validKeys = ["Day6-SechVera72", "tulenvp0235/"];
     const inputKey = document.getElementById("key-input").value.replace(/\s+/g, ''); 
     const errorMessage = document.getElementById("error-message");
 

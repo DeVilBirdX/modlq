@@ -731,12 +731,11 @@ function displayRandomAccount() {
   accountData.splice(randomIndex, 1);
 }
 
-function preloadVideo() {
-    const video = document.createElement('video');
-    video.src = 'videoOffline.mp4';
-    video.preload = 'auto'; 
-    document.body.appendChild(video);
-    video.style.display = 'none'; 
+function preloadGIF() {
+    const gif = new Image();
+    gif.src = 'gifOffline.gif'; 
+    gif.style.display = 'none'; 
+    document.body.appendChild(gif);
 }
 
 function checkOnlineStatus() {
@@ -750,27 +749,24 @@ function checkOnlineStatus() {
         overlay.style.left = 0;
         overlay.style.width = '100%';
         overlay.style.height = '100%';
-        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
         overlay.style.display = 'flex';
         overlay.style.flexDirection = 'column';
         overlay.style.alignItems = 'center';
         overlay.style.zIndex = 1000;
         overlay.style.overflow = 'hidden';
 
-        const video = document.createElement('video');
-        video.src = 'videoOffline.mp4';
-        video.autoplay = true;
-        video.loop = true;
-        video.muted = true;
-        video.style.position = 'absolute';
-        video.style.top = '50%';
-        video.style.left = '50%';
-        video.style.transform = 'translate(-50%, -50%)';
-        video.style.minWidth = '100%';
-        video.style.minHeight = '100%';
-        video.style.objectFit = 'cover';
-        video.style.zIndex = '-1';
-        overlay.appendChild(video);
+        const gif = document.createElement('img');
+        gif.src = 'gifOffline.gif'; 
+        gif.style.position = 'absolute';
+        gif.style.top = '50%';
+        gif.style.left = '50%';
+        gif.style.transform = 'translate(-50%, -50%)';
+        gif.style.minWidth = '100%';
+        gif.style.minHeight = '100%'; 
+        gif.style.objectFit = 'cover';
+        gif.style.zIndex = '-1';
+        overlay.appendChild(gif);
 
         const text = document.createElement('div');
         text.style.color = 'orange';
@@ -793,7 +789,7 @@ function checkOnlineStatus() {
     }
 }
 
-preloadVideo();
+preloadGIF();
 
 checkOnlineStatus();
 
