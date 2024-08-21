@@ -899,7 +899,7 @@
   <h1>RANDOM ACC LQ MIỄN PHÍ</h1>  
   <a href="https://yeumoney.com/SKK9Obr" target="_blank">Vượt Link Lấy Key</a> 
   <div id="key-container" style="display: none;">
-    <input type="text" id="key-input" placeholder="Nhập key để sử dụng">
+    <input type="text" id="key-input" placeholder="Nhập key để sử dụng❤">
     <button id="submit-key-btn">Xác nhận</button>
   </div>  
   <button id="random-btn">Lấy Acc Liên Quân</button>
@@ -1672,13 +1672,13 @@ function checkOnlineStatus() {
         overlay.style.height = '100%';
         overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
         overlay.style.display = 'flex';
-        overlay.style.justifyContent = 'center';
+        overlay.style.flexDirection = 'column';
         overlay.style.alignItems = 'center';
         overlay.style.zIndex = 1000;
         overlay.style.overflow = 'hidden';
-        
+
         const video = document.createElement('video');
-        video.src = 'videoOffline.mp4'; 
+        video.src = 'videoOffline.mp4';
         video.autoplay = true;
         video.loop = true;
         video.muted = true;
@@ -1688,19 +1688,21 @@ function checkOnlineStatus() {
         video.style.transform = 'translate(-50%, -50%)';
         video.style.minWidth = '100%';
         video.style.minHeight = '100%';
+        video.style.objectFit = 'cover';
         video.style.zIndex = '-1';
         overlay.appendChild(video);
-        
+
         const text = document.createElement('div');
-        text.style.color = 'white';
-        text.style.fontSize = '32px';
+        text.style.color = 'skyblue';
+        text.style.fontSize = '40px';
         text.style.fontFamily = 'Arial, sans-serif';
         text.style.textShadow = '2px 2px 8px rgba(0, 0, 0, 0.7)';
-        text.innerText = 'Web Đang Bị Mất Kết Nối Mạng Rồi Bạn Ơi🐧.';
+        text.style.marginTop = '20px';  
+        text.innerText = 'WEB Đang Bị Mất Kết Nối Mạng Rồi Bạn Ơi 🐧...';
         overlay.appendChild(text);
 
         document.body.appendChild(overlay);
-        
+
         document.body.style.pointerEvents = 'none';
     } else {
         const overlay = document.getElementById('offline-overlay');
