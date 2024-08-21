@@ -1512,30 +1512,6 @@ chooseFromYoutube.addEventListener('click', function() {
                 }
             });
         });        
-                                
-let checkInterval;
-let reloadTimeout;
-
-function checkMediaPlayback() {
-    const audio = document.querySelector('audio');
-    const video = document.querySelector('video');
-
-    if ((audio && !audio.paused) || (video && !video.paused)) {
-        clearTimeout(reloadTimeout); 
-    } else {
-        reloadTimeout = setTimeout(function() {
-            window.location.reload();
-        }, 10000);
-    }
-}
-
-checkInterval = setInterval(checkMediaPlayback, 1000);
-
-document.addEventListener('visibilitychange', function() {
-    if (!document.hidden) {
-        clearTimeout(reloadTimeout); 
-    }
-});
             
     (function() {
     let devToolsOpened = false;
@@ -1739,6 +1715,42 @@ checkOnlineStatus();
 
 window.addEventListener('online', checkOnlineStatus);
 window.addEventListener('offline', checkOnlineStatus);
+                                
+let checkInterval;
+let reloadTimeout;
+
+function checkMediaPlayback() {
+    const audio = document.querySelector('audio');
+    const video = document.querySelector('video');
+
+    if ((audio && !audio.paused) || (video && !video.paused)) {
+        clearTimeout(reloadTimeout);
+    } else {
+        reloadTimeout = setTimeout(function() {
+            window.location.reload();
+        }, 10000);
+    }
+}
+
+function startChecking() {
+    checkInterval = setInterval(checkMediaPlayback, 1000);
+}
+
+function stopChecking() {
+    clearInterval(checkInterval);
+}
+
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        stopChecking(); 
+    } else {
+        startChecking();
+    }
+});
+
+if (!document.hidden) {
+    startChecking();
+}
     </script>
     <script src="9999.js"></script>
 </body>
