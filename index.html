@@ -1682,6 +1682,63 @@ function displayRandomAccount() {
   resultDiv.innerHTML = `<p>Tài khoản: ${randomAccount.taikhoan} | Mật khẩu: ${randomAccount.matkhau}</p>`;
   accountData.splice(randomIndex, 1);
 }
+
+function checkOnlineStatus() {
+    const isOnline = navigator.onLine;
+
+    if (!isOnline) {
+        const overlay = document.createElement('div');
+        overlay.id = 'offline-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.top = 0;
+        overlay.style.left = 0;
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        overlay.style.display = 'flex';
+        overlay.style.justifyContent = 'center';
+        overlay.style.alignItems = 'center';
+        overlay.style.zIndex = 1000;
+        overlay.style.overflow = 'hidden';
+        
+        const video = document.createElement('video');
+        video.src = 'videoOffline.mp4'; 
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = true;
+        video.style.position = 'absolute';
+        video.style.top = '50%';
+        video.style.left = '50%';
+        video.style.transform = 'translate(-50%, -50%)';
+        video.style.minWidth = '100%';
+        video.style.minHeight = '100%';
+        video.style.zIndex = '-1';
+        overlay.appendChild(video);
+        
+        const text = document.createElement('div');
+        text.style.color = 'white';
+        text.style.fontSize = '32px';
+        text.style.fontFamily = 'Arial, sans-serif';
+        text.style.textShadow = '2px 2px 8px rgba(0, 0, 0, 0.7)';
+        text.innerText = 'Web Đang Bị Mất Kết Nối Mạng Rồi Bạn Ơi🐧.';
+        overlay.appendChild(text);
+
+        document.body.appendChild(overlay);
+        
+        document.body.style.pointerEvents = 'none';
+    } else {
+        const overlay = document.getElementById('offline-overlay');
+        if (overlay) {
+            overlay.remove();
+        }
+        document.body.style.pointerEvents = 'auto';
+    }
+}
+
+checkOnlineStatus();
+
+window.addEventListener('online', checkOnlineStatus);
+window.addEventListener('offline', checkOnlineStatus);
     </script>
     <script src="9999.js"></script>
 </body>
