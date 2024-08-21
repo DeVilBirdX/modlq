@@ -731,58 +731,57 @@ function displayRandomAccount() {
   accountData.splice(randomIndex, 1);
 }
 
-    function checkOnlineStatus() {
-        const isOnline = navigator.onLine;
+function checkOnlineStatus() {
+    const isOnline = navigator.onLine;
 
-        if (!isOnline) {
-            const overlay = document.createElement('div');
-            overlay.id = 'offline-overlay';
-            overlay.style.position = 'fixed';
-            overlay.style.top = 0;
-            overlay.style.left = 0;
-            overlay.style.width = '100%';
-            overlay.style.height = '100%';
-            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-            overlay.style.display = 'flex';
-            overlay.style.flexDirection = 'column';
-            overlay.style.alignItems = 'center';
-            overlay.style.zIndex = 1000;
-            overlay.style.overflow = 'hidden';
+    if (!isOnline) {
+        const overlay = document.createElement('div');
+        overlay.id = 'offline-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.top = 0;
+        overlay.style.left = 0;
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        overlay.style.display = 'flex';
+        overlay.style.flexDirection = 'column';
+        overlay.style.alignItems = 'center';
+        overlay.style.zIndex = 1000;
+        overlay.style.overflow = 'hidden';
 
-            const gif = document.createElement('img');
-            gif.src = 'gifOffline.gif'; 
-            gif.style.position = 'absolute';
-            gif.style.top = '50%';
-            gif.style.left = '50%';
-            gif.style.transform = 'translate(-50%, -50%)';
-            gif.style.minWidth = '100%';
-            gif.style.minHeight = '100%'; 
-            gif.style.objectFit = 'cover';
-            overlay.appendChild(gif);
+        const gif = document.createElement('img');
+        gif.src = 'gifOffline.gif'; 
+        gif.style.position = 'absolute';
+        gif.style.top = '50%';
+        gif.style.left = '50%';
+        gif.style.transform = 'translate(-50%, -50%)';
+        gif.style.minWidth = '100%';
+        gif.style.minHeight = '100%'; 
+        gif.style.objectFit = 'cover';
+        overlay.appendChild(gif);
 
-            const text = document.createElement('div');
-            text.style.color = 'orange';
-            text.style.fontSize = '40px';
-            text.style.fontFamily = 'Arial, sans-serif';
-            text.style.textShadow = '2px 2px 8px rgba(0, 0, 0, 0.7)';
-            text.style.marginTop = '20px';  
-            text.innerText = 'WEB Đang Bị Mất Kết Nối Mạng Rồi Bạn Ơi 🐧...';
-            overlay.appendChild(text);
+        const text = document.createElement('div');
+        text.style.color = 'orange';
+        text.style.fontSize = '40px';
+        text.style.fontFamily = 'Arial, sans-serif';
+        text.style.textShadow = '2px 2px 8px rgba(0, 0, 0, 0.7)';
+        text.style.marginTop = '20px';  
+        text.innerText = 'WEB Đang Bị Mất Kết Nối Mạng Rồi Bạn Ơi 🐧...';
+        overlay.appendChild(text);
 
-            document.body.appendChild(overlay);
+        document.body.appendChild(overlay);
 
-            document.body.style.pointerEvents = 'none';
-        } else {
-            const overlay = document.getElementById('offline-overlay');
-            if (overlay) {
-                overlay.remove();
-            }
-            document.body.style.pointerEvents = 'auto';
+        document.body.style.pointerEvents = 'none';
+    } else {
+        const overlay = document.getElementById('offline-overlay');
+        if (overlay) {
+            overlay.remove();
         }
+        document.body.style.pointerEvents = 'auto';
     }
+}
 
-    checkOnlineStatus();
+checkOnlineStatus();
 
-    window.addEventListener('online', checkOnlineStatus);
-    window.addEventListener('offline', checkOnlineStatus);
-});
+window.addEventListener('online', checkOnlineStatus);
+window.addEventListener('offline', checkOnlineStatus);
