@@ -731,7 +731,6 @@ function displayRandomAccount() {
   accountData.splice(randomIndex, 1);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
     function checkOnlineStatus() {
         const isOnline = navigator.onLine;
 
