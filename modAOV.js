@@ -731,11 +731,14 @@ function displayRandomAccount() {
   accountData.splice(randomIndex, 1);
 }
 
-function preloadGIF() {
-    const gif = new Image();
-    gif.src = 'gifOffline.gif'; 
-    gif.style.display = 'none'; 
-    document.body.appendChild(gif);
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+            console.log('Service Worker registered with scope:', registration.scope);
+        }).catch((error) => {
+            console.error('Service Worker registration failed:', error);
+        });
+    });
 }
 
 function checkOnlineStatus() {
@@ -765,7 +768,6 @@ function checkOnlineStatus() {
         gif.style.minWidth = '100%';
         gif.style.minHeight = '100%'; 
         gif.style.objectFit = 'cover';
-        gif.style.zIndex = '-1';
         overlay.appendChild(gif);
 
         const text = document.createElement('div');
@@ -788,8 +790,6 @@ function checkOnlineStatus() {
         document.body.style.pointerEvents = 'auto';
     }
 }
-
-preloadGIF();
 
 checkOnlineStatus();
 
