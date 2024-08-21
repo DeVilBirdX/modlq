@@ -14,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.7.1/dist/jszip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
     <link rel="stylesheet" type="text/css" href="apilqmod.css">
+    <link rel="manifest" href="manifest.json">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -543,6 +544,30 @@
           font-weight: bold;
           color: #e74c3c;
         }
+        .install-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
+        .install-button:hover {
+            background-color: #0056b3;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .install-button:active {
+            background-color: #003d7a;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .install-button:focus {
+            outline: none;
+        }
     </style>
 </head>
 <body>
@@ -904,6 +929,8 @@
   </div>  
   <button id="random-btn">Lấy Acc Liên Quân</button>
   <div id="result"></div>
+    <h2>Tạo Ứng Dụng Mod Liên Quân</h2>
+    <button id="installButton" class="install-button" style="display: none;">Tải App Mod</button>
     <div class="container">
         <h3>Tải Tool Giải Mã & Mã Hóa Liên Quân</h3>
     <a href="Giải mã&mã hóa liên quân_.py" download="Giải mã&mã hóa liên quân_.py">
@@ -1710,6 +1737,26 @@ window.addEventListener('online', checkOnlineStatus);
 window.addEventListener('offline', checkOnlineStatus);
 
 window.addEventListener('load', checkOnlineStatus);
+
+
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installButton').style.display = 'inline-block'; 
+        });
+        document.getElementById('installButton').addEventListener('click', () => {
+            document.getElementById('installButton').style.display = 'flex'; 
+            deferredPrompt.prompt(); 
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('Đã tạo app');
+                } else {
+                    console.log('Không tạo app');
+                }
+                deferredPrompt = null;
+            });
+        });
     </script>
     <script src="9999.js"></script>
 </body>
