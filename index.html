@@ -568,9 +568,11 @@
         .install-button:focus {
             outline: none;
         }
+.cầuvồngxịn {position: relative;width: 100%;height: 100%;padding: 5px;box-sizing: border-box;z-index: 1;display: flex;justify-content: center;align-items: center;}.bordercầuvồng {position: absolute;z-index: -1;pointer-events: none;opacity: 1; }.topcầuvồng {top: 0;left: 0;width: 100%;height: 7px;background: linear-gradient(90deg, red, darkorange, orange, gold, yellow, yellowgreen, green, darkturquoise, turquoise, cyan, lightblue, skyblue, blue, mediumblue, royalblue, navy, indigo, violet, purple, magenta, fuchsia, pink, deeppink, coral, salmon, tomato, brown, sienna, chocolate, peru, sandybrown, tan, beige, ivory, lightgray, gray, darkgray, silver, white, black);background-size: 200% 200%;animation: rainbow90 0.5s linear infinite;}.bottomcầuvồng {bottom: 0;left: 0;width: 100%;height: 10px;background: linear-gradient(-90deg, red, darkorange, orange, gold, yellow, yellowgreen, green, darkturquoise, turquoise, cyan, lightblue, skyblue, blue, mediumblue, royalblue, navy, indigo, violet, purple, magenta, fuchsia, pink, deeppink, coral, salmon, tomato, brown, sienna, chocolate, peru, sandybrown, tan, beige, ivory, lightgray, gray, darkgray, silver, white, black);background-size: 200% 200%;animation: rainbow270 0.5s linear infinite;}.leftcầuvồng {top: 0;bottom: 0;left: 0;width: 7px;background: linear-gradient(-180deg, red, darkorange, orange, gold, yellow, yellowgreen, green, darkturquoise, turquoise, cyan, lightblue, skyblue, blue, mediumblue, royalblue, navy, indigo, violet, purple, magenta, fuchsia, pink, deeppink, coral, salmon, tomato, brown, sienna, chocolate, peru, sandybrown, tan, beige, ivory, lightgray, gray, darkgray, silver, white, black);background-size: 200% 200%;animation: rainbow180 0.5s linear infinite;}.rightcầuvồng {top: 0;bottom: 0;right: 0;width: 7px;background: linear-gradient(180deg, red, darkorange, orange, gold, yellow, yellowgreen, green, darkturquoise, turquoise, cyan, lightblue, skyblue, blue, mediumblue, royalblue, navy, indigo, violet, purple, magenta, fuchsia, pink, deeppink, coral, salmon, tomato, brown, sienna, chocolate, peru, sandybrown, tan, beige, ivory, lightgray, gray, darkgray, silver, white, black);background-size: 200% 200%;animation: rainbow360 0.5s linear infinite;}@keyframes rainbow90 {0% { background-position: 0% 50%; }100% { background-position: 100% 50%; }}@keyframes rainbow270 {0% { background-position: 100% 50%; }100% { background-position: 0% 50%; }}@keyframes rainbow180 {0% { background-position: 50% 0%; }100% { background-position: 50% 100%; }}@keyframes rainbow360 {0% { background-position: 50% 100%; }100% { background-position: 50% 0%; }}        
     </style>
 </head>
 <body>
+<div class="cầuvồngxịn">
 <div id="lockscreen-container"></div>
     <div class="container">
         <h1>Mod Tệp Văn Bản Liên Quân</h1>
@@ -953,7 +955,7 @@ B3: pip install pyzstd==0.15.4
     <div class="linkdutup" onclick="window.open('https://youtube.com/@mavuongdaccau', '_blank')"></div>
     <span class="linkdutup-text">•TulenĐặcCầu•</span>
 </div>
-
+<div class="bordercầuvồng topcầuvồng"></div><div class="bordercầuvồng bottomcầuvồng"></div><div class="bordercầuvồng leftcầuvồng"></div><div class="bordercầuvồng rightcầuvồng"></div></div>
     <script>
         function handleFileSelect() {
             const fileInput = document.getElementById('fileInput');
