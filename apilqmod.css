@@ -36,11 +36,11 @@
     }
 }
 @keyframes lightning {
-    0%, 100% {
-        background: linear-gradient(55deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 100%);
+    0% {
+        background: linear-gradient(55deg, rgba(173, 216, 230, 0.1) 0%, rgba(173, 216, 230, 0.2) 50%, rgba(173, 216, 230, 0.1) 100%);
     }
     50% {
-        background: linear-gradient(65deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0.3) 100%);
+        background: linear-gradient(65deg, rgba(173, 216, 230, 0.3) 0%, rgba(173, 216, 230, 0.6) 50%, rgba(173, 216, 230, 0.3) 100%);
     }
 }
 @keyframes fire {
@@ -63,7 +63,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+    background: radial-gradient(circle, rgba(255, 223, 128, 0.2) 0%, rgba(255, 223, 128, 0) 100%);
     opacity: 0.3;
     animation: wind 2s linear infinite;
     pointer-events: none;
@@ -74,7 +74,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(255, 69, 0, 0.8) 0%, rgba(255, 140, 0, 0.4) 75%);
+    background: radial-gradient(circle, rgba(173, 216, 230, 0.8) 0%, rgba(255, 255, 102, 0.4) 75%);
     opacity: 0.3;
     animation: fire 3s infinite;
     pointer-events: none;
@@ -85,7 +85,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(65deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0.1) 100%);
+    background: linear-gradient(65deg, rgba(173, 216, 230, 0.1) 0%, rgba(173, 216, 230, 0.5) 60%, rgba(173, 216, 230, 0.1) 100%);
     opacity: 0.3;
     animation: lightning 1.5s linear infinite;
     pointer-events: none;
