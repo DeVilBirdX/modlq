@@ -7,6 +7,7 @@ function unlockPage() {
         document.getElementById("lock-screen").style.display = "none";
         document.getElementById("youtube-container").style.display = "none";
         document.getElementById("copyright-text").style.display = "none";  
+        document.getElementById("rain-container").style.display = "none";  
         document.getElementById("content").style.display = "block";
     } else {
         errorMessage.style.display = "block";

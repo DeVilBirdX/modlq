@@ -1,3 +1,14 @@
+@keyframes light-glow {
+    0% {
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
+}
 #lock-screen {
     position: fixed; 
     top: 0;
@@ -14,6 +25,29 @@
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
+    animation: light-glow 2s infinite;
+}
+@keyframes rain {
+    to {
+        transform: translateY(100%);
+    }
+}
+.rain {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 2px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.7);
+    animation: rain 0.5s linear infinite;
+}
+.rain:nth-child(2n) {
+    animation-duration: 0.4s;
+    background: rgba(255, 255, 255, 0.5);
+}
+.rain:nth-child(3n) {
+    animation-duration: 0.6s;
+    background: rgba(255, 255, 255, 0.6);
 }
 #lock-screen h1 {
     color: yellow; 
