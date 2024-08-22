@@ -29,21 +29,33 @@
 }
 @keyframes wind {
     0% {
-        transform: translateX(-100%);
+        transform: translateX(0);
     }
     100% {
-        transform: translateX(100%);
+        transform: translateX(-100%);
     }
 }
 @keyframes lightning {
-    0% { opacity: 0; }
-    50% { opacity: 0.3; }
-    100% { opacity: 0; }
+    0%, 100% {
+        background: linear-gradient(55deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 100%);
+    }
+    50% {
+        background: linear-gradient(65deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0.3) 100%);
+    }
 }
 @keyframes fire {
-    0% { opacity: 0.5; }
-    50% { opacity: 0.5; }
-    100% { opacity: 0.5; }
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.05) rotate(10deg);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(1.02) rotate(0deg);
+        opacity: 0.5;
+    }
 }
 .wind {
     position: absolute;
@@ -51,9 +63,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(55deg, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2));
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
     opacity: 0.3;
-    animation: wind 3s linear infinite;
+    animation: wind 2s linear infinite;
     pointer-events: none;
 }
 .fire {
@@ -62,20 +74,21 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(255, 35, 0, 0.6), rgba(255, 0, 50, 0.4));
-    opacity: 0.4;
-    animation: fire 1.5s infinite;
+    background: radial-gradient(circle, rgba(255, 69, 0, 0.8) 0%, rgba(255, 140, 0, 0.4) 75%);
+    opacity: 0.3;
+    animation: fire 3s infinite;
     pointer-events: none;
 }
 .lightning {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    animation: lightning 2s linear infinite;
-    pointer-events: none; 
+    background: linear-gradient(65deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0.1) 100%);
+    opacity: 0.3;
+    animation: lightning 1.5s linear infinite;
+    pointer-events: none;
 }
 #lock-screen h1 {
     color: yellow; 
