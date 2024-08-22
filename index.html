@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#ccff00">
     <title>TOOL MOD AOV VIP</title>
     <link rel="icon" href="favicon-16x16.png" sizes="16x16" type="image/png">
     <link rel="icon" href="favicon-32x32.png" sizes="32x32" type="image/png">
@@ -1742,29 +1742,31 @@ window.addEventListener('load', checkOnlineStatus);
 
 let deferredPrompt;
 
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
+window.addEventListener('load', () => {
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
 
-    document.getElementById('installButton').style.display = 'flex';
-});
+        document.getElementById('installButton').style.display = 'flex';
+    });
 
-document.getElementById('installButton').addEventListener('click', () => {
-    if (deferredPrompt) {
-        document.getElementById('installButton').style.display = 'none';
+    document.getElementById('installButton').addEventListener('click', () => {
+        if (deferredPrompt) {
+            document.getElementById('installButton').style.display = 'none';
 
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                console.log('Đã tạo app');
-            } else {
-                console.log('Không tạo app');
-            }
-            deferredPrompt = null;
-        });
-    } else {
-        console.log('Không được hỗ trợ.');
-    }
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('Đã tạo app');
+                } else {
+                    console.log('Không tạo app');
+                }
+                deferredPrompt = null;
+            });
+        } else {
+            console.log('Không được hỗ trợ.');
+        }
+    });
 });
     </script>
     <script src="9999.js"></script>
