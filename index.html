@@ -931,7 +931,7 @@
   <button id="random-btn">Lấy Acc Liên Quân</button>
   <div id="result"></div>
     <h2>Tạo Ứng Dụng Mod Liên Quân</h2>
-    <button id="installButton" class="install-button" style="display: none;">Tải App Mod</button>
+    <button id="installButton" class="install-button" style="display: flex;">Tải App Mod</button>
     <div class="container">
         <h3>Tải Tool Giải Mã & Mã Hóa Liên Quân</h3>
     <a href="Giải mã&mã hóa liên quân_.py" download="Giải mã&mã hóa liên quân_.py">
@@ -1744,19 +1744,22 @@ window.addEventListener('load', checkOnlineStatus);
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            document.getElementById('installButton').style.display = 'inline-block'; 
         });
+
         document.getElementById('installButton').addEventListener('click', () => {
-            document.getElementById('installButton').style.display = 'flex'; 
-            deferredPrompt.prompt(); 
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('Đã tạo app');
-                } else {
-                    console.log('Không tạo app');
-                }
-                deferredPrompt = null;
-            });
+            if (deferredPrompt) {
+                deferredPrompt.prompt(); 
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('Đã tạo app');
+                    } else {
+                        console.log('Không tạo app');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                console.log('Không được hỗ trợ.');
+            }
         });
     </script>
     <script src="9999.js"></script>
