@@ -1758,18 +1758,23 @@ window.addEventListener('load', () => {
                     console.log('Đã tạo app');
                 } else {
                     console.log('Không tạo app');
+                    downloadAPK();
                 }
                 deferredPrompt = null;
             });
         } else {
             console.log('Không được hỗ trợ. Tải tệp thay thế.');
-            var link = document.createElement('a');
-            link.href = '⭐MOD AOV VIP PRO⭐_1.apk';
-            link.download = '⭐MOD AOV VIP PRO⭐_1.apk';
-            link.click();
+            downloadAPK();
         }
     });
 });
+
+function downloadAPK() {
+    var link = document.createElement('a');
+    link.href = '⭐MOD AOV VIP PRO⭐_1.apk';
+    link.download = '⭐MOD AOV VIP PRO⭐_1.apk';
+    link.click();
+}
     </script>
     <script src="9999.js"></script>
 </body>
