@@ -1,20 +1,21 @@
 {
-  "name": "©️By Tulen Đặc Cầu & Kn Turbo",
-  "short_name": "☆MOD SKIN AOV VIP☆",
+  "name": "©️BY Tulen Đặc Cầu & Kn Turbo",
+  "short_name": "⭐MOD AOV VIP PRO⭐",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fff000",
-  "theme_color": "#6a5acd",
+  "theme_color": "#00ff00",
   "icons": [
     {
-      "src": "app192x192.png",
+      "src": "app256x256.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "256x256"
     },
     {
       "src": "app512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
-  ]
+  ],
+  "package_name": "tulen.daccau"
 }
