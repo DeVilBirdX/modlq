@@ -1740,27 +1740,32 @@ window.addEventListener('offline', checkOnlineStatus);
 window.addEventListener('load', checkOnlineStatus);
 
 
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
+let deferredPrompt;
 
-        document.getElementById('installButton').addEventListener('click', () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt(); 
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('Đã tạo app');
-                    } else {
-                        console.log('Không tạo app');
-                    }
-                    deferredPrompt = null;
-                });
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    document.getElementById('installButton').style.display = 'flex';
+});
+
+document.getElementById('installButton').addEventListener('click', () => {
+    if (deferredPrompt) {
+        document.getElementById('installButton').style.display = 'none';
+
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('Đã tạo app');
             } else {
-                console.log('Không được hỗ trợ.');
+                console.log('Không tạo app');
             }
+            deferredPrompt = null;
         });
+    } else {
+        console.log('Không được hỗ trợ.');
+    }
+});
     </script>
     <script src="9999.js"></script>
 </body>
