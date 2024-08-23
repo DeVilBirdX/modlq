@@ -1548,6 +1548,32 @@ chooseFromYoutube.addEventListener('click', function() {
                 }
             });
         });        
+        
+document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'hidden') {
+        if (musicPlayer.paused) {
+            musicPlayer.play();
+        }
+    }
+});
+
+musicPlayer.addEventListener('ended', function() {
+    if (musicPlayer.loop) {
+        musicPlayer.play();
+    }
+});
+
+fileInput.addEventListener('change', function() {
+    const files = fileInput.files;
+    if (files.length > 0) {
+        const fileURL = URL.createObjectURL(files[0]);
+        musicPlayer.src = fileURL;
+        videoPlayer.style.display = "none"; 
+        musicPlayer.style.display = "block";
+        musicPlayer.loop = true;  
+        musicPlayer.play();
+    }
+});
             
     (function() {
     let devToolsOpened = false;
@@ -1766,7 +1792,10 @@ window.addEventListener('load', () => {
             deferredPrompt.prompt();
 
             deferredPrompt.userChoice.then((choiceResult) => {
-                loadingImage.style.display = 'none'; 
+                setTimeout(() => {
+                    loadingImage.style.display = 'none'; 
+                }, 60000);
+
                 if (choiceResult.outcome === 'accepted') {
                     console.log('Đã tạo app');
                 } else {
@@ -1776,12 +1805,16 @@ window.addEventListener('load', () => {
                 deferredPrompt = null;
             }).catch((err) => {
                 console.error('Lỗi trong quá trình tạo APK:', err);
-                loadingImage.style.display = 'none'; 
+                setTimeout(() => {
+                    loadingImage.style.display = 'none'; 
+                }, 60000);
                 downloadAPK();
             });
         } else {
             console.log('Không được hỗ trợ. Tải tệp thay thế.');
-            loadingImage.style.display = 'none'; 
+            setTimeout(() => {
+                loadingImage.style.display = 'none'; 
+            }, 60000);
             downloadAPK();
         }
     });
