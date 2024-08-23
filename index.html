@@ -1764,6 +1764,7 @@ window.addEventListener('load', () => {
         if (deferredPrompt) {
             document.getElementById('installButton').style.display = 'none';
             deferredPrompt.prompt();
+
             deferredPrompt.userChoice.then((choiceResult) => {
                 loadingImage.style.display = 'none'; 
                 if (choiceResult.outcome === 'accepted') {
@@ -1773,6 +1774,10 @@ window.addEventListener('load', () => {
                     downloadAPK();
                 }
                 deferredPrompt = null;
+            }).catch((err) => {
+                console.error('Lỗi trong quá trình tạo APK:', err);
+                loadingImage.style.display = 'none'; 
+                downloadAPK();
             });
         } else {
             console.log('Không được hỗ trợ. Tải tệp thay thế.');
