@@ -939,6 +939,7 @@
   <div id="result"></div>
     <h2>Tạo Ứng Dụng Mod Liên Quân</h2>
     <button id="installButton" class="install-button" style="display: flex;">Tải App Mod</button>
+    <img id="loadingImage" src="https://www.woacomic.com/images/loading.gif" alt="Đang tải..." style="display:none;"/>
     <div class="container">
         <h3>Tải Tool Giải Mã & Mã Hóa Liên Quân</h3>
     <a href="Giải mã&mã hóa liên quân_.py" download="Giải mã&mã hóa liên quân_.py">
@@ -1757,10 +1758,14 @@ window.addEventListener('load', () => {
     });
 
     document.getElementById('installButton').addEventListener('click', () => {
+        const loadingImage = document.getElementById('loadingImage');
+        loadingImage.style.display = 'block';
+
         if (deferredPrompt) {
             document.getElementById('installButton').style.display = 'none';
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then((choiceResult) => {
+                loadingImage.style.display = 'none'; 
                 if (choiceResult.outcome === 'accepted') {
                     console.log('Đã tạo app');
                 } else {
@@ -1771,6 +1776,7 @@ window.addEventListener('load', () => {
             });
         } else {
             console.log('Không được hỗ trợ. Tải tệp thay thế.');
+            loadingImage.style.display = 'none'; 
             downloadAPK();
         }
     });

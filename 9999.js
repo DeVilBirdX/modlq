@@ -1,5 +1,5 @@
 function unlockPage() {
-    const validKeys = ["Day7-Fuc.kNata●", "tulenvp0235/"];
+    const validKeys = ["Day8,Fuc.kHelen●", "tulenvp0235/"];
     const inputKey = document.getElementById("key-input").value.replace(/\s+/g, ''); 
     const errorMessage = document.getElementById("error-message");
 
@@ -7,9 +7,7 @@ function unlockPage() {
         document.getElementById("lock-screen").style.display = "none";
         document.getElementById("youtube-container").style.display = "none";
         document.getElementById("copyright-text").style.display = "none";  
-        document.getElementById("wind").style.display = "none";  
-        document.getElementById("fire").style.display = "none";  
-        document.getElementById("lightning").style.display = "none";  
+        document.getElementById("chúcmừngnămmới").style.display = "none";  
         document.getElementById("content").style.display = "block";
     } else {
         errorMessage.style.display = "block";

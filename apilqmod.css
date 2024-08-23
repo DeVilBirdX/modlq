@@ -1,14 +1,3 @@
-@keyframes light-glow {
-    0% {
-        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-    }
-    50% {
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
-    }
-    100% {
-        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-    }
-}
 #lock-screen {
     position: fixed; 
     top: 0;
@@ -16,7 +5,7 @@
     width: 100%;
     height: 100%;
     background-image: url('https://img.lovepik.com/background/20211021/large/lovepik-network-security-lock-background-image_500470175.jpg');
-    background-color: rgba(0, 0, 0, 0.8); 
+    background-color: rgba(0, 0, 0, 0.85); 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,70 +14,6 @@
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-    animation: light-glow 2s infinite;
-}
-@keyframes wind {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
-}
-@keyframes lightning {
-    0% {
-        background: linear-gradient(55deg, rgba(173, 216, 230, 0.1) 0%, rgba(173, 216, 230, 0.2) 50%, rgba(173, 216, 230, 0.1) 100%);
-    }
-    50% {
-        background: linear-gradient(65deg, rgba(173, 216, 230, 0.3) 0%, rgba(173, 216, 230, 0.6) 50%, rgba(173, 216, 230, 0.3) 100%);
-    }
-}
-@keyframes fire {
-    0% {
-        transform: scale(1) rotate(0deg);
-        opacity: 0.5;
-    }
-    50% {
-        transform: scale(1.05) rotate(10deg);
-        opacity: 0.6;
-    }
-    100% {
-        transform: scale(1.02) rotate(0deg);
-        opacity: 0.5;
-    }
-}
-.wind {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255, 223, 128, 0.2) 0%, rgba(255, 223, 128, 0) 100%);
-    opacity: 0.3;
-    animation: wind 2s linear infinite;
-    pointer-events: none;
-}
-.fire {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(173, 216, 230, 0.8) 0%, rgba(255, 255, 102, 0.4) 75%);
-    opacity: 0.3;
-    animation: fire 3s infinite;
-    pointer-events: none;
-}
-.lightning {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(65deg, rgba(173, 216, 230, 0.1) 0%, rgba(173, 216, 230, 0.5) 60%, rgba(173, 216, 230, 0.1) 100%);
-    opacity: 0.3;
-    animation: lightning 1.5s linear infinite;
-    pointer-events: none;
 }
 #lock-screen h1 {
     color: yellow; 
@@ -175,4 +100,18 @@
     display: flex; 
     flex-direction: column;
     align-items: center;
+}
+.chúcmừngnămmới {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.pinimg.com/originals/5d/74/75/5d74758107b2ae3ba50e4a163a1f4596.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    mix-blend-mode: screen;
+    filter: brightness(1.2) contrast(1.2) blur(0.5px); 
 }
