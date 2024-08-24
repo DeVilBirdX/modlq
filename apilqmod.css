@@ -73,9 +73,9 @@
     align-items: center;
 }
 .youtube {
-    width: 57px;
-    height: 57px;
-    background-image: url(''); 
+    width: 58px;
+    height: 58px;
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/nhachay-43b11.appspot.com/o/Polish_20240824_231040910.png?alt=media&token=728fd52a-f6d7-4d00-8a36-6baf43068ae9'); 
     background-size: cover;
     background-position: center;
     display: block;
@@ -84,7 +84,7 @@
 }
 .youtube-text {
     color: red;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: bold;
     text-shadow: 1px 1px 2px lime;
     margin-top: 5px; 
