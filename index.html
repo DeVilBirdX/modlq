@@ -569,6 +569,78 @@
             outline: none;
         }
 .cầuvồngxịn {position: relative;width: 100%;height: 100%;padding: 5px;box-sizing: border-box;z-index: 1;display: flex;justify-content: center;align-items: center;}.bordercầuvồng {position: absolute;z-index: -1;pointer-events: none;opacity: 1; }.topcầuvồng {top: 0;left: 0;width: 100%;height: 7px;background: linear-gradient(90deg, red, darkorange, orange, gold, yellow, yellowgreen, green, darkturquoise, turquoise, cyan, lightblue, skyblue, blue, mediumblue, royalblue, navy, indigo, violet, purple, magenta, fuchsia, pink, deeppink, coral, salmon, tomato, brown, sienna, chocolate, peru, sandybrown, tan, beige, ivory, lightgray, gray, darkgray, silver, white, black);background-size: 200% 200%;animation: rainbow90 0.5s linear infinite;}.bottomcầuvồng {bottom: 0;left: 0;width: 100%;height: 10px;background: linear-gradient(-90deg, red, darkorange, orange, gold, yellow, yellowgreen, green, darkturquoise, turquoise, cyan, lightblue, skyblue, blue, mediumblue, royalblue, navy, indigo, violet, purple, magenta, fuchsia, pink, deeppink, coral, salmon, tomato, brown, sienna, chocolate, peru, sandybrown, tan, beige, ivory, lightgray, gray, darkgray, silver, white, black);background-size: 200% 200%;animation: rainbow270 0.5s linear infinite;}.leftcầuvồng {top: 0;bottom: 0;left: 0;width: 7px;background: linear-gradient(-180deg, red, darkorange, orange, gold, yellow, yellowgreen, green, darkturquoise, turquoise, cyan, lightblue, skyblue, blue, mediumblue, royalblue, navy, indigo, violet, purple, magenta, fuchsia, pink, deeppink, coral, salmon, tomato, brown, sienna, chocolate, peru, sandybrown, tan, beige, ivory, lightgray, gray, darkgray, silver, white, black);background-size: 200% 200%;animation: rainbow180 0.5s linear infinite;}.rightcầuvồng {top: 0;bottom: 0;right: 0;width: 7px;background: linear-gradient(180deg, red, darkorange, orange, gold, yellow, yellowgreen, green, darkturquoise, turquoise, cyan, lightblue, skyblue, blue, mediumblue, royalblue, navy, indigo, violet, purple, magenta, fuchsia, pink, deeppink, coral, salmon, tomato, brown, sienna, chocolate, peru, sandybrown, tan, beige, ivory, lightgray, gray, darkgray, silver, white, black);background-size: 200% 200%;animation: rainbow360 0.5s linear infinite;}@keyframes rainbow90 {0% { background-position: 0% 50%; }100% { background-position: 100% 50%; }}@keyframes rainbow270 {0% { background-position: 100% 50%; }100% { background-position: 0% 50%; }}@keyframes rainbow180 {0% { background-position: 50% 0%; }100% { background-position: 50% 100%; }}@keyframes rainbow360 {0% { background-position: 50% 100%; }100% { background-position: 50% 0%; }}        
+        form.mod-skill-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+        }
+        label.mod-skill-label {
+            display: block;
+            margin-bottom: 12px;
+            color: #b03ae2;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 8px;
+            border-radius: 5px;
+            text-shadow: -0.8px -0.7px 0 red, 0.8px -0.7px 0 red, -0.8px 0.7px 0 red, 0.8px 0.7px 0 red;
+        }
+        .mod-skill-file-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .mod-skill-file-label {
+            background-color: #ff8c00;
+            color: blue;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 18px;
+            text-shadow: -0.7px -0.6px 0 lime, 0.8px -0.7px 0 gold, -0.8px 0.7px 0 hotpink, 0.8px 0.7px 0 red;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .mod-skill-file-label:hover {
+            background-color: #e07b00;
+            transform: scale(1.05);
+        }
+        input.mod-skill-file-input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        button.mod-skill-submit {
+            background-color: #adc376;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%;
+        }
+        button.mod-skill-submit:hover {
+            background-color: #8cba7c;
+            transform: scale(1.05);
+        }
+        .slider {
+            width: 80%;
+            margin: 20px 0;
+        }
+        .slider-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #b03ae2;
+            text-shadow: -1px -1px 0 red, 1px -1px 0 red, -1px 1px 0 red, 1px 1px 0 red;
+        }
     </style>
 </head>
 <body>
@@ -940,6 +1012,22 @@
     <h2>Tạo Ứng Dụng Mod Liên Quân</h2>
     <button id="installButton" class="install-button" style="display: flex;">Tải App Mod</button>
     <img id="loadingImage" src="https://www.woacomic.com/images/loading.gif" alt="Đang tải..." style="display:none;"/>
+<body class="mod-skill-body">
+    <h1 class="mod-skill-title">MOD SKILL THƯỜNG LQ</h1>
+        <div class="mod-skill-file-wrapper">
+            <label for="xmlZipInput" class="mod-skill-file-label">ĐƯA TỆP ZIP XML</label>
+            <input type="file" id="xmlZipInput" class="mod-skill-file-input" accept=".zip">
+        </div>
+        <label for="modType" class="mod-skill-label">Loại Mod: Thường</label>
+        <input type="radio" id="thuong" name="modType" value="thuong" checked>
+        <div>
+            <label class="mod-skill-label">CHỌN ID SKIN:</label>
+            <span class="slider-value" id="sliderValue">01</span>
+            <input type="range" min="1" max="20" value="1" class="slider" id="skinSlider">
+        </div>
+        <button type="button" class="mod-skill-submit" onclick="ModThuongXmlZip3()">Xử Lý Và Tải Mod Thường</button>
+    </form>
+    <pre id="xmlOutput" class="mod-skill-output"></pre>
     <div class="container">
         <h3>Tải Tool Giải Mã & Mã Hóa Liên Quân</h3>
     <a href="Giải mã&mã hóa liên quân_.py" download="Giải mã&mã hóa liên quân_.py">
@@ -1814,6 +1902,106 @@ function downloadAPK() {
     link.download = '⭐MOD AOV VIP PRO⭐_1.apk';
     link.click();
 }
+
+        const skinSlider = document.getElementById('skinSlider');
+        const sliderValueDisplay = document.getElementById('sliderValue');
+
+        skinSlider.addEventListener('input', () => {
+            let skinIdFormatted = String(skinSlider.value).padStart(2, '0');
+            sliderValueDisplay.textContent = skinIdFormatted;
+            skinId = skinIdFormatted;
+        });
+
+        let skinId = '01';
+
+        async function ModThuongXmlZip3() {
+            const xmlZipInput = document.getElementById('xmlZipInput');
+            const xmlOutput = document.getElementById('xmlOutput');
+            const modType = document.querySelector('input[name="modType"]:checked').value;
+
+            if (modType !== 'thuong') {
+                alert('Bạn đã chọn loại mod khác. Vui lòng chọn loại mod thường.');
+                return;
+            }
+
+            if (!xmlZipInput.files.length) {
+                alert('Vui lòng chọn tệp zip XML.');
+                return;
+            }
+
+            if (!skinId) {
+                alert('Vui lòng chọn ID skin.');
+                return;
+            }
+
+            const zipFile = xmlZipInput.files[0];
+            const zip = new JSZip();
+            const zipContent = await zip.loadAsync(zipFile);
+
+            const files = Object.keys(zipContent.files);
+            const xmlFiles = files.filter(filename => filename.endsWith('.xml'));
+
+            for (let filename of xmlFiles) {
+                let file = zipContent.files[filename];
+                let xmlString;
+
+                try {
+                    xmlString = await file.async('text');
+                } catch (error) {
+                    console.warn(`Không thể đọc tệp: ${filename}. Bỏ qua.`);
+                    continue;
+                }
+
+                let parser = new DOMParser();
+                let xmlDoc;
+
+                try {
+                    xmlDoc = parser.parseFromString(xmlString, "text/xml");
+                    if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
+                        throw new Error("Error parsing XML");
+                    }
+                } catch (error) {
+                    console.warn(`Không thể phân tích tệp XML: ${filename}. Bỏ qua.`);
+                    continue;
+                }
+
+                let tracks = xmlDoc.getElementsByTagName("Track");
+
+                Array.from(tracks).forEach(track => {
+                    const eventType = track.getAttribute('eventType');
+                    if (eventType === 'TriggerParticleTick' || eventType === 'TriggerParticle') {
+                        let resourceNameNode = track.querySelector('String[name="resourceName"]');
+                        if (resourceNameNode) {
+                            let resourceName = resourceNameNode.getAttribute('value');
+                            let match = resourceName.match(/prefab_skill_effects\/hero_skill_effects\/(\d{3}_\w+)\//);
+                            if (match) {
+                                let heroIdWithName = match[1];
+                                let heroId = heroIdWithName.split('_')[0];
+                                let effectPath = resourceName.split('/').slice(3).join('/');
+                                let newResourceName = `prefab_skill_effects/hero_skill_effects/${heroIdWithName}/${heroId}${skinId}/${effectPath}`;
+                                resourceNameNode.setAttribute('value', newResourceName);
+                            }
+                        }
+
+                        let parentElement = track.parentNode;
+                        let comment = document.createComment(" TulenDacCau");
+                        parentElement.insertBefore(comment, track.nextSibling);
+                    }
+                });
+
+                let serializer = new XMLSerializer();
+                let newXmlString = serializer.serializeToString(xmlDoc);
+                zip.file(filename, newXmlString);
+                xmlOutput.textContent += `Processed File: ${filename}\n`;
+            }
+
+            zip.generateAsync({ type: "blob" }).then(content => {
+                let link = document.createElement('a');
+                link.href = URL.createObjectURL(content);
+                link.download = 'Modthuong.zip';
+                link.click();
+            });
+        }
     </script>
     <script src="9999.js"></script>
 </body>
