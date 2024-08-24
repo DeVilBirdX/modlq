@@ -1464,24 +1464,24 @@ function downloadModSoundAOV(link) {
             window.location.href = link;
         }
 
-        const fileInput = document.getElementById('file-input');
-        const musicPlayer = document.getElementById('music-player');
-        const videoPlayer = document.getElementById('video-player');
-        const playlistItems = document.querySelectorAll('.playlist-item');
-        const musicOptions = document.getElementById('music-options');
-        const fileInputButton = document.getElementById('file-input-button');
-        const chooseFromDevice = document.getElementById('choose-from-device');
-        const chooseFromYoutube = document.getElementById('choose-from-youtube');
-        const closeOptions = document.getElementById('close-options');
+const fileInput = document.getElementById('file-input');
+const musicPlayer = document.getElementById('music-player');
+const videoPlayer = document.getElementById('video-player');
+const playlistItems = document.querySelectorAll('.playlist-item');
+const musicOptions = document.getElementById('music-options');
+const fileInputButton = document.getElementById('file-input-button');
+const chooseFromDevice = document.getElementById('choose-from-device');
+const chooseFromYoutube = document.getElementById('choose-from-youtube');
+const closeOptions = document.getElementById('close-options');
 
-        fileInputButton.addEventListener('click', function() {
-            musicOptions.style.display = 'block';
-        });
+fileInputButton.addEventListener('click', function() {
+    musicOptions.style.display = 'block';
+});
 
-        chooseFromDevice.addEventListener('click', function() {
-            musicOptions.style.display = 'none';
-            fileInput.click();
-        });
+chooseFromDevice.addEventListener('click', function() {
+    musicOptions.style.display = 'none';
+    fileInput.click();
+});
 
 chooseFromYoutube.addEventListener('click', function() {
     musicOptions.style.display = 'none';
@@ -1492,11 +1492,9 @@ chooseFromYoutube.addEventListener('click', function() {
         if (youtubeURL.includes('youtube.com/watch') || youtubeURL.includes('m.youtube.com/watch')) {
             const urlParams = new URLSearchParams(new URL(youtubeURL).search);
             videoId = urlParams.get('v');
-        } 
-        else if (youtubeURL.includes('youtu.be/')) {
+        } else if (youtubeURL.includes('youtu.be/')) {
             videoId = youtubeURL.split('youtu.be/')[1]?.split('?')[0];
-        } 
-        else if (youtubeURL.includes('youtube.com/playlist')) {
+        } else if (youtubeURL.includes('youtube.com/playlist')) {
             const urlParams = new URLSearchParams(new URL(youtubeURL).search);
             videoId = urlParams.get('list');
         }
@@ -1517,50 +1515,8 @@ chooseFromYoutube.addEventListener('click', function() {
     }
 });
 
-        closeOptions.addEventListener('click', function() {
-            musicOptions.style.display = 'none';
-        });
-
-        fileInput.addEventListener('change', function() {
-            const files = fileInput.files;
-            if (files.length > 0) {
-                const fileURL = URL.createObjectURL(files[0]);
-                musicPlayer.src = fileURL;
-                videoPlayer.style.display = "none"; 
-                musicPlayer.style.display = "block";
-                musicPlayer.play();
-            }
-        });
-
-        playlistItems.forEach(item => {
-            item.addEventListener('click', function() {
-                const src = item.getAttribute('data-src');
-                const type = item.getAttribute('data-type');
-                if (type === "video") {
-                    videoPlayer.src = src;
-                    videoPlayer.style.display = "block";
-                    musicPlayer.style.display = "none"; 
-                } else {
-                    musicPlayer.src = src;
-                    videoPlayer.style.display = "none"; 
-                    musicPlayer.style.display = "block";
-                    musicPlayer.play();
-                }
-            });
-        });        
-        
-document.addEventListener('visibilitychange', function() {
-    if (document.visibilityState === 'hidden') {
-        if (musicPlayer.paused) {
-            musicPlayer.play();
-        }
-    }
-});
-
-musicPlayer.addEventListener('ended', function() {
-    if (musicPlayer.loop) {
-        musicPlayer.play();
-    }
+closeOptions.addEventListener('click', function() {
+    musicOptions.style.display = 'none';
 });
 
 fileInput.addEventListener('change', function() {
@@ -1571,6 +1527,38 @@ fileInput.addEventListener('change', function() {
         videoPlayer.style.display = "none"; 
         musicPlayer.style.display = "block";
         musicPlayer.loop = true;  
+        musicPlayer.play();
+    }
+});
+
+playlistItems.forEach(item => {
+    item.addEventListener('click', function() {
+        const src = item.getAttribute('data-src');
+        const type = item.getAttribute('data-type');
+        if (type === "video") {
+            videoPlayer.src = src;
+            videoPlayer.style.display = "block";
+            musicPlayer.style.display = "none"; 
+        } else {
+            musicPlayer.src = src;
+            videoPlayer.style.display = "none"; 
+            musicPlayer.style.display = "block";
+            musicPlayer.loop = true; 
+            musicPlayer.play();
+        }
+    });
+});
+
+document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'hidden') {
+        if (musicPlayer.paused) {
+            musicPlayer.play();
+        }
+    }
+});
+
+musicPlayer.addEventListener('ended', function() {
+    if (musicPlayer.loop) {
         musicPlayer.play();
     }
 });
