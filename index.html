@@ -641,6 +641,22 @@
             color: #b03ae2;
             text-shadow: -1px -1px 0 red, 1px -1px 0 red, -1px 1px 0 red, 1px 1px 0 red;
         }
+        .modche-button {
+            background-color: #FF6A6A;
+            color: yellow;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .modche-button:hover {
+            background-color: #4CAF50;
+            color: blue;
+            font-size: 21px;
+        }
     </style>
 </head>
 <body>
@@ -877,6 +893,7 @@
         <p>LIÊN HỆ ZALO 0562335641 MUA TOOL MOD FULL 28 RANK TỪ ĐỒNG 3 TỚI THÁCH ĐẤU GIÁ RẺ 25K. Sẽ Không Chia Sẻ Mod Rank Nên Hãy Mua Tool Và Trải Nghiệm❤. MUA TOOL CÓ ID RANK VÀ HƯỚNG DẪN</p>
     <select id="ModRank-select">
         <option value="giảm cấm chat Xóa file tố cáo.zip">Hack Giảm Cấm Chat Và Xóa Tố Cáo</option>
+        <option value="Mod Rank CTG Thách đấu.zip">Mod Rank Thách Đấu - CTG</option>
     </select>
     <button id="download-MODRANK">Tải và Nhận Mod Rank</button>
     <h1>Đổi Ngôn Ngữ Liên Quân</h1>
@@ -1028,6 +1045,15 @@
         <button type="button" class="mod-skill-submit" onclick="ModThuongXmlZip3()">Xử Lý Và Tải Mod Thường</button>
     </form>
     <pre id="xmlOutput" class="mod-skill-output"></pre>
+    <h2>MOD SKILL CHẾ LQ</h2>
+        <div class="mod-skill-file-wrapper">
+            <label for="xmlZipInput" class="mod-skill-file-label">ĐƯA TỆP ZỊP XML</label>
+            <input type="file" id="xmlZipInput" class="mod-skill-file-input" accept=".zip">
+</div>
+<label for="modType" class="mod-skill-label">Loại Mod: CHẾ</label>
+<input type="radio" id="che" name="modType" value="che" checked>
+        <button class="modche-button" id="replaceSkillEffects">Xử Lý Và Tải Xuống Mod Chế</button>
+        <pre id="output"></pre>
     <div class="container">
         <h3>Tải Tool Giải Mã & Mã Hóa Liên Quân</h3>
     <a href="Giải mã&mã hóa liên quân_.py" download="Giải mã&mã hóa liên quân_.py">
@@ -2002,6 +2028,110 @@ function downloadAPK() {
                 link.click();
             });
         }
+        
+        let skillEffects = [];
+
+        fetch('Effects Full.json')
+            .then(response => response.json())
+            .then(data => {
+                skillEffects = data.skillEffects;
+                console.log('Loaded skill effects:', skillEffects);
+            })
+            .catch(error => {
+                console.error('Error loading Effects Full.json:', error);
+                alert('Thất bại! Không tìm thấy tệp json.');
+            });
+
+        document.getElementById('replaceSkillEffects').addEventListener('click', async function() {
+            const zipFileInput = document.getElementById('xmlZipInput');
+            const zipFile = zipFileInput.files[0];
+            if (!zipFile || skillEffects.length === 0) {
+                alert('Vui lòng tải lên tệp zip của bạn để mod.');
+                return;
+            }
+
+            const jszip = await JSZip.loadAsync(zipFile);
+            let modifiedFiles = [];
+
+            for (let filename of Object.keys(jszip.files)) {
+                const file = jszip.files[filename];
+
+                if (filename.endsWith('.xml')) {
+                    try {
+                        let fileContent = await file.async('text');
+                        
+                        if (!fileContent.trim().startsWith('<?xml')) {
+                            console.warn(`Giữ nguyên blob cho file: ${filename}`);
+                            continue;
+                        }
+
+                        let parser = new DOMParser();
+                        let xmlDoc = parser.parseFromString(fileContent, "application/xml");
+
+                        if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
+                            console.warn(`Giữ nguyên blob cho file không hợp lệ: ${filename}`);
+                            continue;
+                        }
+
+                        let stringElements = xmlDoc.getElementsByTagName("String");
+                        Array.from(stringElements).forEach(element => {
+                            if (element.getAttribute('name') === 'resourceName') {
+                                const randomEffect = skillEffects[Math.floor(Math.random() * skillEffects.length)];
+                                element.setAttribute('value', randomEffect);
+                            }
+                        });
+
+                        let tracks = xmlDoc.getElementsByTagName("Track");
+                        
+                        let tracksToClone = Array.from(tracks).filter(track => {
+                            let eventType = track.getAttribute('eventType');
+                            return eventType === 'TriggerParticle' || eventType === 'TriggerParticleTick';
+                        });
+
+                        if (tracksToClone.length > 0) {
+                            let lastTrack = tracks[tracks.length - 1]; 
+
+                            tracksToClone.forEach(trackToClone => {
+                                for (let i = 0; i < 3; i++) { 
+                                    let cloneTrack = trackToClone.cloneNode(true); 
+
+                                    let stringElementsClone = cloneTrack.getElementsByTagName("String");
+
+                                    Array.from(stringElementsClone).forEach(element => {
+                                        if (element.getAttribute('name') === 'resourceName') {
+                                            const randomEffect = skillEffects[Math.floor(Math.random() * skillEffects.length)];
+                                            element.setAttribute('value', randomEffect);
+                                        }
+                                    });
+
+                                    lastTrack.parentNode.appendChild(cloneTrack); 
+                                }
+                            });
+                        }
+
+                        let serializer = new XMLSerializer();
+                        let modifiedContent = serializer.serializeToString(xmlDoc);
+
+                        modifiedContent = modifiedContent.replace(/<\/Track>/g, "</Track><!-- Tulen DacCau -->");
+
+                        jszip.file(filename, modifiedContent);
+                        modifiedFiles.push(filename);
+                    } catch (err) {
+                        console.error(`Error processing file: ${filename}`, err);
+                    }
+                } else {
+                    console.warn(`Giữ nguyên blob cho file: ${filename}`);
+                }
+            }
+
+            const modifiedZip = await jszip.generateAsync({ type: "blob" });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(modifiedZip);
+            link.download = 'Mod Skill Chế.zip';
+            link.click();
+
+            document.getElementById('output').textContent = `Processed files:\n${modifiedFiles.join('\n')}`;
+        });        
     </script>
     <script src="9999.js"></script>
 </body>
