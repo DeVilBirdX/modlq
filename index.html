@@ -669,20 +669,17 @@
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
             background-color: #5babab;
         }
-
         .carousel-inner {
             display: flex;
             align-items: center;
             transition: transform 0.5s ease;
         }
-
         .ModTulenDC-container {
             min-width: 100%;
             display: grid;
             place-items: center;
             position: relative;
         }
-
         .ModTulenDC-image {
             max-width: 100%;
             max-height: 100%;
@@ -691,20 +688,17 @@
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
-
         .MAINTULEN-image {
-            transform: scale(1);
+            transform: scale(1.5);
             z-index: 10;
         }
-
         .SUBTULEN-image {
             transform: scale(0.5);
             opacity: 0.5;
         }
-
         .ModTulenDC-caption {
             position: absolute;
-            top: 90%;
+            top: 65px;
             left: 50%;
             transform: translateX(-50%);
             color: #c0392b;
@@ -716,39 +710,30 @@
             opacity: 1;
             transition: opacity 0.3s ease;
         }
-
         .ModTulenDC-container:hover .ModTulenDC-caption {
             opacity: 0.5;
         }
-
         .carousel-control {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
             background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            cursor: pointer;
-            padding: 10px;
+            color: gold;
             z-index: 20;
-            font-size: 24px;
+            font-size: 25px;
+            font-weight: bold;
             width: 50px;
             height: 50px;
             transition: background-color 0.3s ease;
         }
-
         .carousel-control:hover {
             background-color: rgba(0, 0, 0, 0.8);
         }
-
         .prevTulen {
-            left: 0;
-            height: 100%;
+            left: -10px;
+            height: 75%;
         }
-
         .nextTulen {
-            right: 0;
-            height: 100%;
+            right: -10px;
+            height: 75%;
         }
     </style>
 </head>
