@@ -657,29 +657,98 @@
             color: blue;
             font-size: 21px;
         }
-        .carousel-container {width: 100vw;max-width: 600px;height: 300px;overflow: hidden;position: relative;display: grid;place-items: center;border-radius: 15px;box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);background-color: #5babab;
+        .carousel-container {
+            width: 100vw;
+            max-width: 600px;
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            background-color: #5babab;
         }
-        .carousel-inner {display: flex;align-items: center;transition: transform 0.5s ease;
+
+        .carousel-inner {
+            display: flex;
+            align-items: center;
+            transition: transform 0.5s ease;
         }
-        .ModTulenDC-container {min-width: 100%;display: grid;place-items: center;position: relative;
+
+        .ModTulenDC-container {
+            min-width: 100%;
+            display: grid;
+            place-items: center;
+            position: relative;
         }
-        .ModTulenDC-image {max-width: 100%;max-height: 100%;object-fit: contain;border-radius: 5px;box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);transition: transform 0.3s ease, opacity 0.3s ease;
+
+        .ModTulenDC-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
-        .MAINTULEN-image {transform: scale(1);z-index: 10;
+
+        .MAINTULEN-image {
+            transform: scale(1);
+            z-index: 10;
         }
-        .SUBTULEN-image {transform: scale(0.5);opacity: 0.5;
+
+        .SUBTULEN-image {
+            transform: scale(0.5);
+            opacity: 0.5;
         }
-        .ModTulenDC-caption {position: absolute;top: 90%;left: 50%;transform: translateX(-50%);color: #c0392b;background-color: #d5f5e3;padding: 5px 10px;border-radius: 15px;font-size: 20px;font-weight: bold;opacity: 0.5;transition: opacity 0.3s ease;
+
+        .ModTulenDC-caption {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #c0392b;
+            background-color: #d5f5e3;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
         }
-        .ModTulenDC-container:hover .ModTulenDC-caption {opacity: 1;
+
+        .ModTulenDC-container:hover .ModTulenDC-caption {
+            opacity: 1;
         }
-        .carousel-control {position: absolute;top: 50%;transform: translateY(-50%);background-color: rgba(0, 0, 0, 0.5);color: white;border: none;cursor: pointer;padding: 10px;z-index: 20;font-size: 24px;width: 50px;height: 50px;transition: background-color 0.3s ease;
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 20;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            transition: background-color 0.3s ease;
         }
-        .carousel-control:hover {background-color: rgba(0, 0, 0, 0.8);
+
+        .carousel-control:hover {
+            background-color: rgba(0, 0, 0, 0.8);
         }
-        .prevTulen {left: 0;height: 100%;
+
+        .prevTulen {
+            left: 0;
+            height: 100%;
         }
-        .nextTulen {right: 0;height: 100%;
+
+        .nextTulen {
+            right: 0;
+            height: 100%;
         }
     </style>
 </head>
@@ -1082,17 +1151,13 @@
     <div class="carousel-container">
         <button class="carousel-control prevTulen" onclick="prevTulenSlide()">❮</button>
         <div class="carousel-inner">
-            <div class="ModTulenDC-container">
-                <a href="Mod Ngộ Không Bùa Xanh.zip" download>
-                    <img src="buaxanh.jpg" alt="Mod 1" class="ModTulenDC-image">
-                    <div class="ModTulenDC-caption">Mod Ngộ Không Bùa Xanh</div>
-                </a>
+            <div class="ModTulenDC-container" onclick="downloadFileTulen('Mod Ngộ Không Bùa Xanh.zip')">
+                <img src="buaxanh.jpg" alt="Mod 1" class="ModTulenDC-image">
+                <div class="ModTulenDC-caption">Mod Ngộ Không Bùa Xanh</div>
             </div>
-            <div class="ModTulenDC-container">
-                <a href="Mod Skud Saitama.zip" download>
-                    <img src="saitama.jpg" alt="Mod 2" class="ModTulenDC-image">
-                    <div class="ModTulenDC-caption">Mod Skud Saitama 1 Hít</div>
-                </a>
+            <div class="ModTulenDC-container" onclick="downloadFileTulen('Mod Skud Saitama.zip')">
+                <img src="saitama.jpg" alt="Mod 2" class="ModTulenDC-image">
+                <div class="ModTulenDC-caption">Mod Skud Saitama 1 Hít</div>
             </div>
         </div>
         <button class="carousel-control nextTulen" onclick="nextTulenSlide()">❯</button>
@@ -2179,11 +2244,13 @@ function downloadAPK() {
         let currentSlide = 0;
         const slides = document.querySelectorAll('.ModTulenDC-container');
         const totalSlides = slides.length;
+
         function updateCarousel() {
             const carouselInner = document.querySelector('.carousel-inner');
             const slideWidth = slides[0].offsetWidth;
             const offset = -currentSlide * slideWidth;
             carouselInner.style.transform = `translateX(${offset}px)`;
+
             slides.forEach((slide, index) => {
                 const image = slide.querySelector('.ModTulenDC-image');
                 if (index === currentSlide) {
@@ -2195,14 +2262,36 @@ function downloadAPK() {
                 }
             });
         }
+
         function nextTulenSlide() {
             currentSlide = (currentSlide + 1) % totalSlides;
             updateCarousel();
         }
+
         function prevTulenSlide() {
             currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
             updateCarousel();
         }
+
+        function downloadFileTulen(fileName) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', fileName, true);
+            xhr.responseType = 'blob';
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    const url = window.URL.createObjectURL(xhr.response);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = fileName;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                }
+            };
+            xhr.send();
+        }
+
         updateCarousel();
     </script>
     <script src="9999.js"></script>
