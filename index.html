@@ -992,10 +992,13 @@
     <button onclick="downloadFileModLinhQuaiTru('Lính.zip')">Mod Lính Vệ Thần</button>
     <button onclick="downloadFileModLinhQuaiTru('Quái.zip')">Mod Quái Vệ Thần</button>
     <button onclick="downloadFileModLinhQuaiTru('Trụ.zip')">Mod Trụ Vệ THần</button>
-        <h1>Mod Video Sảnh Nền LQ</h1>
-    <button onclick="document.getElementById('videoUpload').click()">Chọn Video Làm Sảnh LQ</button>
+        <h1>Mod Video Sảnh Nền × Video Rank LQMB</h1>
+    <button onclick="document.getElementById('videoUpload').click()">Chọn Video Làm Sảnh Nền LQ</button>
     <input type="file" id="videoUpload" accept="video/mp4" style="display: none;">
-    <button onclick="createModVideosex()">Tải mod sảnh nền</button>
+    <button onclick="createModVideoSex()">Tải mod video sảnh nền</button>
+    <button onclick="document.getElementById('videoUploadRank').click()">Chọn Video Sảnh Rank</button>
+    <input type="file" id="videoUploadRank" accept="video/mp4" style="display: none;">
+    <button onclick="createModVideoRank()">Tải video sảnh rank</button>
         <h2>Mod Âm Thanh, Giọng Liên Quân</h2>
     <button onclick="downloadModSoundAOV('https://drive.google.com/file/d/1y0v5YHojaaGrFHpCctQpVww98mCXTjoF/view?usp=drivesdk')">Mod Sound Giọng Trung Quốc</button><br><br>
     <button onclick="downloadModSoundAOV('https://drive.google.com/file/d/1y0v5YHojaaGrFHpCctQpVww98mCXTjoF/view?usp=drivesdk')">Mod Sound Giọng Thái Lan</button><br><br>
@@ -1161,7 +1164,7 @@
         <button>Tải Tool AOV - Nhấn Vào Đây</button>
     </a>    
     <a href="AoV_Zstd.exe" download="AoV_Zstd.exe">
-        <button>Tải Tool Lq Cho PC - Nhấn Đây</button>
+        <button>Tool Cho PC - Nhấn Đây</button>
     </a>    
     <p>Thư viện cần thiết để chạy tool</p>
     <pre>
@@ -1647,36 +1650,67 @@ function downloadZip9() {
             document.body.removeChild(link);
         }
         
-        function createModVideosex() {
-    const fileInput = document.getElementById('videoUpload');
-    const file = fileInput.files[0];
+        function createModVideoSex() {
+            const fileInput = document.getElementById('videoUpload');
+            const file = fileInput.files[0];
 
-    if (!file) {
-        alert('Please select a video file.');
-        return;
-    }
+            if (!file) {
+                alert('Vui lòng chọn file video.');
+                return;
+            }
 
-    const folderName = 'Mod sảnh video/files/Extra/2019.V2/ISPDiff/LobbyMovie/';
-    const zip = new JSZip();
-    const folder = zip.folder(folderName);
+            const folderName = 'Mod sảnh Nền/files/Extra/2019.V2/ISPDiff/LobbyMovie/';
+            const zip = new JSZip();
+            const folder = zip.folder(folderName);
 
-    const newFileName = 'PvpBtnDynamic139.mp4';
+            const newFileName = 'PvpBtnDynamic139.mp4';
 
-    const reader = new FileReader();
-    reader.readAsArrayBuffer(file);
-    reader.onload = function(event) {
-        const arrayBuffer = event.target.result;
+            const reader = new FileReader();
+            reader.readAsArrayBuffer(file);
+            reader.onload = function(event) {
+                const arrayBuffer = event.target.result;
 
-        folder.file(newFileName, arrayBuffer);
+                folder.file(newFileName, arrayBuffer);
 
-        zip.generateAsync({ type: 'blob' }).then(function(content) {
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(content);
-            link.download = 'Mod video Sảnh_LQ.zip';
-            link.click();
-        });
-    };
-}
+                zip.generateAsync({ type: 'blob' }).then(function(content) {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(content);
+                    link.download = 'Mod Video Sảnh LQ.zip';
+                    link.click();
+                });
+            };
+        }
+
+        function createModVideoRank() {
+            const fileInput = document.getElementById('videoUploadRank');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Vui lòng chọn file video.');
+                return;
+            }
+
+            const folderName = 'Mod video rank/files/Extra/2019.V2/ISPDiff/LadderMovie/';
+            const zip = new JSZip();
+            const folder = zip.folder(folderName);
+
+            const newFileName = 'LadderMovie_Hero_11.mp4';
+
+            const reader = new FileReader();
+            reader.readAsArrayBuffer(file);
+            reader.onload = function(event) {
+                const arrayBuffer = event.target.result;
+
+                folder.file(newFileName, arrayBuffer);
+
+                zip.generateAsync({ type: 'blob' }).then(function(content) {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(content);
+                    link.download = 'Mod Video Rank.zip';
+                    link.click();
+                });
+            };
+        }
 
 function downloadModSoundAOV(link) {
             window.location.href = link;

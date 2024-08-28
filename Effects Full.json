@@ -6941,6 +6941,12 @@
         "prefab_skill_effects/hero_skill_effects/568_mingshiyin/Mingshiyin_attack01_spell03B",
         "prefab_skill_effects/hero_skill_effects/568_mingshiyin/Mingshiyin_attack01_spell03C",
         "prefab_skill_effects/hero_skill_effects/568_mingshiyin/Mingshiyin_attack01_spell03C_1",
-        "prefab_skill_effects/hero_skill_effects/542_Tachi/Tachi_weapon03"
+        "prefab_skill_effects/hero_skill_effects/542_Tachi/Tachi_weapon03",
+        "Prefab_Skill_Effects/Hero_Skill_Effects/543_yao/5431_XdongwuB",
+        "prefab_skill_effects/hero_skill_effects/150_HanXin/15012/huijidi_01",
+        "Prefab_Skill_Effects/Level_Effects/BianShen/NewDuke_Spell1_2",
+        "prefab_skill_effects/component_effects/16707/16707_5/wukong_attack_spell03_1",
+        "prefab_skill_effects/hero_skill_effects/141_DiaoChan/14111_luoer_Sprint",
+        "prefab_skill_effects/emoji_effect/emoji_level_05_mid"
     ]
 }
