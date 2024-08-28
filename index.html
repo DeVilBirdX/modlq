@@ -788,7 +788,7 @@
         <option value="106_XiaoQiao">106_XiaoQiao</option>
         <option value="107_Zhaoyun">107_Zhaoyun</option>
         <option value="108_MoDi">108_MoDi</option>
-        <option value="109_Daji">109_Daji</option>
+        <option value="109_DaJi">109_DaJi</option>
         <option value="110_YingZheng">110_YingZheng</option>
         <option value="111_SunShangXiang">111_SunShangXiang</option>
         <option value="112_GongShuBan">112_GongShuBan</option>
@@ -1498,7 +1498,6 @@ function modifyFile() {
         const newPrefab2 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}${skinId}_${heroName}_LOD2`;
         const newPrefab3 = `VPrefab_Characters/Prefab_Hero/${heroId}_${heroName}/${heroId}${skinId}_${heroName}_LOD3`;
 
-        
         const oldPrefab1Bytes = new TextEncoder().encode(oldPrefab1);
         const oldPrefab2Bytes = new TextEncoder().encode(oldPrefab2);
         const oldPrefab3Bytes = new TextEncoder().encode(oldPrefab3);
@@ -1507,15 +1506,18 @@ function modifyFile() {
         const newPrefab2Bytes = new TextEncoder().encode(newPrefab2);
         const newPrefab3Bytes = new TextEncoder().encode(newPrefab3);
 
-        
         let modifiedContents = contents.slice();
 
-        
+        function compareBytes(byteA, byteB) {
+            
+            return byteA === byteB || byteA + 32 === byteB || byteA - 32 === byteB;
+        }
+
         function replaceBytes(source, target, replacement) {
             for (let i = 0; i <= source.length - target.length; i++) {
                 let match = true;
                 for (let j = 0; j < target.length; j++) {
-                    if (source[i + j] !== target[j]) {
+                    if (!compareBytes(source[i + j], target[j])) {
                         match = false;
                         break;
                     }
@@ -1524,20 +1526,19 @@ function modifyFile() {
                     for (let k = 0; k < replacement.length; k++) {
                         source[i + k] = replacement[k];
                     }
+                    i += replacement.length - 1;
                 }
             }
         }
 
-        
         replaceBytes(modifiedContents, oldPrefab1Bytes, newPrefab1Bytes);
         replaceBytes(modifiedContents, oldPrefab2Bytes, newPrefab2Bytes);
         replaceBytes(modifiedContents, oldPrefab3Bytes, newPrefab3Bytes);
 
-        
         const blob = new Blob([modifiedContents], { type: 'application/octet-stream' });
         downloadLink.href = URL.createObjectURL(blob);
         downloadLink.download = 'tModSkin_' + file.name;
-        downloadLink.click();  
+        downloadLink.click();
     };
 
     reader.readAsArrayBuffer(file);
