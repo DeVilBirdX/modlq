@@ -1,5 +1,5 @@
 function unlockPage() {
-    const validKeys = ["sapcapnhat", "tulenvp0235/"];
+    const validKeys = ["tháng9", "tulenvp0235/"];
     const inputKey = document.getElementById("key-input").value.replace(/\s+/g, ''); 
     const errorMessage = document.getElementById("error-message");
 
