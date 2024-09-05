@@ -956,28 +956,35 @@
         }
         .videoCam3d-container {
             display: flex;
-            justify-content: space-around;
-            margin-top: 0;
+            justify-content: space-between; 
+            align-items: flex-start;
+            flex-wrap: wrap; 
+            margin-top: 20px; 
+            gap: 20px; 
         }
         .videoCam3d-ad {
-            width: 50%;
+            flex-basis: 45%; 
             border: 2px solid #ff9900;
+            background-color: #FFCC99;
             border-radius: 10px 15px;
+            overflow: hidden; 
         }
-        videoCam3d {
+        video {
             width: 100%;
-            height: auto;
+            height: 200px; 
+            object-fit: cover; 
+            border-radius: 10px 15px; 
         }
         .downloadCam3d-btn {
             display: block;
-            width: 100%;
-            margin: 0;
-            padding: 15px;
+            width: 90%; 
+            margin: 10px auto; 
+            padding: 12px; 
             background-color: red;
             color: blue;
             text-decoration: none;
             border-radius: 10px 15px;
-            font-size: 20px;
+            font-size: 18px; 
             font-weight: bold;
             box-sizing: border-box;
             text-align: center;
@@ -991,10 +998,11 @@
             font-size: 35px;
             font-weight: bold;
             text-shadow: 
-        -1px -1px 0 #000,  
-         1px -1px 0 #000,
-        -1px  1px 0 #000,
-         1px  1px 0 #000;
+            -1px -1px 0 #000,  
+             1px -1px 0 #000,
+            -1px  1px 0 #000,
+             1px  1px 0 #000;
+            margin-bottom: 20px; 
         }
     </style>
 </head>
