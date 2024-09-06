@@ -19,6 +19,11 @@
     color: yellow; 
     font-size: 50px;
     margin-bottom: 20px;
+    text-shadow: 
+    -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px  1px 0 #000,
+    1px  1px 0 #000;
 }
 #lock-screen input {
     padding: 10px;
