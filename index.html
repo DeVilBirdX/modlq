@@ -1800,7 +1800,7 @@ function modifyFile() {
     const downloadLink = document.getElementById('downloadLink');
 
     if (!fileInput.files.length) {
-        alert('Please select a file.');
+        alert('Vui lòng chọn tệp bytes.');
         return;
     }
 
@@ -1883,7 +1883,7 @@ function downloadZip9() {
         const modFile = document.getElementById('modFile').files[0];
         
         if (!originalFile || !modFile) {
-            alert('Please select both files.');
+            alert('Vui lòng chọn hai tệp để mod.');
             return;
         }
 
@@ -1900,7 +1900,7 @@ function downloadZip9() {
         const modRange = findRange(modBytes, startBytes, endBytes, bytesBeforeStart);
 
         if (!originalRange || !modRange) {
-            alert('Could not find the specified ranges in one or both files.');
+            alert('Không tìm thấy dữ liệu đúng trong cả hai tệp.');
             return;
         }
 
