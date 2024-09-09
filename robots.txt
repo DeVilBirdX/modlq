@@ -4,3 +4,11 @@ Allow: /favicon-16x16.png
 Allow: /favicon-32x32.png
 Allow: /favicon-48x48.png
 Allow: /favicon-512x512.png
+Allow: /
+
+Disallow: /private-directory/
+Disallow: /temporary-files/
+Disallow: /cgi-bin/
+Disallow: /admin/
+
+Sitemap: https://modaov.netlify.app/sitemap.xml
