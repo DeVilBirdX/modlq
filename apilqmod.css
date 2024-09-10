@@ -15,7 +15,7 @@
     padding: 20px;
     box-sizing: border-box;
 }
-#lock-screen h0 {
+#lock-screen .h0 {
     color: yellow; 
     font-size: 50px;
     font-weight: bold;
