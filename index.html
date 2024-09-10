@@ -15,6 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
     <link rel="stylesheet" type="text/css" href="apilqmod.css">
     <link rel="manifest" href="manifest.json">
+    <link rel="preload" href="modulelq.html" as="document">
   <meta name="description" content="Web cực hay chứa rất nhiều chức năng mod..">
   <meta name="keywords" content="modaov, mod sáng đậm, mod thập cẩm, mod chế, ngoại hình chế">
   <meta name="robots" content="index, follow">
@@ -268,8 +269,20 @@
         label.current-label {
             color: #0000ff; 
         }
+        label.current-label:hover {
+            color: lime; 
+            font-weight: bold;
+            font-size: 20px;
+            background-color: darkgreen;
+        }
         label.mod-label {
             color: red; 
+        }
+        label.mod-label:hover {
+            color: lime; 
+            font-weight: bold;
+            font-size: 20px;
+            background-color: darkgreen;
         }
         input[type="file"] {
             width: 100%;
