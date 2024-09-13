@@ -1,0 +1,7 @@
+const cbor = require('cbor');
+const fs = require('fs');
+
+const validKeys = ["ggg66f", "tulenvp0235/"];
+const encodedKeys = cbor.encode(validKeys);
+
+fs.writeFileSync('validKeys.cbor', encodedKeys);
