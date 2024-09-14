@@ -10,10 +10,3 @@ Feature-Policy:
 Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0
   Pragma: no-cache
   Expires: 0
-/keysweb.json
-  access-control-allow-origin: none
-  access-control-allow-methods: none
-  access-control-allow-headers: none
-  x-content-type-options: nosniff
-  x-frame-options: DENY
-  x-xss-protection: 1; mode=block  

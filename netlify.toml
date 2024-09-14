@@ -1,34 +1,4 @@
 [[redirects]]
-  from = "/keysweb.json"
-  to = "/404.html"
-  status = 404
-  force = true  
-
-[[redirects]]
-  from = "/index.html"
-  to = "/404.html"
-  status = 404
-  force = true  
-
-[[redirects]]
-  from = "/8888.js"
-  to = "/404.html"
-  status = 404
-  force = true  
-
-[[redirects]]
-  from = "/acc.json"
-  to = "/404.html"
-  status = 404
-  force = true  
-
-[[redirects]]
-  from = "/manifest.json"
-  to = "/404.html"
-  status = 404
-  force = true  
-
-[[redirects]]
   from = "/*"
   to = "/404.html"
   status = 404
